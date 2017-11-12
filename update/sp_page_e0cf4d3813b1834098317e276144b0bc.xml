@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <css>.carousel-row .col-md-12 {&#13;
+  padding-left: 0;&#13;
+  padding-right: 0;&#13;
+}&#13;
+&#13;
+.pull-in {&#13;
+  margin-left: 0;&#13;
+  margin-right: 0;&#13;
+}</css>
+        <id>team_management_sc_home</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-11 15:47:38</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>e0cf4d3813b1834098317e276144b0bc</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>team_management_sc_home</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_page_e0cf4d3813b1834098317e276144b0bc</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-11 16:09:31</sys_updated_on>
+        <title>Team Management Service Catalog</title>
+    </sp_page>
+</record_update>

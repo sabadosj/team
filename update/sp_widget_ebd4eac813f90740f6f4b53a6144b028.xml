@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function ($http, $scope, $timeout, $animate, $rootScope, $location) {
+	//$http, $timeout, $scope, $rootScope, spUtil, snRecordWatcher
+
+	var c = this;
+
+	/*$scope.$watch("data.task", function() {
+    $scope.task = $scope.data.task; // copy for shortcuts above
+  })*/
+
+  // Start tab Control
+	$scope.active = 1;
+	$scope.selectTab = function(value){
+		$scope.active = value;
+	};
+
+	$scope.isActive = function(value){
+		if($scope.active==value){
+			return true;
+		}
+		else{
+			return false;
+		}
+	};
+	// End Tab Control
+	
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getTrainRequest?reqID='+$location.search().reqSysID)
+    .then(function(res) {
+     $scope.data.trnReq = res.data.result;
+        var userID   = $scope.data.trnReq.requested_for;
+        var reqSysID = $scope.data.trnReq.sys_id;
+        var fy       = $scope.data.trnReq.fy;
+        getHistory(userID, reqSysID, fy);
+				 //alert($scope.data.trnReq.requested_for);
+  });
+	
+	function getHistory(userID, reqSysID, fy){
+//		alert("userID: "+ userID+ ", reqSysID: "+ reqSysID + ", fy: " +fy);
+		$timeout(function(){	
+      $http.get('/api/x_saic4_saic_team/teammgmtutils/getAllUserTrnReqs?usrSysID='+userID+'&reqSysID='+reqSysID+'&fy='+fy)
+	       .then(function(res2) {
+         $scope.data.allTrnReq = res2.data.result;
+		  });
+    });
+    buildChart(userID,fy);
+	}
+
+	function buildChart(userID,fy) {
+		$timeout(function(){	
+           $http.get('/api/x_saic4_saic_team/teammgmtutils/getReqTotImct?usrSysID='+userID+'&fy='+fy)
+	       .then(function(res3) {
+              $scope.data.chartData = res3.data.result;
+		      Highcharts.setOptions({
+                colors: 
+				   ['#cccccc','#85a545','#006BB6'] 
+			  });
+			  Highcharts.chart('container', {
+			 	chart: {
+					type: 'column'
+					},
+					title: {
+						text: 'Demand vs Actual'
+					},
+					subtitle: {
+						text: ''
+					},
+					xAxis: {
+						categories: ['Demand', 'Actuals']
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'Total Demand ($)'
+					    },
+		                stackLabels: {
+                            enabled: true,
+                            style: {
+                               fontWeight: 'bold',
+                               color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                            }
+				        }
+					},
+					tooltip: {
+						headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+						pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+						'<td style="padding:0"><b>$ {point.y:.1f}</b></td></tr>',
+						footerFormat: '</table>',
+						shared: true,
+						useHTML: true
+					},
+					plotOptions: {
+						column: {
+							stacking: 'normal',
+							dataLabels: {
+								enabled: true,
+								formatter: function () {
+									return "$" +this.point.y.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								}
+							}
+
+						}
+					},
+					series: 
+					[{
+                       stack: 1,
+                       name: 'Pending',
+                       data: [$scope.data.chartData.totPending]
+					}, {
+                       stack: 1,
+                       name: 'Approved',
+                       data: [$scope.data.chartData.totApproved]
+					}, {
+                       stack: 2,
+                       name: 'Actual',
+                       data: [$scope.data.chartData.totActuals]
+					}]
+              });
+           });
+       });
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* tab color */&#13;
+.nav-tabs&gt;li&gt;a {&#13;
+  background-color: #333333; &#13;
+  border-color: #777777;&#13;
+  color:#fff;&#13;
+}&#13;
+&#13;
+/* active tab color */&#13;
+.nav-tabs&gt;li.active&gt;a, .nav-tabs&gt;li.active&gt;a:hover, .nav-tabs&gt;li.active&gt;a:focus {&#13;
+  color: #fff;&#13;
+  background-color: #666;&#13;
+  border: 1px solid #888888;&#13;
+}&#13;
+&#13;
+/* hover tab color */&#13;
+.nav-tabs&gt;li&gt;a:hover {&#13;
+  border-color: #000000;&#13;
+  background-color: #111111;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>team-management-approval-record</id>
+        <internal>false</internal>
+        <link/>
+        <name>Team Management Approval Record</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script/>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-09 14:04:02</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>ebd4eac813f90740f6f4b53a6144b028</sys_id>
+        <sys_mod_count>97</sys_mod_count>
+        <sys_name>Team Management Approval Record</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_ebd4eac813f90740f6f4b53a6144b028</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-09 15:21:22</sys_updated_on>
+        <template><![CDATA[<div>
+<div class="panel panel-{{::options.color}} b">
+ <div class="panel-heading">
+  <h4 class="panel-title"><!--${Approval request for {{::task.table}} {{::task.number.display_value}}}-->Request Details</h4>
+ </div>
+ <div >
+  <div class="well">
+   <div class="panel panel-default b">
+    <div class="panel-body">
+     <div class="col-sm-12">
+      <strong>{{c.data.trnReq.request_description}}</strong>
+     </div>       
+     <div class="col-sm-12"><br/>
+      <table class="table table-condensed trnReq" >
+       <tr>
+        <td><strong>Submitted by</strong></td>
+        <td>{{c.data.trnReq.requested_by_name}}</td>
+        <td><strong>Course Cost</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_course_cost}}</td>
+       </tr>
+       <tr>
+        <td><strong>Requested for</strong></td>
+        <td>{{c.data.trnReq.requested_for_name}}</td>
+        <td><strong>Travel Cost</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_travel_cost}}</td>
+       </tr>
+	     <tr>
+        <td><strong>Type</strong></td>
+        <td>{{c.data.trnReq.type}}</td>
+        <td><strong>Lab Fees</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_lab_fees_books}}</td>
+       </tr>
+       <tr>
+        <td><strong>Category</strong></td>
+        <td>{{c.data.trnReq.category}}</td>
+        <td><strong>Exam Fees</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_exam_fees}}</td>
+       </tr>
+	     <tr>
+        <td><strong>Delivery Method</strong></td>
+        <td>{{c.data.trnReq.delivery_method}}</td>
+        <td><strong>Labor Cost</strong></td>
+        <td align="right">$ </td>
+       </tr>
+	     <tr>
+        <td><strong>Duration</strong></td>
+        <td>{{c.data.trnReq.duration}} hours</td>
+        <td><strong>Total Cost</strong></td>
+        <td style="border-top:solid 1px black;" align="right">$ {{c.data.trnReq.total_cost}}</td>
+       </tr>
+      </table>
+     </div>
+     <div class="col-sm-12">
+      <strong>Justification</strong>
+     </div>       
+     <div class="col-sm-12">
+      {{c.data.trnReq.justification}}
+     </div>       
+     <div class="col-sm-12"><br/>
+      <!--<div class="panel-heading">-->
+       <ul class="nav nav-tabs">
+        <li ng-click="selectTab(1)" ng-class="{active:isActive(1)}"><a href="javascript:void(0);">Historical Requests</a></li>
+        <li ng-click="selectTab(2)" ng-class="{active:isActive(2)}"><a href="javascript:void(0);">Impact</a></li>
+       </ul>
+      <!--</div>-->
+      <div class="tab-content">
+       <div ng-show="isActive(1)" class="tab"><br/>
+        <table ng-if="c.data.allTrnReq[0].number" class="table table-condensed table-striped" >
+         <tr>
+          <td colspan="6"><strong>Previous Requests for this FY</strong></td>
+         </tr>
+         <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Req #</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Period</th>
+          <th class="text-nowrap text-right">Cost</th>
+         </tr>
+         <tr ng-repeat="reqItems in c.data.allTrnReq" >
+          <td>{{reqItems.number}}</td>
+          <td>{{reqItems.request_description}}</td>
+          <td>{{reqItems.original_request}}</td>
+          <td class="{{reqItems.approval_status}} text-center">{{reqItems.approval_status}}</td>
+          <td class="text-center">{{reqItems.pd}}</td>
+          <td class="text-nowrap text-right">$ {{reqItems.total_cost}}</td>
+         </tr>
+        </table>
+        <div ng-if="!c.data.allTrnReq[0].number">
+          <i><strong>Historical data is not available for this employee.  No previous requests were made.</strong></i>
+        </div>
+       </div>
+  <!-- CHART ---->
+       <div ng-show="isActive(2)" class="tab">
+        <div id="container" style="min-width: 100px; height: 320px; margin: 0 auto"></div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+<div>{{data.ticketConversationOptions}}
+  <sp-widget widget="data.ticketConversation" />
+ </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

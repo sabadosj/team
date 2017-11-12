@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function ($location, $scope, $rootScope, $http) {
+	var c = this;
+
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getUserTrnRequests')
+    .then(function(res) {
+     $scope.data.list = res.data.result;
+  });
+	
+	this.getMyRequests = function() {
+		$location.search('id=team_management_my_requests');
+	};
+	
+	
+	this.filterText = "";
+	this.showFilter = false;
+
+	this.onClick = function($event, item, url, action) {
+		$event.stopPropagation();
+		$event.preventDefault();
+		if (url)
+			$location.search(url);
+		else {
+			var evt = {};
+			evt.url = url;
+			evt.table = c.data.table;
+			evt.sys_id = item.sys_id;
+			evt.record = item;
+			evt.rectangle_id = c.data.sys_id;
+			evt.action = action;
+			// put out the selection with simple list "sl_" prefix
+			$location.search('sl_sys_id', evt.sys_id);
+			$location.search('sl_table', evt.table);
+			$location.search('spa', 1); // spa means "I've got this"
+			$rootScope.$broadcast('$sp.list.click', evt);
+		}
+	};
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>title,color</field_list>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>SAIC Team Management My Requests</name>
+        <option_schema>[{"hint":"Number of records to show","name":"maximum_entries","label":"Maximum entries","type":"integer"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+})()
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-12 22:21:25</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>be73b305133d834098317e276144b078</sys_id>
+        <sys_mod_count>38</sys_mod_count>
+        <sys_name>SAIC Team Management My Requests</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_be73b305133d834098317e276144b078</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-19 00:21:20</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default b" >
+  <div class="panel-heading" >
+    <h4 class="panel-title" style="cursor: default">My Submitted Requests</h4>
+  </div>
+  <div class="list-group" style="max-height: 200px; overflow: auto;">
+    <div class="list-group-item">
+     <a ng-click="c.getMyRequests()" href="javascript:void(0)">View all requests</a>
+    </div>
+    <div class="list-group-item" ng-repeat="item in c.data.list | filter:c.filterText" >
+      <a  ng-click="c.onClick($event, item, item.url, {})" href="javascript:void(0)"> 
+        <div ng-class="{'l-h-40': !item.secondary_fields.length}">{{item.display_field}}</div>
+        <small class="text-muted" ng-repeat="f in item.secondary_fields">
+          <span ng-if="!$first"> • </span>
+          <span ng-switch="f.type" title="{{::f.label}}">
+            <span ng-switch-when="glide_date"><sn-time-ago timestamp="::f.value" /></span>
+            <span ng-switch-when="glide_date_time"><sn-time-ago timestamp="::f.value" /></span>
+            <span ng-switch-default="">{{item.itemNumber}}</span>
+          </span>
+        </small>
+      </a>
+    </div>
+  </div>
+  <div class="panel-footer" ng-if="c.options.maximum_entries && c.data.count > c.options.maximum_entries">
+    <h4 class="panel-title">${First {{c.options.maximum_entries}} of {{c.data.count}} shown}</h4>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

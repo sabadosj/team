@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function spTicketConversation($scope, nowAttachmentHandler, $animate, $rootScope, cabrillo, $timeout, snRecordWatcher, spUtil) {
+	$scope.showLocationIcon = false;
+	$scope.msg = "";
+	$scope.isNative = cabrillo.isNative();
+	var existingEntries = {}
+	var skipNextRecordWatchUpdate = false;
+	$scope.typing = [];
+	
+	if ($scope.page && $scope.page.g_form)
+		hideParentJournalFields();
+
+	function hideParentJournalFields() {
+		var g_form = $scope.page.g_form;
+		var fields = $scope.data.stream.journal_fields;
+		for (var f in fields) {
+			g_form.setDisplay(fields[f].name, false);
+		}
+	}
+	
+	function setupAttachmentHandler(){
+		$scope.attachmentHandler = new nowAttachmentHandler(attachSuccess, appendError);
+
+		function attachSuccess() {
+			$rootScope.$broadcast("sp.attachments.update", $scope.data.sys_id);
+		}
+
+		function appendError(error) {
+			$scope.errorMessages.push(error);
+		}
+
+		$timeout(function() {
+			var sizeLimit = 1024 * 1024 * 24; // 24MB
+			$scope.attachmentHandler.setParams($scope.data.table, $scope.data.sys_id, sizeLimit);
+		})
+	}
+	setupAttachmentHandler();
+
+	var recordWatcherTimer;
+	$scope.$on('record.updated', function(name, data) {
+		// Use record watcher update if:
+		//	This record was updated AND This widget didn't trigger the update.
+		if (data.table_name == $scope.data.table && data.sys_id == $scope.data.sys_id){
+			$timeout.cancel(recordWatcherTimer);
+			recordWatcherTimer = $timeout(function(){
+				if (skipNextRecordWatchUpdate)
+					skipNextRecordWatchUpdate = false;
+				else
+					spUtil.update($scope).then(function(r){
+						$scope.data.stream = r.stream;
+					});
+			}, 250);
+		}
+	});
+
+	$scope.$on('sp.show_location_icon', function(evt) {
+		$scope.data.showLocationIcon = true;
+	});
+
+	$scope.$on('sp.sessions', function(evt, sessions) {
+		$scope.typing = [];
+		Object.keys(sessions).forEach(function (session) {
+			session = sessions[session];
+			if (session.status != 'typing')
+				return;
+
+			$scope.typing.push(session);
+		})
+	})
+
+	$scope.$on('sp.conversation_title.changed', function(evt, text) {
+		$scope.data.ticketTitle = text;
+	})
+
+	$scope.$watch("data.canWrite", function() {
+		$rootScope.$broadcast("sp.record.can_write", $scope.data.canWrite);
+	});
+
+	var streamUpdateTimer;
+	$scope.$watch("data.stream", function() {
+		$timeout.cancel(streamUpdateTimer);
+		streamUpdateTimer = $timeout(function() {
+			mergeStreamEntries();
+		}, 50);
+	});
+
+	function mergeStreamEntries() {
+		$scope.placeholder = $scope.data.placeholderNoEntries;
+		if (!$scope.data.stream || !$scope.data.stream.entries)
+			return;
+
+		$scope.placeholder = $scope.data.placeholder;
+		var entries = $scope.data.stream.entries;
+		if (!$scope.data.mergedEntries) {
+			$scope.data.mergedEntries = $scope.data.stream.entries.slice();
+			for (var i = 0; i < entries.length; i++) {
+				existingEntries[entries[i].sys_id] = true;
+			}
+
+			return;
+		}
+
+		var mergedEntries = $scope.data.mergedEntries;
+		for (var i = entries.length-1; i >= 0; i--) {
+			var curEntry = entries[i];
+			if (existingEntries[curEntry.sys_id])
+				continue;
+
+			mergedEntries.unshift(curEntry);
+			existingEntries[curEntry.sys_id] = true;
+		}
+	}
+	
+	var colorCache;
+	$scope.getFieldColor = function(fieldName) {
+		var defaultColor = "transparent";
+		if (colorCache) {
+			if (fieldName in colorCache)
+				return colorCache[fieldName];
+			else
+				return defaultColor;
+		}
+		
+		colorCache = {};
+		var jf = $scope.data.stream.journal_fields;
+		for (var i=0; i<jf.length;i++) {
+			colorCache[jf[i].name] = jf[i].color || defaultColor;
+		}
+		return $scope.getFieldColor(fieldName);
+	}
+
+	$scope.checkInLocation = function() {
+		$rootScope.$broadcast("check_in_location");
+		$rootScope.$broadcast("location.sharing.start"); 
+	}
+
+	$scope.$on("location.sharing.end", function() {
+		$timeout(function() {$scope.msg = ""}, 500);
+	})
+
+	$scope.$on("location.sharing.start", function() {
+		$scope.msg = $scope.data.sharingLocMsg;
+	})
+
+	$scope.scanBarcode = function() {
+		$rootScope.$broadcast("scan_barcode");
+	}
+
+	$scope.$on("attachment.upload.start", function() {
+		$scope.msg = $scope.data.uploadingAttachmentMsg; 
+	})
+
+	$scope.$on("attachment.upload.stop", function() {
+		$scope.msg = ""; 
+		//update the stream so we get the new attachment
+		spUtil.update($scope).then(function(r) {
+			$scope.data.stream = r.stream;
+		});
+	});
+
+	$scope.data.isPosting = false;
+	$scope.postEntry = function(input){
+
+		if (!input)
+			return;
+
+		input = input.trim();		
+		$scope.data.journalEntry = input;
+
+		if ($scope.data.useSecondaryJournalField)
+			$scope.data.journalEntryField = $scope.data.secondaryJournalField.name;
+		else
+			$scope.data.journalEntryField = $scope.data.primaryJournalField.name;
+		$scope.data.isPosting = true;
+		spUtil.update($scope).then(function(){$scope.data.isPosting = false; reset();});
+		skipNextRecordWatchUpdate = true;
+		$scope.setFocus(); // sets focus back on input, defined in "link"
+	};
+
+	var reset = function(){
+		$scope.userTyping("");
+		$scope.data.journalEntry = "";
+		$scope.data.useSecondaryJournalField = false;
+		$scope.data.journalEntryField = "";
+	}
+
+	$scope.keyPress = function(event) {
+		if (event.keyCode === 13 && !event.shiftKey) {
+			event.preventDefault();
+			if ($scope.data.journalEntry)
+				$scope.postEntry($scope.data.journalEntry);
+		}
+	}
+
+	$scope.userTyping = function(input) {
+		var status = "viewing";
+		if (input.length)
+			status = "typing";
+
+		$scope.$emit("record.typing", {status: status, value: input, table: $scope.data.table, sys_id: $scope.data.sys_id});
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.timeline-body &gt; p {
+  white-space: pre-wrap;
+}
+
+.no-resize {
+  resize: none;
+}
+
+.journal-field-indicator {
+	width: 5px;
+  height: 23px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  z-index: 3;
+}
+
+.panel-heading {
+ word-wrap: break-word;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data>{"options": {
+	"sys_id": -1,
+		"table": "incident"
+	}
+}</demo_data>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>team-management-ticket-conversation</id>
+        <internal>false</internal>
+        <link><![CDATA[function(scope, elm) {
+	// Set the focus back on the input for IE11
+	scope.setFocus = function() {
+		var input = $(elm[0]).find('textarea#post-input');
+		if (input[0])
+			input[0].focus();
+	}
+
+}]]></link>
+        <name>SAIC TeamManagement Ticket Conversations</name>
+        <option_schema/>
+        <public>false</public>
+        <roles>snc_external,snc_internal</roles>
+        <script><![CDATA[(function() {
+	data.uploadingAttachmentMsg = gs.getMessage("Uploading attachment...");
+	data.sharingLocMsg = gs.getMessage("Sharing location...");
+	data.scanBarcodeMsg = gs.getMessage("Scan barcode");
+	data.checkInLocMsg = gs.getMessage("Check in location");
+	data.viewMsg = gs.getMessage("View");
+//	data.sys_id = input.sys_id || $sp.getParameter("sys_id") || options.sys_id;
+	data.sys_id = $sp.getParameter("sys_id") || options.sys_id;
+//	data.table = input.table || $sp.getParameter("table") || options.table;
+	data.table = $sp.getParameter("table") || options.table;
+	//	data.table = 'sc_request';
+	// don't use options.title unless sys_id and table also come from options
+	if (options && options.sys_id && options.table)
+		data.ticketTitle = options.title;
+	data.placeholder = options.placeholder || gs.getMessage("Type your message here...");
+	data.placeholderNoEntries = options.placeholderNoEntries || gs.getMessage("Type your message here...");
+	data.btnLabel = options.btnLabel || gs.getMessage("Send");
+	data.includeExtended = options.includeExtended || true;
+
+	var gr = new GlideRecord(data.table);
+	if (!gr.isValid())
+		return;
+
+	gr.get(data.sys_id);
+	if (!gr.canRead())
+		return;
+
+	data.number = gr.getDisplayValue('number');
+	data.created_on = gr.getValue('sys_created_on');
+
+	if (input) { // if we have input then we're saving
+		if (input.journalEntry && input.journalEntryField){
+			if (gr.canWrite(input.journalEntryField)){
+				gr.setDisplayValue(input.journalEntryField, input.journalEntry);
+				gr.update();
+				$sp.logStat('Comments', data.table, data.sys_id, input.journalEntry);
+			}
+		}
+		data.ticketTitle = input.ticketTitle;
+		data.placeholder = input.placeholder;
+		data.btnLabel = input.btnLabel;
+		data.includeExtended = input.includeExtended;
+	}  else {
+/*		if (!data.ticketTitle) {
+			if (gr.short_description.canRead())
+				data.ticketTitle = gr.getDisplayValue("short_description");
+			if (!data.ticketTitle)
+				data.ticketTitle = data.number;
+		}
+
+		$sp.logStat('Task View', data.table, data.sys_id);*/
+	}
+
+	data.canWrite = gr.canWrite();
+	data.canAttach = "true";
+//	data.canAttach = gs.hasRole(gs.getProperty("glide.attachment.role")) && GlideTableDescriptor.get(data.table).getED().getAttribute("no_attachment") != "true";
+	data.canRead = gr.canRead();
+	data.isNewRecord = data.sys_id == -1 || gr.isNewRecord();
+	data.hasWritableJournalField = true;
+	data.hasReadableJournalField = true;
+	if (data.canRead && !data.isNewRecord) {
+		data.stream = $sp.getStream(data.table, data.sys_id);
+		// Journal fields come in correct order already
+		// so grab the first 2 writeable fields
+		if ('journal_fields' in data.stream) {
+			var jf = data.stream.journal_fields;
+			for(var i=0; i < jf.length; i++){
+				if (jf[i].can_read === true)
+					data.hasReadableJournalField = true;
+				if (jf[i].can_write === true){
+					data.hasWritableJournalField = true;
+					if (!data.primaryJournalField)
+						data.primaryJournalField = jf[i];
+					else if (data.includeExtended && !data.secondaryJournalField)
+						data.secondaryJournalField = jf[i];
+					else
+						break;
+				}
+			}
+		}
+
+	}
+
+	data.tableLabel = gr.getLabel();
+
+})()]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-13 01:25:13</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>4b8dd051137d834098317e276144b062</sys_id>
+        <sys_mod_count>19</sys_mod_count>
+        <sys_name>SAIC TeamManagement Ticket Conversations</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_4b8dd051137d834098317e276144b062</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-16 12:43:46</sys_updated_on>
+        <template><![CDATA[<div>{{c.data.table}} | {{c.data.number}}
+  <div ng-if="!data.canRead">
+    ${Requested record not found}
+  </div>
+
+  <div ng-if="data.canRead && data.hasReadableJournalField" class="panel panel-{{options.color}} b ticket_conversation" >
+    <div class="panel-heading">
+
+      <h4 class="panel-title">
+        <div class="pull-right">
+          <sp-attachment-button ng-if="data.canWrite && data.canAttach"></sp-attachment-button>
+          <a href="javascript:void(0)" class="panel-button" ng-show="isNative" ng-click="scanBarcode()" title="{{data.scanBarcodeMsg}}">
+            <span class="glyphicon glyphicon-barcode"></span>
+          </a>
+
+          <a href="javascript:void(0)" ng-show="data.showLocationIcon" class="panel-button" ng-click="checkInLocation()" title="{{data.checkInLocMsg}}">
+            <span class="glyphicon glyphicon-globe"></span>
+          </a>
+
+        </div>
+        {{data.ticketTitle}}
+      </h4>
+
+    </div>
+
+    <div class="panel-body">
+      <div>
+        <form ng-submit="postEntry(data.journalEntry)" id="sand">
+          <div ng-show="data.primaryJournalField" class="input-group">
+            <textarea ng-keypress="keyPress($event)" sn-resize-height="trim" rows="1" id="post-input" class="form-control no-resize" ng-model='data.journalEntry' placeholder="{{placeholder}}" autocomplete="off" ng-change="userTyping(data.journalEntry)" />
+            <span class="journal-field-indicator" ng-style="{'background-color': data.useSecondaryJournalField ? data.secondaryJournalField.color : data.primaryJournalField.color}"></span>
+            <span class="input-group-btn" style="vertical-align: top">
+              <input type="submit" class="btn btn-primary" value="{{data.btnLabel}}" ng-disabled="data.isPosting || data.journalEntry.length == 0"/>
+            </span>
+          </div>
+          <div ng-if="data.secondaryJournalField && data.secondaryJournalField.can_write">
+            <label class="pull-right"><input type="checkbox" ng-model="data.useSecondaryJournalField"/> {{::data.secondaryJournalField.label}}</label>
+          </div>
+        </form>
+        <ul class="list-group m-b-none">
+          <li class="list-group-item user-typing m-t" ng-repeat="u in typing">${{{::u.user_display_name}} is typing}</li>
+        </ul>
+        <ul class="list-group m-b-none m-t" ng-if="msg">
+          <li class="list-group-item user-typing">{{msg}}</li>
+        </ul>
+        <div class="timeline-container">
+		<ul class="timeline">
+          
+          <li class="timeline-item" ng-class="{'timeline-inverted': e.user_sys_id == data.stream.user_sys_id} " ng-repeat="e in data.mergedEntries">
+            <div class="timeline-badge">
+              <sn-avatar primary="e.user_sys_id" class="avatar-large" show-presence="false" enable-context-menu="false"></sn-avatar>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-panel-inner" style="border-color: {{::getFieldColor(e.element)}}">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">{{::e.name}}</h4>
+                  <p>
+                    <small class="text-muted">
+                      <span class="glyphicon glyphicon-time " />
+                      <sn-time-ago timestamp="::e.sys_created_on" />
+                    </small>
+                  </p>
+                </div>
+                <div class="timeline-body">
+                  <p ng-if="e.element != 'attachment'" ng-bind-html="::e.value"></p>
+                  <div ng-if="e.element == 'attachment'">
+                    <a target="_blank" href="/sys_attachment.do?view=true&sys_id={{e.attachment.sys_id}}" title="{{dataViewMsg}}" >
+                      <img ng-if="e.attachment.thumbnail_path" alt="" ng-src="/{{e.attachment.path}}?t=medium" class="img-responsive"/>
+                    </a>
+                    <div>
+                      <a href="/sys_attachment.do?sys_id={{e.attachment.sys_id}}" target="_blank" title="{{dataViewMsg}}"><strong>{{e.attachment.file_name}}</strong></a><br/>
+                      {{e.attachment.size}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-item timeline-inverted">
+            <div class="timeline-badge">
+              <sn-avatar primary="data.stream.user_sys_id" class="avatar-large" show-presence="false" enable-context-menu="false"></sn-avatar>
+            </div>
+            <div class="timeline-panel timeline-panel-first-item">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">{{data.stream.user_full_name}}</h4>
+                <p>
+                  <small class="text-muted">
+                    <span class="glyphicon glyphicon-time " />
+                    <sn-time-ago timestamp="data.created_on" />
+                  </small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>{{data.number}} ${Created}</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-start">
+            <div class="timeline-badge success">
+              ${Start}
+            </div>
+          </li>
+        	</ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

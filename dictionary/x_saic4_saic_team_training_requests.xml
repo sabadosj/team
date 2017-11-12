@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element attributes="live_feed=true" label="Training Requests" max_length="40" name="x_saic4_saic_team_training_requests" type="collection">
+        <element choice="1" label="Approval Status" max_length="40" name="approval_status" type="choice">
+            <choice>
+                <element label="Approved" value="Approved"/>
+                <element label="Denied" value="Denied"/>
+                <element label="Pending" value="Pending"/>
+            </choice>
+        </element>
+        <element label="Approved By" max_length="32" name="approved_by" reference="sys_user" type="reference"/>
+        <element label="Approved on Date" max_length="40" name="approved_on_date" type="glide_date"/>
+        <element label="Budget" max_length="40" name="budget" reference="x_saic4_saic_team_training_budget" type="reference"/>
+        <element choice="1" label="Category" max_length="40" name="category" type="choice">
+            <choice>
+                <element label="Certification - Other" value="certification_other"/>
+                <element label="Certification - Platform" value="certification_platform"/>
+                <element label="Certification - Security" value="certification _security"/>
+                <element label="IaaS/PaaS/SaaS Training" value="cloud_svc_training"/>
+                <element label="Platform Training" value="platform_training"/>
+                <element label="Process Training" value="process_training"/>
+                <element label="Software Training" value="software_training"/>
+                <element label="Software/System Development" value="software_development"/>
+            </choice>
+        </element>
+        <element label="Category Explanation" max_length="200" name="category_other_explanation" type="string"/>
+        <element label="Comments" max_length="4000" name="comments" type="journal"/>
+        <element label="Customer Group" max_length="32" name="customer_group" reference="u_customer_group" type="reference"/>
+        <element choice="1" label="Delivery Method" max_length="40" name="delivery_method" type="choice">
+            <choice>
+                <element label="Online" value="online"/>
+                <element label="other" value="Other or N/A"/>
+                <element label="Self-Paced after hours" value="self_paced"/>
+                <element label="Training Center" value="training_center"/>
+            </choice>
+        </element>
+        <element label="Division" max_length="40" name="division" type="string"/>
+        <element label="Duration (hrs)" max_length="40" name="duration" type="integer"/>
+        <element label="Estimated Course Cost" max_length="40" name="estimated_course_cost" type="currency"/>
+        <element label="Estimated Exam Fees" max_length="40" name="estimated_exam_fees" type="currency"/>
+        <element label="Estimated Labor Cost" max_length="40" name="estimated_labor_cost" type="currency"/>
+        <element label="Estimated Lab Fees/Books" max_length="40" name="estimated_lab_fees_books" type="currency"/>
+        <element label="Estimated Travel Cost" max_length="40" name="estimated_travel_cost" type="currency"/>
+        <element label="FY" max_length="40" name="fy" type="string"/>
+        <element label="Justification" max_length="2000" name="justification" type="string"/>
+        <element label="SLTL (l1)" max_length="32" name="level_1_manager" reference="sys_user" type="reference"/>
+        <element label="SL DIr (l2)" max_length="32" name="level_2_manager" reference="sys_user" type="reference"/>
+        <element label="SL Mgr (l3)" max_length="32" name="level_3_manager" reference="sys_user" type="reference"/>
+        <element label="Sector Mgr (l4)" max_length="32" name="level_4_manager" reference="sys_user" type="reference"/>
+        <element default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Original Request ID" max_length="40" name="original_request_id" reference="sc_req_item" type="reference"/>
+        <element label="Pd" max_length="40" name="pd" type="string"/>
+        <element label="PM" max_length="32" name="pm" reference="sys_user" type="reference"/>
+        <element label="Requested By" max_length="32" name="requested_by" reference="sys_user" type="reference"/>
+        <element label="Requested for" max_length="32" name="requested_for" reference="sys_user" type="reference"/>
+        <element label="Request Description" max_length="500" name="request_description" type="string"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element choice="1" label="Type" max_length="40" name="type" type="choice">
+            <choice>
+                <element label="Professional Development" value="prof_dev"/>
+                <element label="Program Required Training" value="prog_req"/>
+                <element label="Service Line Required Training" value="sl_required"/>
+                <element label="Technical Conference" value="tech_conference"/>
+                <element label="Technical Society Dues/Subscriptions" value="tech_society_dues_subscriptions"/>
+                <element label="Tuition Assistance" value="tuition_assistance"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="approved_by"/>
+        </index>
+        <index name="index2">
+            <element name="requested_by"/>
+        </index>
+        <index name="index3">
+            <element name="customer_group"/>
+        </index>
+        <index name="index4">
+            <element name="level_3_manager"/>
+        </index>
+        <index name="index5">
+            <element name="level_2_manager"/>
+        </index>
+        <index name="index6">
+            <element name="requested_for"/>
+        </index>
+        <index name="index7">
+            <element name="pm"/>
+        </index>
+        <index name="index8">
+            <element name="level_1_manager"/>
+        </index>
+        <index name="index9">
+            <element name="level_4_manager"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function ($http, $scope, $timeout, $rootScope) {
+	
+	var c = this;
+	$http.get('/api/x_saic4_saic_team/teammgmtutils/getEntRequestActivity')
+    .then(function(stats) {
+     $scope.data.stats = stats.data.result;
+     $scope.data.b1tooltip = $scope.data.stats.TotalBudgetCount + " budgets have been defined in the system totaling " + $scope.data.stats.TotalBudget + ".  " + $scope.data.stats.totActuals + " have been posted to finance leaving a balance of "+ $scope.data.stats.BudgetBalance;
+     $scope.data.b2tooltip = $scope.data.stats.totActualsCount + " training related entries have been posted to finance totaling " + $scope.data.stats.totActuals; 
+     $scope.data.b3tooltip = $scope.data.stats.ApprovedCount + " requests have been made and <strong>Approved</strong> to date totaling " + $scope.data.stats.ApprovedAmount;
+     $scope.data.b4tooltip = $scope.data.stats.PendingCount + " requests have been made that are still <strong>Pending</strong> totaling " + $scope.data.stats.PendingAmount;
+     $scope.data.b5tooltip = $scope.data.stats.DeniedCount + " requests have been made and <strong>Denied</strong> to date totaling " +  $scope.data.stats.DeniedAmount;
+  });
+	
+  $scope.selectBudget = function(){
+	  $rootScope.$broadcast('showSecBudget');
+  };
+  $scope.selectActuals = function(){
+	  $rootScope.$broadcast('showSecActuals');
+  };
+  $scope.selectApproved = function(){
+	  $rootScope.$broadcast('showSecApproved');
+  };
+  $scope.selectPending = function(){
+	  $rootScope.$broadcast('showSecPending');
+  };
+  $scope.selectDenied = function(){
+	  $rootScope.$broadcast('showSecDenied');
+  };
+
+	this.onClick = function(recID) {
+			$location.search('id=team_management_sc_request&table=sc_req_item&sys_id='+recID);
+	}	
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>a.circle_icon .fa {
+  position:absolute;
+  left: 0px;
+  top: 10px;
+}
+a.circle_icon h3 {
+  font-weight: 300;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+/* COLOR BOX ---------- */
+a.color_box {
+  display: block;
+  position: relative;
+  padding: 5px 10px 10px 62px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+a.color_box .fa {
+  position:absolute;
+  left: 10px;
+  top: 10px;
+  width:22px;
+  text-align: center;
+}
+a.color_box h3 {
+  font-weight: 300;
+  padding: 0;
+  margin: 0 0 5px 0;
+}
+a.color_box h4 {
+  font-weight: 200;
+  padding: 0;
+  margin: 0 0 5px 0;
+}
+.bg0 {
+ color:red;
+ //font-weight: bold;
+}
+.bg1 {
+  background-color: #014C85;
+}
+.bg2 {
+  background-color: #005799;
+}
+.bg3 {
+  background-color: #006EC2;
+}
+.bg4 {
+  background-color: #367CB1;
+}
+.bg5 {
+  background-color: #528EBC;
+}
+.bg6 {
+  //background-color: #cccccc;
+  border: 1px solid #cccccc;
+  display: block;
+  position: relative;
+  padding: 5px 5px 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>team-management-sector-indicators</id>
+        <internal>false</internal>
+        <link/>
+        <name>Team Management Sector Indicators</name>
+        <option_schema>[{"name":"color_box","label":"link_template","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-23 19:46:46</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>a499ff6c13ce874098317e276144b02b</sys_id>
+        <sys_mod_count>138</sys_mod_count>
+        <sys_name>Team Management Sector Indicators</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_a499ff6c13ce874098317e276144b02b</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-24 21:49:23</sys_updated_on>
+        <template><![CDATA[<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+<div class="row" ng-click="selectBudget()">
+  <a href="javascript:void(0)" class="color_box bg1 text-white" data-html="true" data-toggle="tooltip" title="<div style='width:180px;z-index:2000'>{{data.b1tooltip}}</div>" data-placement="right">
+   <div class="fa fa-usd fa-2x"></div>
+   <h3>{{c.data.stats.TotalBudget}} Budgeted</h3>
+   <h4>
+     <span ng-if="data.stats.BudgetBalance.substring(0, 2) == '$-'" class="bg0">
+     {{c.data.stats.BudgetBalance}}
+     </span>
+     <span ng-if="data.stats.BudgetBalance.substring(0, 2) != '$-'">
+     {{c.data.stats.BudgetBalance}}
+     </span> Remaining
+    </h4>
+   <span>{{c.data.stats.TotalBudgetCount}} Budgets</span>
+  </a>
+</div>
+<div class="row" ng-click="selectActuals()">
+  <a class="color_box bg2 text-white" href="javascript:void(0)"  data-html="true" data-toggle="tooltip" title="<div style='width:180px;z-index:2000'>{{data.b2tooltip}}</div>" data-placement="right">
+   <div class="fa fa-usd fa-2x"></div>
+   <h3>{{c.data.stats.totActuals}} Posted</h3>
+   <span>{{c.data.stats.totActualsCount}} Transactions this FY</span>
+  </a>
+</div>
+<div class="row" ng-click="selectApproved()">
+   <a class="color_box bg3 text-white" href="javascript:void(0)"  data-html="true" data-toggle="tooltip" title="<div style='width:180px;z-index:2000'>{{data.b3tooltip}}</div>" data-placement="right">
+    <div class="fa fa-thumbs-o-up fa-2x"></div>
+    <h3>{{c.data.stats.ApprovedAmount}} </h3>
+    <span>{{c.data.stats.ApprovedCount}} Approved Requests</span>
+   </a>
+</div>
+<div class="row" ng-click="selectPending()">
+   <a class="color_box bg4 text-white" href="javascript:void(0)"  data-html="true" data-toggle="tooltip" title="<div style='width:180px;z-index:2000'>{{data.b4tooltip}}</div>" data-placement="right">
+    <div class="fa fa-exclamation-triangle fa-2x"></div>
+    <h3>{{c.data.stats.PendingAmount}} </h3>
+    <span>{{c.data.stats.PendingCount}} Pending Approval</span>
+   </a>
+</div>
+<div class="row" ng-click="selectDenied()">
+   <a class="color_box bg5 icon-link-background-info text-white" target="{{::data.target}}" data-html="true" data-toggle="tooltip" title="<div style='width:180px;z-index:2000'>{{data.b5tooltip}}</div>" data-placement="right">
+    <div class="fa fa-thumbs-o-down fa-2x"></div>
+    <h3>{{c.data.stats.DeniedAmount}} </h3>
+    <span>{{c.data.stats.DeniedCount}} Denied Requests</span>
+   </a>
+</div>
+<div class="row">
+  <a class="bg6">
+   <h3></h3>
+   <span></span>
+  </a>
+</div>
+
+<!--
+<div class="panel panel-primary b">
+ <div class="panel-heading">
+  <h4 class="panel-title">Request History</h4>
+ </div>
+ <div >
+  <div class="well">
+   <div class="panel panel-default b">
+    <div class="panel-body">
+     <div class="col-sm-12">
+       {{c.data.stats.TotalBudgetCount}}<br/>
+       {{c.data.stats.TotalBudget}}<br/>
+       {{c.data.stats.ApprovedCount}}<br/>
+       {{c.data.stats.ApprovedAmount}}<br/>
+       {{c.data.stats.PendingCount}}<br/>
+       {{c.data.stats.PendingAmount}}<br/>
+       {{c.data.stats.DeniedCount}}<br/>
+       {{c.data.stats.DeniedAmount}}<br/>
+       {{c.data.stats.totActualsCount}}<br/>
+       {{c.data.stats.totActuals}}<br/>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+-->]]></template>
+    </sp_widget>
+</record_update>

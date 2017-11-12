@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($scope, $location, $http) {
+  /* widget controller */
+  var c = this;
+	
+	c.always_show = true;
+	
+	c.data.sys_id = $location.search().sys_id;
+
+	$scope.addComment = function() {
+		
+		var payload = {
+			"sys_id" : c.data.sys_id,
+			"comment" : c.data.myComment
+		};
+        //alert(payload.sys_id+' | '+payload.comment);
+		$http.post('/api/x_saic4_saic_team/teammgmtutils/addRequestComment', payload)
+			.then(function(res) {
+				c.data.myComment = "";
+		});	
+		
+		// console.log(c.data.myComment);
+	};
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Widget to add comments to a journaled field</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>Team Management Add Comments</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function($sp, $location, options, gs) {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-13 00:45:25</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>84741499133d834098317e276144b038</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Team Management Add Comments</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_84741499133d834098317e276144b038</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-19 13:11:18</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default b" ng-if="c.always_show">
+  <div class="panel-heading" >
+    <h4 class="panel-title" style="cursor: default">Add a New Comment</h4>
+  </div>
+  <form>
+    <textarea style="width:100%;" ng-model="c.data.myComment" class="form-control"></textarea>
+    <button class="btn btn-primary" ng-click="addComment()">Post</button>
+  </form>
+</div>]]></template>
+    </sp_widget>
+</record_update>

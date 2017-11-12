@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="delivery_method" table="x_saic4_saic_team_training_requests" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>delivery_method</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Online</label>
+            <language>en</language>
+            <name>x_saic4_saic_team_training_requests</name>
+            <sequence/>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-10-05 13:12:26</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>42a23db213a98340f6f4b53a6144b04a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-10-05 13:12:26</sys_updated_on>
+            <value>online</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>delivery_method</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>other</label>
+            <language>en</language>
+            <name>x_saic4_saic_team_training_requests</name>
+            <sequence/>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-10-05 13:11:44</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>5a82b9b213a98340f6f4b53a6144b05f</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-10-05 13:12:13</sys_updated_on>
+            <value>Other or N/A</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>delivery_method</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Self-Paced after hours</label>
+            <language>en</language>
+            <name>x_saic4_saic_team_training_requests</name>
+            <sequence/>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-10-05 13:12:50</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>13b23db213a98340f6f4b53a6144b0d0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-10-05 13:12:50</sys_updated_on>
+            <value>self_paced</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>delivery_method</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Training Center</label>
+            <language>en</language>
+            <name>x_saic4_saic_team_training_requests</name>
+            <sequence/>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-10-05 13:13:13</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>94d27db213a98340f6f4b53a6144b08c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-10-05 13:13:13</sys_updated_on>
+            <value>training_center</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>delivery_method</element>
+            <name>x_saic4_saic_team_training_requests</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-10-05 13:11:44</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>5e82b9b213a98340f6f4b53a6144b05f</sys_id>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_name>delivery_method</sys_name>
+            <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+            <sys_update_name>sys_choice_x_saic4_saic_team_training_requests_delivery_method</sys_update_name>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-10-05 13:13:13</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

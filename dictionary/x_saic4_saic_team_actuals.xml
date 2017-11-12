@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Actuals" max_length="40" name="x_saic4_saic_team_actuals" sizeclass="10354" type="collection">
+        <element label="Account ID" max_length="40" name="account_id" type="string"/>
+        <element label="Burden" max_length="40" name="burden" type="integer"/>
+        <element label="Charge Code" max_length="40" name="charge_code" type="string"/>
+        <element label="Employee" max_length="32" name="employee" reference="sys_user" type="reference"/>
+        <element label="FY" max_length="40" name="fy" type="string"/>
+        <element label="Organization  ID" max_length="40" name="organization_id" type="string"/>
+        <element label="Period" max_length="40" name="period" type="integer"/>
+        <element label="Project Name" max_length="40" name="project_name" type="string"/>
+        <element label="Sub Period" max_length="40" name="sub_period" type="integer"/>
+        <element label="Total Burdened Cost" max_length="40" name="total_burdened_cost" type="currency"/>
+        <element label="Transaction Amount" max_length="40" name="transaction_amount" type="currency"/>
+        <element label="Transaction Date" max_length="40" name="transaction_date" type="glide_date_time"/>
+        <element label="Transaction Description" max_length="40" name="transaction_description" type="string"/>
+        <index name="index">
+            <element name="employee"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>true</action_delete>
+        <action_insert>true</action_insert>
+        <action_label/>
+        <action_name/>
+        <action_query>false</action_query>
+        <action_run_at>server</action_run_at>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <application/>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_saic4_saic_team_training_requests</collection>
+        <condition/>
+        <description>Update the appropriate "budget" record based on training request  status</description>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Calculate Balances</name>
+        <onclick/>
+        <order>100</order>
+        <priority>100</priority>
+        <read_access_action>false</read_access_action>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+   if (!current.budget) {
+	   gs.error("Request is not associated with a budget.  Request " +current.number+ " must be corrected.");
+       return;
+   }
+
+   // *********************************************************************************
+   // total all Pending and Approved requests to date for the current budget 
+   // *********************************************************************************
+   
+   var totPending  = 0;
+   var totApproved = 0;
+   var total_cost  = 0;
+   var budgetName  = "";
+//   var encQry = 'approval_statusINPending,Approved^fy='+current.fy+'^budget='+current.budget;
+   var encQry = 'approval_statusINPending,Approved^budget='+current.budget;
+   var trngrqst = new GlideRecord('x_saic4_saic_team_training_requests');
+   trngrqst.addEncodedQuery(encQry);
+   trngrqst.query();
+   while (trngrqst.next()) {
+	  budgetName =  trngrqst.getDisplayValue('budget');
+      total_cost =  trngrqst.getValue('estimated_course_cost')*1;
+      total_cost += trngrqst.getValue('estimated_labor_cost')*1;
+      total_cost += trngrqst.getValue('estimated_exam_fees')*1;
+      total_cost += trngrqst.getValue('estimated_lab_fees_books')*1;
+      total_cost += trngrqst.getValue('estimated_travel_cost')*1;
+      if (trngrqst.approval_status =='Pending') {
+         totPending  += total_cost;
+      }
+      if (trngrqst.approval_status =='Approved') {
+         totApproved += total_cost;
+      }
+   }
+   gs.info("Budget: " + budgetName+ ", currently has $" + totPending + " Pending and $" + totApproved + " Approved requests. ");
+	
+	// update the budget record with the aggregate value found above.
+	
+    /*	
+    Budget
+     – Actual Expenses (Approved and Paid)
+     = Current Budget Remaining
+
+     – Expected Expenses (Approved and not Paid)
+     = Expected Budget Remaining
+
+     – Potential Expenses (Pending)
+     = Potential Remaining Budget
+    */	
+	
+	var trngrbdgt = new GlideRecord('x_saic4_saic_team_training_budget');
+    trngrbdgt.addQuery('sys_id',current.budget);
+    trngrbdgt.query();
+	while (trngrbdgt.next()) {
+		trngrbdgt.approved_demand = totApproved;
+		trngrbdgt.pending_demand  = totPending;
+		
+//        trngrbdgt.budget_balance = trnBudget - totTrnRequests;
+    	var updateStatus = trngrbdgt.update();
+        gs.info("Budget record updated with status: " + updateStatus);
+    }
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-22 16:54:16</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>ce4d31d0130a874098317e276144b0a5</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Calculate Balances</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_script_ce4d31d0130a874098317e276144b0a5</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-22 21:07:53</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+</record_update>

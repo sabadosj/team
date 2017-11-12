@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function requestedItemsController($scope, $http, $rootScope, $interpolate, $window, $location) {
+  var c = this;
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getTrnReqApprvs?reqSysID='+$location.search().sys_id)
+		.then(function(res) {
+			c.data.approverData = res.data.result;
+  });
+
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getTrainRequest?reqID='+$location.search().sys_id)
+		.then(function(res2) {
+			c.data.ItemData = res2.data.result;
+  });
+	
+/*
+  $scope.$watch("data.conversation_title", function() {
+    $rootScope.$broadcast('sp.conversation_title.changed', $scope.data.conversation_title);
+  })
+
+  $scope.onClick = function($event, item, url, action) {
+    $event.stopPropagation();
+    $event.preventDefault();
+
+    if (url) {
+      var link = $interpolate(url)(item);
+      $window.location = link;
+    } else {
+      var eventObj = {};
+      eventObj.url = url;
+      eventObj.table = $scope.data.table;
+      eventObj.record = item;
+      eventObj.rectangle_id = $scope.data.sys_id;
+      eventObj.action = action;
+      $rootScope.$broadcast('$sp.list.click', eventObj);
+    }
+  }
+	
+	$scope.toggle = function($event, item) {
+		item.expand = !item.expand;
+	}
+	
+	if ($scope.data.list.length == 1)
+		$scope.data.list[0].expand = true;
+*/
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.requested-items-flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+/**/
+.stage-on IMG, .stage-off IMG{ margin-right:6px; }
+.stage-on, .stage-off { margin-bottom: 6px; }
+.stage-on{font-weight:700;}
+.stage-off{/*color:#999;*/ font-weight:300;}
+
+.l-h-40 {
+  line-height: 40px;
+}
+.list-action {
+  display:block;
+  padding:0 6px;
+  cursor: pointer;
+}
+.list-action:hover {
+  background-color: #fff;
+}</css>
+        <data_table>sp_instance_vlist</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>title,order,color,display_field,filter,table,sp_page,order_direction,maximum_entries,order_by</field_list>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>Team Mgmt Requested Items</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+//	var gr = new GlideRecord("sc_req_item"); // does ACL checking for us
+//	gr.addQuery("request", $sp.getParameter("sys_id"));
+/*	gr.addQuery("sys_id", $sp.getParameter("sys_id"));
+	
+	options.secondary_fields = options.secondary_fields || "";
+	options.secondary_fields = options.secondary_fields.split(",");
+
+	if (options.order_direction == "asc")
+		gr.orderBy(options.order_by);
+	else
+		gr.orderByDesc(options.order_by);
+
+	if (options.maximum_entries > 0)
+		gr.setLimit(options.maximum_entries);
+	gr.query();
+
+	data.actions = [];
+	data.list = [];
+	while (gr.next()) {
+    data.stage= gr.getDisplayValue('stage');
+		if (!gr.canRead())
+			continue;
+      
+		if (gr.getRowCount() == 1)
+			data.conversation_title = gr.request.getDisplayValue() + " - " + gr.getValue("short_description");
+
+		var record = {};
+
+		record.sys_id = gr.sys_id.getDisplayValue();
+		if (options.image_field) {
+			record.image_field = gr.getDisplayValue(options.image_field);
+			if (!record.image_field)
+				record.image_field = "/noimage.pngx";
+		}
+		if (options.display_field)
+			record.display_field = gr.getDisplayValue(options.display_field);
+
+		record.secondary_fields = [];
+		options.secondary_fields.forEach(function(f) {
+			record.secondary_fields.push(getField(gr, f));
+		});
+
+		if (options.sp_page_dv)
+			record.url = "?id="+options.sp_page_dv+"&table="+options.table+"&sys_id="+record.sys_id+"&view=sp";
+		else
+			record.url = "";
+
+		record.stage = gr.getValue("stage");
+*/
+		// get appropriate Stage choices for this requested item
+		//var cl = new GlideChoiceList();
+		////GlideController.putGlobal("answer", cl);
+		////GlideController.putGlobal("current", gr);
+		////global.sc_req_item_stageGetChoices();
+		
+		// de-duplicate if sequential stages are identical
+		//var cl2 = new GlideChoiceList();
+		//cl2.add(cl.getChoice(0));
+		//for (var i = 1; i < cl.getSize(); i++) {
+		//	if (cl.getChoice(i).value != cl.getChoice(i-1).value)
+		//		cl2.add(cl.getChoice(i));
+		//}
+		//record.cl = JSON.parse(cl2.toJSON());
+/*
+		data.list.push(record);
+	}
+
+	if (gr.getRowCount() > 1)
+		data.conversation_title = gr.request.getDisplayValue() + " - " + gr.getRowCount() + " items";
+
+	function getField(gr, name) {
+		var f = {};
+		f.display_value = gr.getDisplayValue(name);
+		f.value = gr.getValue(name);
+		var ge = gr.getElement(name);
+		f.type = ge.getED().getInternalType()
+		f.label = ge.getLabel();
+		return f;
+	}
+*/
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-17 23:20:19</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>02e0fdfe133d074098317e276144b0f0</sys_id>
+        <sys_mod_count>66</sys_mod_count>
+        <sys_name>Team Mgmt Requested Items</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_02e0fdfe133d074098317e276144b0f0</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-18 17:50:55</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary b" >
+  <div class="panel-heading">
+    <h4 class="panel-title">Summary</h4>
+  </div>
+  <div class="list-group">
+    <div class="block list-group-item" >
+      <small>Requester: <strong>{{c.data.ItemData.requested_by_name}}</strong></small><br/>
+      <small>Requested for: <strong>{{c.data.ItemData.requested_for_name}}</strong></small><br/>
+      <small>Request Number: <strong>{{c.data.ItemData.original_request}}</strong></small><br/>
+      <small>Training Request: <strong>{{c.data.ItemData.number}}</strong></small><br/>
+      <small>Total Estimated Cost: <strong>$ {{c.data.ItemData.total_cost}}</strong></small><br/>
+<!--      <small>Type: <strong>{{c.data.ItemData.type}}</strong></small><br/>-->
+<!--      <small>Status: <strong>{{c.data.ItemData.approval_status}}</strong></small><br/>-->
+<!--      <small>Category: <strong>{{c.data.ItemData.category}}</strong></small><br/>-->
+<!--      <small>Delivery: <strong>{{c.data.ItemData.delivery_method}}</strong></small><br/>-->
+      <small>Duration: <strong>{{c.data.ItemData.duration}} hrs</strong></small><br/>
+      <small>Travel?: 
+        <span ng-if="c.data.ItemData.estimated_travel_cost == 0"><img src="/images/sp-icon-empty-circle.png" data-toggle="tooltip" data-placement="top" ng-attr-title="No travel is expected"/></span>
+        <span ng-if="c.data.ItemData.estimated_travel_cost > 0"><img src="/images/sp-icon-check-circle.png" /></span>
+      </small><br/>
+    </div>
+  </div>
+</div>
+<div class="panel panel-primary b" >
+  <div class="panel-heading">
+    <h4 class="panel-title">Request Approvers</h4>
+  </div>
+  <div class="list-group">
+    <div ng-repeat="items in c.data.approverData" class="list-group-item" >
+      <small>{{items.approver_name}} (<i>{{items.state}}</i>)<br/>
+    </small>
+  </div>
+  </div>
+</div>
+
+
+
+<!--    <div ng-repeat="item in data.list" class="block list-group-item" >
+      <a ng-click="onClick($event, item, item.url, {})" href="javascript:void(0)" >
+        <span ng-if="data.image_field" class="pull-left thumb-sm avatar m-r">
+          <img ng-src="{{item.image_field}}" alt="..." class="img-circle">
+        </span>
+        <div >
+          <div ng-class="{'l-h-40': !item.secondary_fields.length}">{{item.display_field}}</div>
+          <small class="block text-muted m-b-xs" ng-repeat="f in item.secondary_fields">
+            <span ng-if="!$first"> • </span>
+            <span ng-switch="f.type" title="{{::f.label}}">
+              <span ng-switch-when="glide_date"><sn-time-ago timestamp="::f.value" /></span>
+              <span ng-switch-when="glide_date_time"><sn-time-ago timestamp="::f.value" /></span>
+              <span ng-switch-default="">{{f.display_value}}</span>
+            </span>
+          </small>
+        </div>
+      </a>
+
+      <div ng-if="item.cl.length > 0" ng-show="!item.expand" class="requested-items-flex-container">
+        <div class="flex-item" ng-click="toggle($event, item)"><img src="images/filter_hide16.gifx" /></div>
+        <div class="flex-item">
+          <span ng-repeat="stage in item.cl">
+            <span ng-if="stage.value == item.stage">
+              <img src="/images/sp-icon-check-circle.png" data-toggle="tooltip" data-placement="top" ng-attr-title="{{stage.label}}" />
+            </span>
+            <span ng-if="stage.value != item.stage">
+              <img src="/images/sp-icon-empty-circle.png" data-toggle="tooltip" data-placement="top" ng-attr-title="{{stage.label}}" />
+            </span>
+          </span> 
+        </div> 
+      </div>
+
+      <div ng-if="item.cl.length > 0" ng-show="item.expand" class="requested-items-flex-container">
+        <div class="flex-item" ng-click="toggle($event, item)"><img src="images/filter_reveal16.gifx" /></div>
+        <div class="flex-item">
+          <div ng-repeat="stage in item.cl">
+            <div ng-if="stage.value == item.stage" class="stage-on">
+              <img src="/images/sp-icon-check-circle.png" />
+              {{stage.label}}
+            </div>
+            <div ng-if="stage.value != item.stage" class="stage-off text-muted">
+              <img src="/images/sp-icon-empty-circle.png" />
+              {{stage.label}}
+            </div>
+          </div>
+        </div> 
+      </div>
+-->
+
+]]></template>
+    </sp_widget>
+</record_update>

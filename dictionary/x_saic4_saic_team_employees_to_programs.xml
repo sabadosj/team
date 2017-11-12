@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Employees to Programs" max_length="40" name="x_saic4_saic_team_employees_to_programs" sizeclass="6838" type="collection">
+        <element label="Employee" max_length="32" name="employee" reference="sys_user" type="reference"/>
+        <element label="Program" max_length="40" name="program" reference="x_saic4_saic_team_contracts" type="reference"/>
+        <index name="index">
+            <element name="employee"/>
+        </index>
+    </element>
+</database>

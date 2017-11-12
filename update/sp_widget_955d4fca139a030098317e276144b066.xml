@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function ($scope, $element, $window, $location, $rootScope, $timeout, snAttachmentHandler, $http, spUtil) {
+	
+	// Many of these fields are more configuration-type fields than profile fields. We still want to display
+	// these to a user who is configuring their 'settings', but we shouldn't show them on a user profile page.
+	// We need to handle this better.
+	var fieldExcludes = {
+		sys_user: ['name', 'introduction', 'title', 'department', 'location', 'photo',
+							 'manager', 'company'],
+		live_profile: ['short_description', 'photo']
+	}
+	
+	$scope.openConnectConversation = function() {
+		$window.open('/$c.do#?user=' + $scope.data.liveProfileID, '_blank');
+	}
+	
+	$scope.uploadNewProfilePicture = function($event) {
+		$event.stopPropagation();
+		var $el = $element.find('input[type=file]');
+		$el.click();
+	}
+	
+	$scope.attachFiles = function(files) {
+				snAttachmentHandler.create("live_profile", $scope.data.liveProfileID).uploadAttachment(files.files[0], {
+					sysparm_fieldname: "photo"
+				}).then(function(response) {
+					$scope.avatarPicture = {
+						'background-image': "url('" + response.sys_id + ".iix')",
+						'color': 'transparent'
+					};
+					$rootScope.$broadcast("sp.avatar_changed");
+				});
+			}
+	
+	$scope.avatarPicture = "";
+	
+	$http.get('/api/now/live/profiles/sys_user.' + $scope.data.sysUserID).then(function (response) {
+		if (response.data.result && response.data.result.avatar){
+			var avatarPicture = response.data.result.avatar.replace("?t=small", "");
+			$scope.avatarPicture = {
+				'background-image': "url('" + avatarPicture + "')",
+				'color': 'transparent'
+			};
+		}
+	});
+	
+	spUtil.recordWatch($scope, "sys_user", "sys_id=" + $scope.data.sysUserID);
+	spUtil.recordWatch($scope, "live_profile", "sys_id=" + $scope.data.liveProfileID);
+	
+	$scope.connectEnabled = function() {
+		return $scope.data.connectEnabled && !$scope.data.isLoggedInUsersProfile;
+	}
+	
+	$scope.openUserProfile = function($event, userID) {
+		$event.stopPropagation();
+		$event.preventDefault();
+		$location.search("id=user_profile&sys_id=" + userID);
+	}
+	
+	$scope.getSysUserModelFields = function() {
+		return $scope.data.sysUserModelList
+						.filter(function(field) {
+							return $scope.displayField("sys_user", field.name)
+						});
+	}
+	
+	$scope.teamExists = function() {
+		return $scope.data.teamData.direct_reports.length > 0 ||
+			$scope.data.teamData.members.length > 0 ||
+			$scope.data.teamData.manager;
+	}
+	
+	var models = {
+		sys_user: $scope.data.sysUserModel,
+		live_profile: $scope.data.liveProfileModel
+	}
+	
+	$scope.displayField = function(tableName, field, isHeader) {
+		if (!isHeader && fieldExcludes[tableName].indexOf(field) > -1) return false;
+		
+		if (models[tableName][field] && models[tableName][field].type === "boolean") return false;
+		
+		if ($scope.data.isLoggedInUsersProfile) {
+			if (models[tableName][field] && models[tableName][field].readonly)
+				return models[tableName][field].displayValue;
+			else
+				return models[tableName][field];
+		} else {
+			return models[tableName][field] && models[tableName][field].displayValue;
+		}
+	}
+
+	$timeout(function(){
+		$rootScope.$broadcast('finishedChanged', {profile: $scope.data.teamData});
+	});
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.list-group-item {
+  border: none;
+}
+
+
+.select2-container.select2-allowclear .select2-choice .select2-chosen {
+  margin-right: 60px;
+}
+
+.mia i {
+  font-size: 6rem;
+}
+
+.mia {
+  color: #808080;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>Team Management User Profile</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[// populate the 'data' object
+// e.g., data.table = $sp.getValue('table');
+data.sysUserID = $sp.getParameter("sys_id");
+if (!data.sysUserID)
+         data.sysUserID = gs.getUser().getID();
+var sysUserGR = new GlideRecord("sys_user");
+data.userExists = sysUserGR.get(data.sysUserID);
+
+if (data.userExists) {
+	data.name = sysUserGR.getValue("name");
+	var loggedInSysUserID = gs.getUser().getID();
+	data.connectEnabled = GlidePluginManager().isActive('com.glide.connect');
+	data.liveProfileID = "";
+
+	//get live profile id for sending connect messages
+	if (GlidePluginManager().isActive('com.glideapp.live_common')) {
+		var liveProfileGR = new GlideRecord("live_profile");
+		liveProfileGR.addQuery("document", data.sysUserID);
+		liveProfileGR.query();
+		if (liveProfileGR.next()) {
+			data.liveProfileID = liveProfileGR.getValue("sys_id");
+			data.liveProfileModel = $sp.getForm("live_profile", data.liveProfileID)._fields;
+		} else
+			data.connectEnabled = false; //can't find a live profile for this user, so lets not integrate Connect
+	}
+
+	data.isLoggedInUsersProfile = loggedInSysUserID.equals(data.sysUserID);
+	var sysUserForm = $sp.getForm("sys_user", data.sysUserID);
+	data.sysUserView = sysUserForm._view;
+	data.sysUserModel = sysUserForm._fields;
+	data.sysUserModelList = [];
+	
+	for (var i = 0; i < data.sysUserView.length; i++) {
+		data.sysUserModelList.push(data.sysUserModel[data.sysUserView[i].name]);
+	}
+		
+	data.directReports = [];
+	data.teamData = {};
+	data.teamData.direct_reports = [];
+	data.teamData.members = [];
+	
+	if (!data.isLoggedInUsersProfile) {
+		data.teamData.user = {
+			sys_id: data.sysUserID
+		}
+	}
+	
+	//Calculate manager
+	var managerGR = new GlideRecord("sys_user");
+	if (managerGR.get(sysUserGR.getValue("manager"))) {
+		data.teamData.manager = buildUser(managerGR);
+	}
+	
+	//Calculate team
+	if (data.teamData.manager) {
+		var teamGR = new GlideRecord("sys_user");
+		teamGR.addActiveQuery();
+		teamGR.addQuery("manager", data.teamData.manager.sys_id);
+		teamGR.query();
+		while(teamGR.next()) {
+			if (!teamGR.getValue("sys_id").equals(data.sysUserID))
+				data.teamData.members.push(buildUser(teamGR));
+		}
+	}
+	
+	//Calculate direct reports
+	var directReportGR = new GlideRecord("sys_user");
+	directReportGR.addActiveQuery();
+	directReportGR.addQuery("manager", data.sysUserID);
+	directReportGR.query();
+	
+	while(directReportGR.next())
+		data.teamData.direct_reports.push(buildUser(directReportGR));
+	
+	data.teamWidget = $sp.getWidget('sp-my-team', {glyph: 'user', color: 'primary'});
+
+}
+
+function buildUser(userGR) {
+	return {
+		email: userGR.getValue("email") || "",
+		first_name: userGR.getValue("first_name"),
+		last_name: userGR.getValue("last_name"),
+		name: userGR.getValue("name"),
+		phone: userGR.getValue("phone") || "",
+		sys_id: userGR.getValue("sys_id")
+	}
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-09 18:40:05</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>955d4fca139a030098317e276144b066</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>Team Management User Profile</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_955d4fca139a030098317e276144b066</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-10 13:35:56</sys_updated_on>
+        <template><![CDATA[<div>
+  <div ng-if="data.userExists">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4  col-md-6 text-center">
+            <div class="row">
+              <div class="avatar-extra-large avatar-container" style="cursor:default;">
+                <div class="avatar soloAvatar bottom">
+                  <div class="sub-avatar mia" ng-style="avatarPicture"><i class="fa fa-user"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <button ng-if="::connectEnabled()" ng-click="openConnectConversation()" type="button" 
+                      class="btn btn-primary send-message"><span class="glyphicon glyphicon-comment pad-right"></span>${Message}</button>
+              <!-- file upload -->
+              <span ng-if="::data.isLoggedInUsersProfile">
+                <input ng-show="false" type="file" ng-file-select="attachFiles({files: $files})" />
+                <button ng-click="uploadNewProfilePicture($event)" 
+                        ng-keypress="uploadNewProfilePicture($event)" type="button" 
+                        class="btn btn-default send-message">${Upload Picture}</button>
+              </span>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8  col-md-6">
+            <h2>{{data.name}}</h2>
+            <h4 ng-if="::(displayField('sys_user', 'title', true) || displayField('sys_user', 'company', true))">
+              <sp-editable-field ng-if="::displayField('sys_user', 'title', true)" editable-by-user="data.isLoggedInUsersProfile" table="sys_user" table-id="data.sysUserID" field-model="data.sysUserModel.title" on-change="titleOnChange" on-submit="titleOnSubmit"></sp-editable-field>
+              <span ng-if="::(displayField('sys_user', 'company', true) && displayField('sys_user', 'title', true))">at</span>
+              <span ng-if="::(displayField('sys_user', 'company', true) && !displayField('sys_user', 'title', true))">Works at</span>
+              <sp-editable-field ng-if="::displayField('sys_user', 'company', true)" editable-by-user="data.isLoggedInUsersProfile" table="sys_user" table-id="data.sysUserID" field-model="data.sysUserModel.company"></sp-editable-field>
+            </h4>
+            <p ng-if="::displayField('sys_user', 'department', true)"><strong class="pad-right">${Department}</strong><sp-editable-field editable-by-user="data.isLoggedInUsersProfile" table="sys_user" table-id="data.sysUserID" field-model="data.sysUserModel.department"></sp-editable-field></p>
+            <p ng-if="::displayField('sys_user', 'location', true)"><strong class="pad-right">${Location}</strong><sp-editable-field editable-by-user="data.isLoggedInUsersProfile" table="sys_user" table-id="data.sysUserID" field-model="data.sysUserModel.location"></sp-editable-field></p>
+            <p ng-if="::(data.liveProfileID && displayField('live_profile', 'short_description', true))"><strong class="pad-right">${Bio}</strong><sp-editable-field editable-by-user="data.isLoggedInUsersProfile" table="live_profile" table-id="data.liveProfileID" field-model="data.liveProfileModel.short_description"></sp-editable-field></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div ng-class="{'col-md-6': teamExists(), 'col-md-12': !teamExists()}" class="col-sm-12 col-xs-12">
+        <div class="panel panel-primary b" ng-if="getSysUserModelFields().length > 0">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <i class="fa fa-info-circle m-r-sm"></i>${About}
+            </h4>
+          </div>
+          <div class="body padder-xs">
+            <div class="list-group">
+              <div ng-repeat="fieldModel in getSysUserModelFields()">
+                <div class="list-group-item">
+                  <div>
+                    <sp-editable-field block="true" table="sys_user" editable-by-user="data.isLoggedInUsersProfile" table-id="data.sysUserID" field-model="fieldModel"></sp-editable-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="teamExists()" class="col-md-6 col-sm-12 col-xs-12">
+        <sp-widget widget="data.teamWidget"></sp-widget>
+      </div>
+    </div>
+  </div>
+  <div ng-if="!data.userExists" >
+    <div class="panel panel-default">
+      <div class="panel-heading"><h4 class="panel-title">${User not found}</h4></div>
+      <div class="panel-body wrapper">
+        <p>${This user does not exist}</p>
+        <p>${Suggestions}:</p>
+        <ul>
+          <li>${Contact your portal administrator}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

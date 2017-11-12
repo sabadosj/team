@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function () {
+	var c = this;	
+	c.action = function(state) {		
+		c.data.op = state;
+		c.data.state = state;
+		c.server.update();		
+	}	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.question {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.spacer {
+  display:inline-block;
+  width:5%;
+}
+
+.btn-question {
+	width: 45%;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data>{
+  "data": {
+    "fields": [
+      {
+        "type": "glide_date_time",
+        "value": "2016-01-31T17:33:54+00:00",
+        "label": "Approval Example Label"
+      }
+    ],
+    "state": "requested",
+    "label": "incident"
+  },
+  "options": {
+    "color": "default"
+  }
+}</demo_data>
+        <description/>
+        <docs/>
+        <field_list>color</field_list>
+        <has_preview>true</has_preview>
+        <id>team-mgmt-approval-info</id>
+        <internal>false</internal>
+        <link/>
+        <name>Team Mgmt Approval Info</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[//var gr = $sp.getRecord('sysapproval_approver','ef4bb9cd1339834098317e276144b0d2');
+
+var gr = new GlideRecord('sysapproval_approver');
+var sysApprovalSysID = $sp.getParameter("sysapprover");
+qry = 'sys_id='+sysApprovalSysID;
+gr.addEncodedQuery(qry);
+gr.query();
+console.log($sp.getParameter("sysapprover"));
+while (gr.next()) {
+  if (input && input.op && gr) { 
+	  gr.state = input.op;
+	  gr.update();
+  }
+	var fields = $sp.getFields(gr, 'state,sys_created_on');
+
+	if (gr) {
+		if (gr.sys_mod_count > 0)
+			fields.push($sp.getField(gr, 'sys_updated_on'));
+
+		data.fields = fields;
+		data.state = gr.state.toString();
+		data.sys_updated_on = gr.sys_updated_on.toString();
+		data.sys_id = gr.getUniqueValue();
+		data.table = gr.getTableName();
+		data.label = getRecordBeingApproved(gr).getLabel();
+	}
+}
+
+
+
+
+
+function getRecordBeingApproved(gr) {
+	if (!gr.sysapproval.nil())
+		return gr.sysapproval.getRefRecord();
+
+	return gr.document_id.getRefRecord();
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-09 15:54:28</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>412e7648133d0740f6f4b53a6144b0e2</sys_id>
+        <sys_mod_count>43</sys_mod_count>
+        <sys_name>Team Mgmt Approval Info</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_412e7648133d0740f6f4b53a6144b0e2</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-17 02:56:48</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-{{::c.options.color}} b">
+  <div class="panel-heading">
+    <h4 class="panel-title" ng-if="c.data.state == 'approved'">${Approved} <!--<sn-time-ago timestamp="::c.data.sys_updated_on" />--></h4>
+    <h4 class="panel-title" ng-if="c.data.state == 'rejected'">${Rejected} <!--<sn-time-ago timestamp="::c.data.sys_updated_on" />--></h4>
+  </div>  
+  <div class="panel-body">
+    <form ng-submit="$event.preventDefault()" class="form-horizontal">
+<!--   <div ng-if="c.data.fields.length > 0">
+        <div ng-repeat="field in c.data.fields" class="m-b-xs" ng-if="field.value">
+          <label class="m-n">{{field.label}}</label>
+          <span ng-switch="field.type">
+            <div ng-switch-when="glide_date_time" title="{{field.display_value}}"><sn-time-ago timestamp="::field.value" /></div>
+            <div ng-switch-default >{{field.display_value}}</div>
+          </span>
+        </div>
+      </div>-->
+      <div ng-if="c.data.state == 'requested'" class="question">
+        <button type="button" name="approve" class="btn btn-success btn-question" ng-click="c.action('approved')">${Approve}</button>
+        <div class="spacer"></div>
+        <button type="button" name="reject" class="btn btn-default btn-question" ng-click="c.action('rejected')">${Reject}</button>
+      </div>
+    </form>
+  </div>  
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function ($http, $scope, $timeout, $animate, $rootScope, $location) {
+	//$http, $timeout, $scope, $rootScope, spUtil, snRecordWatcher
+
+	var c = this;
+    $http.get('/api/x_saic4_saic_team/teammgmtutils/getAllUserTrnReqs')
+       .then(function(res2) {
+       $scope.data.allTrnReq = res2.data.result;
+    });
+
+	this.onClick = function(recID) {
+			$location.search('id=team_management_sc_request&table=sc_req_item&sys_id='+recID);
+	};
+	
+	function buildChart(userID,fy) {
+		$timeout(function(){	
+      $http.get('/api/x_saic4_saic_team/teammgmtutils/getReqTotImct?usrSysID='+userID+'&fy='+fy)
+	       .then(function(res3) {
+        $scope.data.chartData = res3.data.result;
+		    Highcharts.setOptions({
+          colors: 
+					   ['#cccccc','#85a545','#006BB6'] 
+				  });
+				Highcharts.chart('container', {
+					chart: {
+						type: 'column'
+					},
+					title: {
+						text: 'Demand vs Actual'
+					},
+					subtitle: {
+						text: ''
+					},
+					xAxis: {
+						categories: ['Demand', 'Actuals']
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'Total Demand ($)'
+						},
+		        stackLabels: {
+              enabled: true,
+              style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+						}
+					},
+					tooltip: {
+						headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+						pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+						'<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+						footerFormat: '</table>',
+						shared: true,
+						useHTML: true
+					},
+					plotOptions: {
+						column: {
+							stacking: 'normal',
+							dataLabels: {
+								enabled: true,
+								formatter: function () {
+									return "$" +this.point.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								}
+							}
+
+						}
+					},
+					series: 
+					[{
+							name: 'Pending',
+							data: [$scope.data.chartData.totPending,0]
+					}, {
+							name: 'Approved',
+							data: [$scope.data.chartData.totApproved,0]
+					}, {
+							name: 'Actual',
+							data: [0,$scope.data.chartData.totActuals]
+					}]
+       });
+     });
+   });
+	}
+	
+	
+	
+	
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>Team Management My Requests Table</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script/>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-19 00:25:09</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>e559830713f1474098317e276144b088</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>Team Management My Requests Table</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_e559830713f1474098317e276144b088</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-03 15:22:02</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary b">
+ <div class="panel-heading">
+  <h4 class="panel-title">Request History</h4>
+ </div>
+ <div >
+  <div class="well">
+   <div class="panel panel-default b">
+    <div class="panel-body">
+     <div class="col-sm-12"><br/>
+      <table ng-if="c.data.allTrnReq[0].number" class="table table-condensed table-striped" >
+       <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Req #</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Period</th>
+        <th class="text-nowrap text-right">Cost</th>
+       </tr>
+       <tr ng-repeat="reqItems in c.data.allTrnReq" >
+        <td>{{reqItems.number}}</td>
+        <td>{{reqItems.request_description}}</td>
+        <td><a ng-click="c.onClick(reqItems.original_request_id)" href="javascript:void(0)">{{reqItems.original_request}}</td>
+        <td class="{{reqItems.approval_status}} text-center">{{reqItems.approval_status}}</td>
+        <td class="text-center">{{reqItems.pd}}</td>
+        <td class="text-nowrap text-right">$ {{reqItems.total_cost}}</td>
+       </tr>
+      </table>
+      <div ng-if="!c.data.allTrnReq[0].number">
+        <i><strong>No requests found for this employee.</strong></i>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

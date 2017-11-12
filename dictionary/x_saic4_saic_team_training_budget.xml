@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element audit="true" label="Training Budget" max_length="40" name="x_saic4_saic_team_training_budget" type="collection">
+        <element label="Actuals to Date" max_length="40" name="actuals_to_date" type="currency"/>
+        <element label="Approved Demand" max_length="40" name="approved_demand" type="currency"/>
+        <element label="Balance" max_length="40" name="balance" type="currency"/>
+        <element display="true" label="Budget" max_length="32" name="budget" reference="sys_user" type="reference"/>
+        <element label="Budget Total" max_length="40" name="budget_total" type="currency"/>
+        <element label="FY" max_length="40" name="fy" type="string"/>
+        <element label="Level 2 Rollup" max_length="32" name="level_2_rollup" reference="sys_user" type="reference"/>
+        <element label="Level 3 Rollup" max_length="32" name="level_3_rollup" reference="sys_user" type="reference"/>
+        <element label="Notes" max_length="4000" name="notes" type="journal"/>
+        <element label="Pending Demand" max_length="40" name="pending_demand" type="currency"/>
+        <index name="index">
+            <element name="level_2_rollup"/>
+        </index>
+        <index name="index2">
+            <element name="level_3_rollup"/>
+        </index>
+        <index name="index3">
+            <element name="budget"/>
+        </index>
+    </element>
+</database>

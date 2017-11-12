@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <css>section.page {&#13;
+	background-color: $sp-homepage-bg;&#13;
+}&#13;
+section.page, section.body {&#13;
+    padding-top: 0px !important;&#13;
+}</css>
+        <id>team_home</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-04 17:17:50</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>2141a1e213a18340f6f4b53a6144b03d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>team_home</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_page_2141a1e213a18340f6f4b53a6144b03d</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-04 17:18:17</sys_updated_on>
+        <title>SAIC Team Management Home</title>
+    </sp_page>
+</record_update>

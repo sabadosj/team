@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance_link">
+    <sp_instance_link action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph>anchor</glyph>
+        <id/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <order>1</order>
+        <sc_cat_item/>
+        <sc_category/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">6db95c781302c74098317e276144b00b</sp_column>
+        <sp_page/>
+        <sp_widget display_value="Team Management Sector Indicators">a499ff6c13ce874098317e276144b02b</sp_widget>
+        <sys_class_name>sp_instance_link</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-23 22:37:40</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>98a0e83c1302c74098317e276144b0ae</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Something</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_instance_link_98a0e83c1302c74098317e276144b0ae</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-23 22:42:04</sys_updated_on>
+        <title>Something</title>
+        <type>page</type>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"link_template": {
+		"value": "Color Box",
+		"displayValue": "Color Box"
+	},
+    "color": {
+		"value": "success",
+		"displayValue": "success"
+    }
+}]]></widget_parameters>
+    </sp_instance_link>
+</record_update>

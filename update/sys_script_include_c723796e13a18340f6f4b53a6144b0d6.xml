@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_saic4_saic_team.TeamMgmt</api_name>
+        <client_callable>true</client_callable>
+        <description>Methods to aid in SAIC Team Management  functionality</description>
+        <name>TeamMgmt</name>
+        <script><![CDATA[var TeamMgmt = Class.create();
+TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+	 // *****************************************************************************
+     // Determine where in the organization the logged in user is
+     // *****************************************************************************
+     whoAmI: function(sysID) {
+		// Calculate current FY
+		var datetoconvert = new GlideDate();
+        fycal = new global.AccountingCalendar(datetoconvert);
+        var fy = fycal.fy; //shows Fiscal Year
+
+		var dd = new TeamMgmt();
+        var myData = [];
+		var me  = sysID.toString();
+
+		// 1) do I manage any of the budget owners?
+	    var amiSectMgr = new GlideRecord('x_saic4_saic_team_training_budget');
+        amiSectMgr.addEncodedQuery('budget.u_level_1_manager_id='+me);
+		amiSectMgr.addQuery("fy",fy);
+        amiSectMgr.query();
+        while (amiSectMgr.next()) {
+//		  if (amiSectMgr.next()) {
+			var budtot    = dd.formatDollar(amiSectMgr.getValue('budget_total'));
+			var budbal    = dd.formatDollar(amiSectMgr.getValue('balance'));
+			var budact    = dd.formatDollar(amiSectMgr.getValue('actuals_to_date'));
+			var budpen    = dd.formatDollar(amiSectMgr.getValue('pending_demand'));
+			var budapp    = dd.formatDollar(amiSectMgr.getValue('approved_demand'));
+			var totPen    = parseInt(amiSectMgr.pending_demand);
+			var totAprvd  = parseInt(amiSectMgr.approved_demand);
+			var totDemand = totPen + totAprvd;
+			totDemand     = dd.formatDollar(totDemand);
+            myData.push({
+			  "rolename"      : "sector mgr",
+              "budget"        : amiSectMgr.getDisplayValue('budget'),
+              "totalBudget"   : budtot,
+              "budgetBalance" : budbal,
+              "totActuals"    : budact,
+              "totPending"    : budpen,
+              "totApproved"   : budapp,
+			  "totDemand"     : totDemand
+		    });
+//		  } 
+		}
+        if (Array.isArray(myData) && myData.length > 0) {
+			return myData;
+		}
+
+		// 2) do I own a budget???
+		var amibudgetOwner = new GlideRecord('x_saic4_saic_team_training_budget');
+		amibudgetOwner.addQuery("fy",fy);
+        amibudgetOwner.addQuery('budget', me);
+        amibudgetOwner.query();
+        while (amibudgetOwner.next()) {
+//		  if (amibudgetOwner.next()) {
+            myData.push({
+              "rolename"      : "budget mgr",
+              "budget"        : amibudgetOwner.getDisplayValue('budget'),
+              "totalBudget"   : amibudgetOwner.getValue('budget_total'),
+              "budgetBalance" : amibudgetOwner.getValue('balance'),
+              "totActuals"    : amibudgetOwner.getValue('actuals_to_date'),
+              "totPending"    : amibudgetOwner.getValue('pending_demand'),
+              "totApproved"   : amibudgetOwner.getValue('approved_demand')
+		    });
+//		  }
+		}
+        if (Array.isArray(myData) && myData.length > 0) {
+		   return myData;
+		}
+        // 3) are there requests where I'm mgr?
+        var amiSLTL = new GlideAggregate('x_saic4_saic_team_training_requests');
+        amiSLTL.addAggregate('COUNT');
+        amiSLTL.addQuery('level_1_manager.sys_id', me);
+		amiSLTL.addQuery("fy",fy);
+        amiSLTL.query();
+        while (amiSLTL.next()) {
+		  if (amiSLTL.getAggregate('COUNT')>0) {
+			  myData.push({
+				  "rolename" : "sltl",
+				  "count"    : amiSLTL.getAggregate('COUNT'),
+				  "itemType" : "requests"
+			  });
+		  }
+		}
+        if (Array.isArray(myData) && myData.length > 0) {
+		   return myData;
+		}
+        myData.push({
+          "rolename" : "employee",
+          "count"    : "0",
+          "itemType" : "employee"
+        });
+        if (Array.isArray(myData) && myData.length > 0) {
+		   return myData;
+		}
+
+	 },
+
+     formatDollar: function(value) {
+	    var returnval = parseInt(value);
+	    returnval = returnval.toFixed(2);
+	    returnval = returnval.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	    return returnval;
+     },
+	
+	 // *****************************************************************************
+     // Return A persons team based on organization data
+     // *****************************************************************************
+     getMyTeam: function(sysUserID) {
+		var fn = new TeamMgmt();
+        var teamData = {};
+        teamData.direct_reports = [];
+
+        //Calculate direct reports
+        var directReportGR = new GlideRecord("sys_user");
+        directReportGR.addActiveQuery();
+        directReportGR.addQuery("manager", sysUserID);
+        directReportGR.query();
+        while(directReportGR.next()) {
+            teamData.direct_reports.push(
+				{
+                  "email"      : directReportGR.getValue("email") || "",
+                  "first_name" : directReportGR.getValue("first_name"),
+                  "last_name"  : directReportGR.getValue("last_name"),
+                  "name"       : directReportGR.getValue("name"),
+                  "phone"      : directReportGR.getValue("phone") || "",
+                  "sys_id"     : directReportGR.getValue("sys_id"),
+			      "pmInfo"     : fn.getMyPM(directReportGR.getValue("sys_id"))
+				}
+			);
+		}
+        return teamData.direct_reports;
+	 },
+
+	 // *****************************************************************************
+     // GET my PM if you can
+	 // *****************************************************************************
+     getMyPM: function(sysUserID) {
+        var pm = new GlideRecord('x_saic4_saic_team_employees_to_programs');
+        pm.addQuery('employee', sysUserID);
+        pm.query();
+		var PMs = {};
+		PMs.details = [];
+        if (pm.getRowCount() < 1) {
+           return 'no pm';
+//        } else if (pm.getRowCount() > 1) {
+//           return pm.getRowCount()+ "pm's";
+        } else {
+           while (pm.next()) {
+			 PMs.details.push(
+			   {
+                "pmSysID"  : pm.program.program_manager.toString(),
+                "pm_name"  : pm.getDisplayValue('program.program_manager'),
+                "popStart" : pm.getDisplayValue('program.pop_start'),
+                "popEnd"   : pm.getDisplayValue('program.pop_stop'),
+                "contract" : pm.getDisplayValue('program.number'),
+                "title"    : pm.getDisplayValue('program.title'),
+                "customer" : pm.getDisplayValue('program.customer'),
+			   }
+             );
+           }
+        }
+	    return PMs.details;
+	 },
+	
+	 // *****************************************************************************
+     // Return general total stats on actuals
+     // *****************************************************************************
+		 
+     getActualsStats: function() {
+        // Calculate current FY
+		var datetoconvert = new GlideDate();
+        fycal = new global.AccountingCalendar(datetoconvert);
+        var fy = fycal.fy; //shows Fiscal Year
+
+        var series = [];
+        
+        var trngActuals = new GlideAggregate('x_saic4_saic_team_actuals');
+		trngActuals.groupBy('project_name');
+// 		trngActuals.setGroup(false);
+        trngActuals.addQuery('fy', fy);
+        trngActuals.query();
+        while (trngActuals.next()) {
+//			gs.info('getActualsStats: ' + trngActuals.getAggregate('COUNT'));
+			var project_name = trngActuals.getValue('project_name');
+            var pdActuals = new GlideAggregate('x_saic4_saic_team_actuals');
+            pdActuals.groupBy('period');
+            pdActuals.orderBy('period');
+            pdActuals.addAggregate('SUM', 'total_burdened_cost');
+            pdActuals.addQuery('fy', fy);
+            pdActuals.addQuery('project_name', project_name);
+            pdActuals.query();
+            var pdData = [];
+            var counter = 0;
+            while (pdActuals.next()) {
+				counter = counter + 1;
+                for (var i=counter;i<13;i++) {
+				    var pd    = pdActuals.getValue('period');
+				    pd        = parseFloat(pd);
+				    var bcost = pdActuals.getAggregate('SUM', 'total_burdened_cost');
+				    bcost     = parseFloat(bcost);
+					//bcost     = bcost.toFixed(2);
+    			    if (i == pd) {
+//                       pdData.push(pd);   this was added for debugging to ensure the value was for the right period
+                       pdData.push(bcost);
+				       break;
+				    } else {
+//                       pdData.push(i);    see above
+                       pdData.push(0);
+				    }
+				}
+			}
+			series.push({
+				 "name" : trngActuals.getValue('project_name'),
+				 "data" : pdData
+			});
+		}
+		return series;
+		
+     },
+	 // *****************************************************************************
+     // Return general total stats on Budgets
+     // *****************************************************************************
+     getBudgetStats: function() {
+        // Calculate current FY
+		var datetoconvert = new GlideDate();
+        fycal = new global.AccountingCalendar(datetoconvert);
+        var fy = fycal.fy; //shows Fiscal Year
+
+		var myData = [];
+
+		var trngrbdgt = new GlideRecord('x_saic4_saic_team_training_budget');
+        trngrbdgt.addQuery('fy', fy);		
+        trngrbdgt.query();
+        while (trngrbdgt.next()) {
+           myData.push({
+			    "budget"        : trngrbdgt.getDisplayValue('budget'),
+				"totalBudget"   : trngrbdgt.getValue('budget_total'),
+				"budgetBalance" : trngrbdgt.getValue('balance'),
+			    "totActuals"    : trngrbdgt.getValue('actuals_to_date'),
+			    "totPending"    : trngrbdgt.getValue('pending_demand'),
+			    "totApproved"   : trngrbdgt.getValue('approved_demand')
+			});
+		}
+		return myData;
+		
+     },
+	
+	 // *****************************************************************************
+     // Return general stats on training metrics
+     // *****************************************************************************
+     getEntRequestActivity: function() {
+        // Calculate current FY
+		var datetoconvert = new GlideDate();
+        fycal = new global.AccountingCalendar(datetoconvert);
+        var fy = fycal.fy; //shows Fiscal Year
+
+        var totBudget        = 0;
+        var budgetBalance    = 0;
+        var totBudgetCount   = 0;
+        var totPending       = 0;
+        var totPendingCount  = 0;
+        var totApproved      = 0;
+        var totApprovedCount = 0;
+		var totActuals       = 0;
+		var totActualsCount  = 0;
+        var totDenied        = 0;
+        var totDeniedCount   = 0;
+
+		var stats            = {};
+
+        // Get Requst Stats
+		var entStats = new GlideRecord('x_saic4_saic_team_training_requests');
+        entStats.addQuery('approval_status','IN','Pending,Approved,Denied');
+        entStats.addQuery('fy',fy);
+        entStats.query();
+        while (entStats.next()) {
+			var total_cost = 0;
+			total_cost =  entStats.getValue('estimated_course_cost')*1;
+			total_cost += entStats.getValue('estimated_labor_cost')*1;
+			total_cost += entStats.getValue('estimated_exam_fees')*1;
+			total_cost += entStats.getValue('estimated_lab_fees_books')*1;
+			total_cost += entStats.getValue('estimated_travel_cost')*1;
+            total_cost  = total_cost.toFixed(2);
+			if (entStats.approval_status =='Pending') {
+				totPending       += parseFloat(total_cost);
+				totPendingCount  += 1;
+			}
+			if (entStats.approval_status =='Approved') {
+				totApproved      += parseFloat(total_cost);
+				totApprovedCount += 1;
+			}
+			if (entStats.approval_status =='Denied') {
+				totDenied        += parseFloat(total_cost);
+				totDeniedCount   += 1;
+			}
+        }
+		totPending   = totPending.toFixed(2);
+		totApproved  = totApproved.toFixed(2);
+		totDenied    = totDenied.toFixed(2);
+
+		// Get Actuals Stats
+        var trngActuals = new GlideAggregate('x_saic4_saic_team_actuals');
+		trngActuals.addAggregate('SUM', 'total_burdened_cost');
+		trngActuals.addAggregate('COUNT');
+		trngActuals.setGroup(false);
+        trngActuals.addQuery('fy', fy);
+        trngActuals.query();
+        while (trngActuals.next()) {
+		     totActuals      = trngActuals.getAggregate('SUM', 'total_burdened_cost');
+			 totActualsCount = trngActuals.getAggregate('COUNT');
+		}
+
+        // Get Budget Stats
+        var trngrbdgt = new GlideAggregate('x_saic4_saic_team_training_budget');
+        trngrbdgt.addAggregate('SUM', 'budget_total');
+        trngrbdgt.addAggregate('SUM', 'balance');
+        trngrbdgt.addAggregate('COUNT');
+		trngrbdgt.setGroup(false);
+        trngrbdgt.addQuery('fy', fy);		
+        trngrbdgt.query();
+        while (trngrbdgt.next()) {
+		     totBudget      = trngrbdgt.getAggregate('SUM', 'budget_total');
+		     budgetBalance  = trngrbdgt.getAggregate('SUM', 'balance');
+			 totBudgetCount = trngrbdgt.getAggregate('COUNT');
+		}
+		 
+		stats.TotalBudgetCount = totBudgetCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.TotalBudget      = '$' + totBudget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.BudgetBalance    = '$' + budgetBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.ApprovedCount    = totApprovedCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.ApprovedAmount   = '$' + totApproved.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.PendingCount     = totPendingCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.PendingAmount    = '$' + totPending.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.DeniedCount      = totDeniedCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.DeniedAmount     = '$' + totDenied.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.totActualsCount  = totActualsCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        stats.totActuals       = '$' + totActuals.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return stats;
+     },
+
+	 // *****************************************************************************
+     // Update budget records based on data stored in actuals
+     // *****************************************************************************
+	 updateBudgetFromActuals: function(fy) {
+        var divs = [];
+		var encQry = 'fy='+fy;
+        var trngActuals = new GlideAggregate('x_saic4_saic_team_actuals');
+		trngActuals.addAggregate('SUM', 'total_burdened_cost');
+		trngActuals.groupBy('employee.u_division');
+		trngActuals.groupBy('employee.u_division.u_division_manager');
+        trngActuals.addEncodedQuery(encQry);
+        trngActuals.query();
+        while (trngActuals.next()) {
+			var divMgr = trngActuals.getValue('employee.u_division.u_division_manager');
+			var divStr = trngActuals.getDisplayValue('employee.u_division');
+			if (divStr.length == 2) {
+				divStr = "000"+divStr;			
+			} else if (divStr.length == 3) {
+				divStr = "00"+divStr;			
+			} else if (divStr.length == 4) {
+				divStr = "0"+divStr;			
+			} 
+
+			var trngrbdgt = new GlideRecord('x_saic4_saic_team_training_budget');
+            trngrbdgt.addQuery('budget',divMgr);
+            trngrbdgt.query();
+			var updateStatus = "";
+	        while (trngrbdgt.next()) {
+				var tot_burden = trngActuals.getAggregate('SUM', 'total_burdened_cost');
+				trngrbdgt.actuals_to_date = tot_burden;
+		        trngrbdgt.balance= trngrbdgt.budget_total - trngActuals.getAggregate('SUM', 'total_burdened_cost');
+                updateStatus = trngrbdgt.update();
+//                gs.info("Budget record updated with status: " + updateStatus+ " total Burden = "+ tot_burden + ".  Budget total = "+trngrbdgt.budget_total);
+            }
+			divs.push({
+				"strDir"           : divStr,
+				"division"         : trngActuals.getDisplayValue('employee.u_division'),
+				"total_burden"     : trngActuals.getAggregate('SUM', 'total_burdened_cost'),
+				"div_mgr"          : divMgr,
+				"budget_update"    : updateStatus
+			});
+        }
+		 return divs;
+    },
+	
+	
+	// *****************************************************************************
+	// This is meant to be used in workflow to add identified approves of a request to the watchlist, giving them 
+	// read/write access to comments, attachments, etc.,...
+    // *****************************************************************************
+    addToWatchListbySysID: function(tableName, recSysID, usrSysID) {
+       var wlGr = new GlideRecord(tableName);
+	   wlGr.addQuery('sys_id', recSysID);
+	   wlGr.query();
+	   while (wlGr.next()) {
+		  wlGr.watch_list = usrSysID;
+		  wlGr.update();
+	    }
+	},
+
+    // *****************************************************************************
+    // returns the approver that actually approved a request	
+    // *****************************************************************************
+    getRequestApprover: function(reqID) {
+		
+		var Apprvr = "";
+		var appGr = new GlideRecord('sysapproval_approver');
+		appGr.addQuery('sysapproval', reqID);
+		appGr.addQuery('state','approved');
+		appGr.query();
+//		gs.info('getRequestApprover: reqID: ' + reqID + ', Can Read sysapproval_approver record: ' +appGr.canRead());
+    	while (appGr.next()) {
+			Apprvr = appGr.getValue('approver');
+		}
+		return Apprvr;
+		
+	},
+
+    // *****************************************************************************
+	// returns the budget record by division number (found on the users record)	
+    // *****************************************************************************
+    getBudgetID: function(fy,divNo) {
+
+        var divStr = divNo.toString();
+		if (divStr.length == 2) {
+           divStr = "000"+divStr;			
+		} else if (divStr.length == 3) {
+           divStr = "00"+divStr;			
+		} else if (divStr.length == 4) {
+           divStr = "0"+divStr;			
+		} 
+
+		var divOwner = "";
+		var budRec = "";
+		// query the division table to get the manager of the division (which is the key on the budget record)
+		var divGr = new GlideRecord('u_division');
+		divGr.addQuery('u_division_id', divStr);
+		divGr.query();
+    	while (divGr.next()) {
+			divOwner = divGr.getValue('u_division_manager');
+		    // query the budget table division manager
+            var bdgtGr = new GlideRecord('x_saic4_saic_team_training_budget');
+            bdgtGr.addQuery('budget', divOwner);
+            bdgtGr.query();
+            while (bdgtGr.next()) {
+				budRec = bdgtGr.getValue('sys_id');
+			}
+		}
+		return budRec;
+		
+	},
+	
+    // *****************************************************************************
+    // returns submitted training requests by the user Sys ID	
+    // *****************************************************************************
+	getMySubmittedRequests: function(usrSysID) {
+		var gr = new GlideRecord('x_saic4_saic_team_training_requests');
+        var data = {};
+		gr.addQuery('requested_for', usrSysID);
+//        gr.addQuery('requested_for', '1138a2d568df310073b89ba81df3ae40');
+//        gr.addQuery('approval_status','IN','Pending,Approved');
+		gr.addQuery('approval_status','IN','Pending');
+   	    data.display_field = 'sys_created_on';
+	    data.secondary_fields = ['number','sys_updated_on'];
+	    data.filterMsg = gs.getMessage("Filter...");
+        gr.orderByDesc('sys_created_on');
+        gr.query();
+		
+        data.count = gr.getRowCount();
+        data.list = [];
+        var recordIdx = 0;
+        var itemSysID = "";
+		var itemCount = 0;
+        while (gr.next()) {
+            var record = {};
+//            record.sys_id = gr.getValue('sys_id');
+            record.sys_id = gr.getValue('original_request_id');
+            // Get the request "ITEM" vs the "Request" record
+            var ritm = new GlideRecord("sc_req_item");
+            ritm.addQuery("sys_id", gr.getValue('original_request_id'));
+            ritm.query();
+            itemCount = ritm.getRowCount();
+            if (ritm.getRowCount() == 0) {
+               continue;
+            }
+            if (ritm.getRowCount() > 1) {
+               record.display_field = gs.getMessage("{0} requested items", ritm.getRowCount());
+            } else {
+              ritm.next();
+              record.display_field = gr.request_description + ' ('+gr.number+')';
+            }
+            itemSysID = ritm.getValue('sys_id');
+            record.itemNumber = ritm.getDisplayValue('number');
+            record.secondary_fields = [];
+            data.secondary_fields.forEach(function(f) {
+               record.secondary_fields.push(getField(gr, f));
+            });
+            record.url = {id: 'team_management_sc_request', table: 'sc_req_item', sys_id: itemSysID};
+		    data.list.push(record);
+		    recordIdx++;
+	    }
+	
+        return data.list;
+		
+	    function getField(gr, name) {
+		   var f = {};
+		   f.display_value = gr.getDisplayValue(name);
+		   f.value = gr.getValue(name);
+		   var ge = gr.getElement(name);
+		   f.type = ge.getED().getInternalType();
+		   f.label = ge.getLabel();
+		   return f;
+	    }
+		
+	},
+	
+    // *****************************************************************************
+    // returns all defined approvers associated with a catalog request	
+    // *****************************************************************************
+    getAllReqApprovers: function(reqID) {
+		
+		var Apprvrs = [];
+		var appGr = new GlideRecord('sysapproval_approver');
+		appGr.addQuery('sysapproval', reqID);
+		appGr.query();
+    	while (appGr.next()) {
+			Apprvrs.push({
+				"approver_sys_id"    : appGr.getValue('approver'),
+				"approver_name"      : appGr.getDisplayValue('approver'),
+				"state"              : appGr.getDisplayValue('state')
+			});
+		}
+		return Apprvrs;
+		
+	},
+
+    // *****************************************************************************
+    // Send in a CRN and get the sysID returned.
+    // *****************************************************************************
+	userTranslateCrnDtoSysID: function(crnID) {
+		var gr = new GlideRecord('x_saic4_saic_team_contracts');
+		gr.addQuery('number', crnID);
+		gr.query();
+		
+    	while (gr.next()) {
+			return gr.getValue('sys_id');
+		}
+		return 'not found';
+	},			
+	
+	
+    // *****************************************************************************
+    // Send in an employee id and the sys_id is returned
+	// *****************************************************************************
+	userTranslateEmpIDtoSysID: function(empID) {
+		var gr = new GlideRecord('sys_user');
+		gr.addQuery('employee_number', empID);
+		gr.query();
+		
+//        if (gr.getRowCount() < 1) return false;
+		
+    	while (gr.next()) {
+			return gr.getValue('sys_id');
+		}
+		return 'not found';
+	},			
+			
+    // *****************************************************************************
+    // get all the details associated with an employee by passing in the employee id
+	// *****************************************************************************
+	userDetailsByEmpID: function(empID) {
+		var gr = new GlideRecord('sys_user');
+		gr.addQuery('employee_number', empID);
+		gr.query();
+		
+		if (gr.getRowCount() < 1) return false;
+		
+		var emprez = {};
+		while (gr.next()) {
+			emprez.usr_sys_id            = gr.getDisplayValue('sys_id');
+			emprez.usr                   = gr.getDisplayValue('name');
+			emprez.manager               = gr.getValue('manager');
+			emprez.manager_name          = gr.getDisplayValue('manager');
+			emprez.u_ops_SL              = gr.getValue('u_operations');
+			emprez.u_ops_name_SL         = gr.getDisplayValue('u_operations');
+			emprez.u_ops_manager_SL      = gr.getDisplayValue('u_operations.u_ops_manager.sys_id');
+			emprez.u_ops_manager_name_SL = gr.getDisplayValue('u_operations.u_ops_manager');
+			emprez.u_directorate_manager = gr.getDisplayValue('u_directorate_manager');
+			emprez.u_division            = gr.getDisplayValue('u_division');
+			emprez.u_division_manager    = gr.getDisplayValue('u_division_manager');
+			emprez.u_level_1_manager     = gr.getDisplayValue('u_level_1_manager_id');
+			emprez.u_level_1_manager_id  = gr.getValue('u_level_1_manager_id');
+			emprez.u_level_2_manager     = gr.getDisplayValue('u_level_2_manager_id');
+			emprez.u_level_2_manager_id  = gr.getValue('u_level_2_manager_id');
+			emprez.u_level_3_manager     = gr.getDisplayValue('u_level_3_manager_id');
+			emprez.u_level_3_manager_id  = gr.getValue('u_level_3_manager_id');
+			emprez.u_level_4_manager     = gr.getDisplayValue('u_level_4_manager_id');
+			emprez.u_level_4_manager_id  = gr.getValue('u_level_4_manager_id');
+		}
+		return emprez;
+	},
+
+	
+    // *****************************************************************************
+    // get all the details about an employee by passing in the employee's sys_id
+	// *****************************************************************************
+	userDetailsBySysID: function(sysID) {
+		var gr = new GlideRecord('sys_user');
+		gr.addQuery('sys_id', sysID);
+		gr.query();
+		
+		if (gr.getRowCount() < 1) return false;
+		
+		var rez = {};
+		while (gr.next()) {
+			rez.usr_sys_id            = gr.getDisplayValue('sys_id');
+			rez.usr                   = gr.getDisplayValue('name');
+			rez.manager               = gr.getValue('manager');
+			rez.manager_name          = gr.getDisplayValue('manager');
+			rez.u_ops_SL              = gr.getValue('u_operations');
+			rez.u_ops_name_SL         = gr.getDisplayValue('u_operations');
+			rez.u_ops_manager_SL      = gr.getDisplayValue('u_operations.u_ops_manager.sys_id');
+			rez.u_ops_manager_name_SL = gr.getDisplayValue('u_operations.u_ops_manager');
+			rez.u_directorate_manager = gr.getDisplayValue('u_directorate_manager');
+			rez.u_division            = gr.getDisplayValue('u_division');
+			rez.u_division_manager    = gr.getDisplayValue('u_division_manager');
+			rez.u_division_manager_id = gr.getValue('u_division_manager');
+			rez.u_division_name       = gr.getValue('u_division_name');
+			rez.u_level_1_manager     = gr.getDisplayValue('u_level_1_manager_id');
+			rez.u_level_1_manager_id  = gr.getValue('u_level_1_manager_id');
+			rez.u_level_2_manager     = gr.getDisplayValue('u_level_2_manager_id');
+			rez.u_level_2_manager_id  = gr.getValue('u_level_2_manager_id');
+			rez.u_level_3_manager     = gr.getDisplayValue('u_level_3_manager_id');
+			rez.u_level_3_manager_id  = gr.getValue('u_level_3_manager_id');
+			rez.u_level_4_manager     = gr.getDisplayValue('u_level_4_manager_id');
+			rez.u_level_4_manager_id  = gr.getValue('u_level_4_manager_id');
+		}
+
+		// GET PM if you can
+		var pm = new GlideRecord('x_saic4_saic_team_employees_to_programs');
+		pm.addQuery('employee', sysID);
+		pm.query();
+		if (pm.getRowCount() < 1) {
+		   rez.pm = 'no pm';
+        } else if (pm.getRowCount() > 1) {
+           rez.pm = 'to many pm';
+        } else {
+           while (pm.next()) {
+             //rez.pm = pm.getElement('program.program_manager');
+			 rez.pm = pm.program.program_manager.toString(); 
+             rez.pm_name = pm.getDisplayValue('program.program_manager');
+			   //getValue('program');
+           }
+        }
+		
+		// Get employee type (e.g., bu leader, div owner, sltl or just plain old employee)
+				
+		return rez;
+	},
+	
+	// *****************************************************************************
+	// Return values used for charting regarding the users training request impact on budget
+	// *****************************************************************************
+	userTrnImpactBySysID: function(fy,usrSysID) {
+		
+        // Gather totals from pending and approved training requests for this user
+		var count = new GlideRecord('x_saic4_saic_team_training_requests');
+        count.addQuery('requested_for', usrSysID);
+        count.addQuery('fy', fy);
+		count.addQuery('approval_status','IN','Pending,Approved');
+		count.query();   
+
+//		if (count.getRowCount() < 1) return false;
+
+        var totPending  = 0;
+		var totApproved = 0;
+		var impctrez    = {};
+		while (count.next()) {
+			var total_cost = 0;
+			total_cost =  count.getValue('estimated_course_cost')*1;
+			total_cost += count.getValue('estimated_labor_cost')*1;
+			total_cost += count.getValue('estimated_exam_fees')*1;
+			total_cost += count.getValue('estimated_lab_fees_books')*1;
+			total_cost += count.getValue('estimated_travel_cost')*1;
+            total_cost  = parseFloat(total_cost);
+			if (count.approval_status =='Pending') {
+			//	totPending  += parseFloat(total_cost);
+				totPending  += total_cost;
+			}
+			if (count.approval_status =='Approved') {
+			//	totApproved += parseFloat(total_cost);
+				totApproved += total_cost;
+			}
+        }
+		impctrez.totPending  = parseFloat(Math.round(totPending * 100) / 100);
+		impctrez.totApproved = parseFloat(Math.round(totApproved * 100) / 100);
+
+        // Get the total of actuals generated for training for this user
+		var actCount = new GlideRecord('x_saic4_saic_team_actuals');
+        actCount.addQuery('employee', usrSysID);
+        actCount.addQuery('fy', fy);
+		actCount.query();   
+
+        var totActuals  = 0;
+		while (actCount.next()) {
+			totActuals += actCount.getValue('total_burdened_cost')*1;
+        }
+		impctrez.totActuals  = parseFloat(Math.round(totActuals * 100) / 100);
+		
+		return impctrez;
+
+	},
+
+	// *****************************************************************************
+	// Return the details of a training request when passing in the RITM #
+	// *****************************************************************************
+	userTrainReqBySysID: function(reqID) {
+		var gr = new GlideRecord('x_saic4_saic_team_training_requests');
+		gr.addQuery('original_request_id', reqID);
+		gr.query();
+		if (gr.getRowCount() < 1) return false;
+		var rez = {};
+		var total_cost = 0;
+		while (gr.next()) {
+			total_cost = (gr.getValue('estimated_course_cost'))*1;
+			total_cost += (gr.getValue('estimated_labor_cost'))*1;
+			total_cost += (gr.getValue('estimated_exam_fees'))*1;
+			total_cost += (gr.getValue('estimated_lab_fees_books'))*1;
+			total_cost += (gr.getValue('estimated_travel_cost'))*1;
+            total_cost  = total_cost.toFixed(2);
+			total_cost = total_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            var estimated_course_cost    = gr.getValue('estimated_course_cost')*1;
+            var estimated_exam_fees      = gr.getValue('estimated_exam_fees')*1;
+            var estimated_labor_cost     = gr.getValue('estimated_labor_cost')*1;
+            var estimated_lab_fees_books = gr.getValue('estimated_lab_fees_books')*1;
+            var estimated_travel_cost    = gr.getValue('estimated_travel_cost')*1;
+			
+            estimated_course_cost        = estimated_course_cost.toFixed(2);
+            estimated_exam_fees          = estimated_exam_fees.toFixed(2);
+            estimated_labor_cost         = estimated_labor_cost.toFixed(2);
+            estimated_lab_fees_books     = estimated_lab_fees_books.toFixed(2);
+            estimated_travel_cost        = estimated_travel_cost.toFixed(2);
+			
+			rez.approval_status          = gr.getDisplayValue('approval_status');
+            rez.approved_by_name         = gr.getDisplayValue('approved_by');
+            rez.approved_by              = gr.getValue('approved_by');
+            rez.approved_on_date         = gr.getValue('approved_on_date');
+            rez.budget                   = gr.getValue('budget');
+            rez.customer_group           = gr.getDisplayValue('customer_group');
+            rez.category                 = gr.getDisplayValue('category');
+            rez.delivery_method          = gr.getDisplayValue('delivery_method');
+            rez.type                     = gr.getDisplayValue('type');
+            rez.division                 = gr.getValue('division');
+            rez.duration                 = gr.getDisplayValue('duration');
+            rez.estimated_course_cost    = estimated_course_cost.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            rez.estimated_exam_fees      = estimated_exam_fees.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            rez.estimated_labor_cost     = estimated_labor_cost.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            rez.estimated_lab_fees_books = estimated_lab_fees_books.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            rez.estimated_travel_cost    = estimated_travel_cost.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            rez.total_cost               = total_cost;
+			rez.fy                       = gr.getValue('fy');
+            rez.pd                       = gr.getValue('pd');
+            rez.justification            = gr.getValue('justification');
+            rez.level_1_manager_name     = gr.getDisplayValue('level_1_manager');
+            rez.level_1_manager          = gr.getValue('level_1_manager');
+            rez.level_2_manager_name     = gr.getDisplayValue('level_2_manager');
+            rez.level_2_manager          = gr.getValue('level_2_manager');
+            rez.level_3_manager_name     = gr.getDisplayValue('level_3_manager');
+            rez.level_3_manager          = gr.getValue('level_3_manager');
+            rez.level_4_manager_name     = gr.getDisplayValue('level_4_manager');
+            rez.level_4_manager          = gr.getValue('level_4_manager');
+            rez.pm                       = gr.getDisplayValue('pm');
+            rez.original_request_id      = gr.getValue('original_request_id');
+            rez.original_request         = gr.getDisplayValue('original_request_id');
+            rez.requested_by_name        = gr.getDisplayValue('requested_by');
+            rez.requested_by             = gr.getValue('requested_by');
+            rez.requested_for_name       = gr.getDisplayValue('requested_for');
+            rez.requested_for            = gr.getValue('requested_for');
+            rez.request_description      = gr.getValue('request_description');
+            rez.number                   = gr.getValue('number');
+            rez.sys_id                   = gr.getValue('sys_id');
+		}
+		return rez;
+	},
+
+	// *****************************************************************************
+	// Return all historical training requests by user
+	// *****************************************************************************
+//	allTrainReqsByUsr: function(fy,usrSysID,reqSysID) {
+	allTrainReqsByUsr: function(usrSysID,reqSysID) {
+		// Calculate current FY
+		var datetoconvert = new GlideDate();
+        fycal = new global.AccountingCalendar(datetoconvert);
+        var fy = fycal.fy; //shows Fiscal Year
+
+//https://saicitodev.service-now.com/x_saic4_saic_team_training_requests_list.do?sysparm_query=requested_for%3D1138a2d568df310073b89ba81df3ae40&sysparm_list_mode=grid		
+		
+		
+		var gr = new GlideRecord('x_saic4_saic_team_training_requests');
+var qryStr = 'requested_for='+usrSysID.toString();
+//		gr.addQuery('requested_for',usrSysID);
+gr.addEncodedQuery(qryStr);
+		gr.addQuery('fy',fy);
+		gr.addQuery('sys_id','!=',reqSysID);
+		gr.orderBy('pd');
+		gr.orderByDesc('sys_created_on');
+		gr.query();
+		
+		var reqRez = [];
+        var total_cost = 0;
+		while (gr.next()) {
+			total_cost =  (gr.getValue('estimated_course_cost'))*1;
+			total_cost += (gr.getValue('estimated_labor_cost'))*1;
+			total_cost += (gr.getValue('estimated_exam_fees'))*1;
+			total_cost += (gr.getValue('estimated_lab_fees_books'))*1;
+			total_cost += (gr.getValue('estimated_travel_cost'))*1;
+            total_cost  = total_cost.toFixed(2);
+			reqRez.push({
+				"trn_sys_id"          : gr.getValue('sys_id'),
+				"number"              : gr.getDisplayValue('number'),
+				"original_request"    : gr.getDisplayValue('original_request_id'),
+				"original_request_id" : gr.getValue('original_request_id'),
+				"request_description" : gr.getValue('request_description'),
+				"pd"                  : gr.getValue('pd'),
+				"approval_status"     : gr.getDisplayValue('approval_status'),
+				"total_cost"          : total_cost
+			});
+		}
+
+		return reqRez;
+	},
+
+
+// ********  EXAMPLES BELOW provided by the SIR MASTER BLEICHER, developer extraordinaire *******************
+	
+	
+	pursuitSupportingBySysID: function(sysID) {
+		var gr = new GlideRecord('u_supporting_resources');
+		gr.addQuery('u_pursuit', sysID);
+		gr.query();
+		
+		var suppRez = [];
+		while (gr.next()) {
+			suppRez.push({
+				"person"    : gr.getDisplayValue('u_requested_resource_name'),
+				"bdrequest" : gr.getDisplayValue('u_bd_request'),
+				"role"      : gr.getDisplayValue('u_support_role'),
+				"ackStat"   : gr.getDisplayValue('u_acknowledgment'),
+				"svcLine"   : gr.getDisplayValue('u_service_line')
+			});
+		}
+
+		return suppRez;
+	},
+
+	pursuitContributingBySysID: function(sysID) {
+		var gr = new GlideRecord('u_contributing_service_lines');
+		gr.addQuery('u_id', sysID);
+		gr.query();
+				
+		var contribs = [];
+		while (gr.next()) {
+			contribs.push({
+				// ^u_service_line.u_name=DIGITAL INFRASTRUCTURE
+				// u_id.u_customer_group.u_name=FEDERAL CIVILIAN CG
+				// ^u_type=Lead Service Line
+				// u_allocation_percent=95
+				// 
+				"sl"   : gr.getDisplayValue('u_service_line'),
+				"cg"   : gr.getDisplayValue('u_id.u_customer_group'),
+				"aType": gr.getDisplayValue('u_type'),
+				"aperc": gr.getValue('u_allocation_percent')+"%"
+			});
+		}
+
+		return contribs;
+	},
+
+    pursuitNewResourceAssignment: function(crmID, supportRole, supportDesc, srSL, resourceName, bdrequest) {
+	    var gr = new GlideRecord('u_supporting_resources');
+        gr.initialize();
+		if (crmID)        {crmID=crmID.toString();}
+		if (supportRole)  {supportRole=supportRole.toString();}
+		if (supportDesc)  {supportDesc=supportDesc.toString();}
+		if (srSL)         {srSL=srSL.toString();}
+		if (resourceName) {resourceName=resourceName.toString();}
+		if (bdrequest)    {bdrequest=bdrequest.toString();}
+        gr.u_pursuit                  = crmID;
+        gr.u_support_role             = supportRole;
+        gr.u_support_described        = supportDesc;
+		gr.u_service_line             = srSL;
+        gr.u_requested_resource_name  = resourceName;
+		gr.	u_bd_request              = bdrequest;
+        //gr.work_log                 = "request created from KPC portal";
+        //gr.u_support_required         = current.support_required;
+        //gr.u_notification_template_used = current.notification_template_used;
+        //gr.u_estimated_loe            = current.estimated_loe;
+        //gr.u_apply_template           = current.apply_template;
+        //gr.u_acknowledgment           = current.acknowledgment;
+
+        var ss_sys_id = gr.insert();
+	    return ss_sys_id;
+		
+	},
+	
+    type: 'PursuitUtils'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-04 18:37:16</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
+        <sys_mod_count>350</sys_mod_count>
+        <sys_name>TeamMgmt</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-10 15:24:56</sys_updated_on>
+    </sys_script_include>
+</record_update>

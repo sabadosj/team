@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl/>
+        <http_method>GET</http_method>
+        <name>getMyTeam</name>
+        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+	var pu = new TeamMgmt();
+	var qp = request.queryParams;
+	var sysUserID = qp.sysID;
+	if (!sysUserID) {
+		sysUserID = gs.getUserID();
+	}
+    var sysUserGR = new GlideRecord("sys_user");
+	sysUserGR.addQuery('sys_id',sysUserID);
+	sysUserGR.query();
+	if (sysUserGR.getRowCount()>0) {
+       return pu.getMyTeam(sysUserID);
+	} else {
+       return false;
+	}
+
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_saic4_saic_team/teammgmtutils/getMyTeam</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/getMyTeam</relative_path>
+        <request_example/>
+        <requires_acl_authorization>false</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-10 13:40:30</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>76525b5a13de030098317e276144b04e</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>getMyTeam</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_ws_operation_76525b5a13de030098317e276144b04e</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-10 14:04:53</sys_updated_on>
+        <web_service_definition display_value="TeamMgmtUtils">7e3471ae13a18340f6f4b53a6144b063</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Contract Import" max_length="40" name="x_saic4_saic_team_contract_import" type="collection">
+        <element attributes="import_attribute_name=customer" label="customer" max_length="100" name="u_customer" type="string"/>
+        <element attributes="import_attribute_name=number" label="number" max_length="40" name="u_number" type="integer"/>
+        <element attributes="import_attribute_name=pop_end" label="pop_end" max_length="40" name="u_pop_end" type="glide_date_time"/>
+        <element attributes="import_attribute_name=pop_start" label="pop_start" max_length="40" name="u_pop_start" type="glide_date_time"/>
+        <element attributes="import_attribute_name=program_manager" label="program_manager" max_length="40" name="u_program_manager" type="string"/>
+        <element attributes="import_attribute_name=title,edge_encryption_enabled=true" label="title" max_length="255" name="u_title" type="string"/>
+    </element>
+</database>

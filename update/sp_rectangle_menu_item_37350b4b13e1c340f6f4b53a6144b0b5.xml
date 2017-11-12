@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_rectangle_menu_item">
+    <sp_rectangle_menu_item action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <color>default</color>
+        <condition/>
+        <display_1/>
+        <display_2/>
+        <display_date/>
+        <filter/>
+        <glyph/>
+        <hint/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <label>Approvals</label>
+        <order>100</order>
+        <record_script><![CDATA[// only show 30 in header menu dropdown
+var max = 30;
+
+var t = data;
+t.items = [];
+t.count = 0;
+
+var usr = gs.getUser().getID();
+
+// use record watchers to tell header when to update dropdown counts
+t.record_watchers = [];
+//// u_approving_catalog_item=Employee Training Request
+// only show requests needing approval appropriate for this portal (e.g., employee training...)
+
+var usrFilter = 'approver=' + usr + '^state=requested^u_approving_catalog_item=Employee Training Request'
+t.record_watchers.push({'table':'sysapproval_approver','filter': usrFilter});
+
+var z = new GlideRecord('sysapproval_approver');
+z.addQuery("approver", gs.getUserID());
+z.addQuery("state", "requested");
+z.addQuery("u_approving_catalog_item","Employee Training Request");
+z.orderByDesc('sys_updated_on');
+z.setLimit(max);
+z.query();
+
+var link = {};
+link.title = gs.getMessage('View all approvals');
+link.type = 'link';
+// HERE's the link to the page with the widgets that need replaced.
+//link.href = '?id=approvals';
+link.href = '?id=team_mgmt_approvals';
+link.items = [];
+t.items.push(link);
+
+while (z.next()) {
+  var a = {};
+  var rec = getRecordBeingApproved(z);
+	if (!rec.isValidRecord())  // nothing being approved - hmmm
+		continue;
+  a.sysapprover = z.getValue('sysapproval');
+  a.short_description = rec.short_description + "";
+  if (rec.getRecordClassName() == "sc_request") {
+    var items = new GlideRecord("sc_req_item");
+    items.addQuery("request", rec.getUniqueValue());
+    items.query();
+    a.sysapprover = items.getValue('sysapproval');
+    if (items.getRowCount() > 1)
+      a.short_description = items.getRowCount() + " requested items";
+    else if (items.getRowCount() == 1) {
+      items.next();
+      a.short_description = items.getValue("short_description");
+      a.sysapprover = items.sys_id;
+    }
+  }
+//  $sp.getRecordValues(a, z, 'sys_id,sys_updated_on');
+  a.number = rec.getDisplayValue();
+  a.sys_id = z.getValue('sys_id');
+  a.__table = z.getRecordClassName();
+  a.type = 'team_mgmt_approval';
+  a.reqItemTable = 'sc_req_item'
+  a.reqSysID = rec.getValue('sys_id');
+//  a.sysapprover = gr.getValue('sysapproval');
+//  a.type = 'approval';
+  t.items.push(a);
+  t.count++;
+}
+
+function getRecordBeingApproved(gr) {
+  if (!gr.sysapproval.nil())
+    return gr.sysapproval.getRefRecord();
+
+  return gr.document_id.getRefRecord();
+}]]></record_script>
+        <sc_cat_item/>
+        <sc_category/>
+        <short_description/>
+        <sp_page display_value="team_mgmt_approval">1871a28013f90740f6f4b53a6144b0a2</sp_page>
+        <sp_rectangle_menu display_value="Team Mgmt Heading">94e4cf0b13e1c340f6f4b53a6144b077</sp_rectangle_menu>
+        <sp_rectangle_menu_item/>
+        <sys_class_name>sp_rectangle_menu_item</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-06 13:55:36</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>37350b4b13e1c340f6f4b53a6144b0b5</sys_id>
+        <sys_mod_count>30</sys_mod_count>
+        <sys_name>Approvals</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_rectangle_menu_item_37350b4b13e1c340f6f4b53a6144b0b5</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-16 17:12:26</sys_updated_on>
+        <table/>
+        <type>scripted</type>
+        <url/>
+    </sp_rectangle_menu_item>
+</record_update>

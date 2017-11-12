@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function ($http, $scope, $timeout, $animate, $rootScope, $location) {
+
+  var c = this;
+	
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getTrainRequest?reqID='+$location.search().sys_id)
+    .then(function(res) {
+     $scope.data.trnReq = res.data.result;
+        var userID   = $scope.data.trnReq.requested_for;
+        var reqSysID = $scope.data.trnReq.sys_id;
+        var fy       = $scope.data.trnReq.fy;
+  });
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.well.supersmall {
+  padding-top: 1px;
+  padding-right: 3px;
+  padding-bottom: 1px;
+  padding-left: 3px;
+//	padding: 1px;
+}
+table.trnReq {
+    border-collapse: collapse;
+}
+table.trnReq td {
+  //border: 1px solid silver;
+	padding: 2px;
+	font-size: .8em;			
+}
+table.trnReq th {
+  //border: 1px solid silver;
+	padding: 2px;
+	font-size: .8em;
+	background-color:#004b84; 
+	color:#FFFFFF;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>Team Management Request Detail</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script/>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-10-18 13:36:53</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>e5f4700b1331474098317e276144b0b5</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Team Management Request Detail</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_e5f4700b1331474098317e276144b0b5</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-10-18 17:27:36</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary b">
+ <div class="panel-heading">
+  <h4 class="panel-title">Request Details</h4>
+ </div>
+ <div >
+  <div class="well">
+   <div class="panel panel-default b">
+    <div class="panel-body">
+     <div class="col-sm-12">
+      <strong>{{c.data.trnReq.request_description}}</strong>
+     </div>       
+     <div class="col-sm-12"><br/>
+      <table class="table table-condensed trnReq" >
+       <tr>
+        <td><strong>Submitted by</strong></td>
+        <td>{{c.data.trnReq.requested_by_name}}</td>
+        <td><strong>Course Cost</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_course_cost}}</td>
+       </tr>
+       <tr>
+        <td><strong>Requested for</strong></td>
+        <td>{{c.data.trnReq.requested_for_name}}</td>
+        <td><strong>Travel Cost</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_travel_cost}}</td>
+       </tr>
+	     <tr>
+        <td><strong>Type</strong></td>
+        <td>{{c.data.trnReq.type}}</td>
+        <td><strong>Lab Fees</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_lab_fees_books}}</td>
+       </tr>
+       <tr>
+        <td><strong>Category</strong></td>
+        <td>{{c.data.trnReq.category}}</td>
+        <td><strong>Exam Fees</strong></td>
+        <td align="right">$ {{c.data.trnReq.estimated_exam_fees}}</td>
+       </tr>
+	     <tr>
+        <td><strong>Delivery Method</strong></td>
+        <td>{{c.data.trnReq.delivery_method}}</td>
+        <td><strong>Labor Cost</strong></td>
+        <td align="right">$ </td>
+       </tr>
+	     <tr>
+        <td><strong>Duration</strong></td>
+        <td>{{c.data.trnReq.duration}} hours</td>
+        <td><strong>Total Cost</strong></td>
+        <td style="border-top:solid 1px black;" align="right">$ {{c.data.trnReq.total_cost}}</td>
+       </tr>
+      </table>
+     </div>
+     <div class="col-sm-12">
+      <strong>Justification</strong>
+     </div>       
+     <div class="col-sm-12">
+      {{c.data.trnReq.justification}}
+     </div>       
+    </div>
+   </div>
+  </div>
+ </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

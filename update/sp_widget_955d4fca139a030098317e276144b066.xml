@@ -218,7 +218,7 @@ function buildUser(userGR) {
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-11-09 18:40:05</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>955d4fca139a030098317e276144b066</sys_id>
         <sys_mod_count>10</sys_mod_count>
         <sys_name>Team Management User Profile</sys_name>

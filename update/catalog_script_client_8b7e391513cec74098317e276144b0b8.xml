@@ -35,7 +35,7 @@ function sanitize(newValue) {
         <sys_class_name>catalog_script_client</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-25 18:45:58</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>8b7e391513cec74098317e276144b0b8</sys_id>

@@ -7,7 +7,7 @@
         <sys_class_name>sys_scope_privilege</sys_class_name>
         <sys_created_by>sabadosj</sys_created_by>
         <sys_created_on>2017-10-17 13:53:12</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>3e1faf6a133d0b40f6f4b53a6144b0b9</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>sc_req_item</sys_name>

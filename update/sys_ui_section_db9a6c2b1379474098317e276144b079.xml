@@ -247,7 +247,7 @@
             <sys_class_name>sys_ui_section</sys_class_name>
             <sys_created_by>adminjoe</sys_created_by>
             <sys_created_on>2017-10-20 02:08:38</sys_created_on>
-            <sys_customer_update>true</sys_customer_update>
+            <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>db9a6c2b1379474098317e276144b079</sys_id>

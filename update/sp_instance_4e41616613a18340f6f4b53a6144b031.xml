@@ -15,7 +15,7 @@
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 17:17:52</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>4e41616613a18340f6f4b53a6144b031</sys_id>
         <sys_mod_count>8</sys_mod_count>
         <sys_name>Welcome to SAIC Team Management</sys_name>

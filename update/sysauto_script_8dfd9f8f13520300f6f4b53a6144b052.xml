@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>Update budgets from actuals</name>
+        <run_as display_value="Joe Sabados Admin">b190f484c4fa8200181ebac48d5e67fa</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2017-11-12 22:26:38</run_start>
+        <run_time>1970-01-01 05:00:00</run_time>
+        <run_type>on_demand</run_type>
+        <script/>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-12 22:27:25</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>8dfd9f8f13520300f6f4b53a6144b052</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Update budgets from actuals</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sysauto_script_8dfd9f8f13520300f6f4b53a6144b052</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-12 22:27:25</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

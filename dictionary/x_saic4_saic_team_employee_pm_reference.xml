@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element extends="sys_import_set_row" label="Employee PM Reference" max_length="40" name="x_saic4_saic_team_employee_pm_reference" sizeclass="6839" type="collection">
+    <element extends="sys_import_set_row" label="Employee PM Reference" max_length="40" name="x_saic4_saic_team_employee_pm_reference" sizeclass="43553" type="collection">
         <element attributes="import_attribute_name=CRN,edge_encryption_enabled=true" label="CRN" max_length="40" name="u_crn" type="string"/>
         <element attributes="import_attribute_name=EMPL_ID,edge_encryption_enabled=true" label="EMPL_ID" max_length="40" name="u_empl_id" type="string"/>
     </element>

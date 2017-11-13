@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_form_sections form_id="faf743cf13120300f6f4b53a6144b02d" sys_domain="global" table="x_saic4_saic_team_contract_import" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>system</sys_created_by>
+            <sys_created_on>2017-11-12 20:50:37</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>7ef743cf13120300f6f4b53a6144b02d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_saic4_saic_team_contract_import" name="x_saic4_saic_team_contract_import" sys_domain="global" view="Default view">faf743cf13120300f6f4b53a6144b02d</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_saic4_saic_team_contract_import" sys_domain="global" view="Default view">891f841813bd0740f6f4b53a6144b05e</sys_ui_section>
+            <sys_updated_by>system</sys_updated_by>
+            <sys_updated_on>2017-11-12 20:50:37</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>system</sys_created_by>
+            <sys_created_on>2017-11-12 20:50:37</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b2f743cf13120300f6f4b53a6144b02e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_saic4_saic_team_contract_import" name="x_saic4_saic_team_contract_import" sys_domain="global" view="Default view">faf743cf13120300f6f4b53a6144b02d</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_saic4_saic_team_contract_import" sys_domain="6c38dcb92b303100979e1ee119da15d2" view="Default view">9759501c13bd0740f6f4b53a6144b074</sys_ui_section>
+            <sys_updated_by>system</sys_updated_by>
+            <sys_updated_on>2017-11-12 20:50:37</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_saic4_saic_team_contract_import</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>system</sys_created_by>
+            <sys_created_on>2017-11-12 20:50:37</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>faf743cf13120300f6f4b53a6144b02d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_saic4_saic_team_contract_import</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+            <sys_update_name>sys_ui_form_sections_faf743cf13120300f6f4b53a6144b02d</sys_update_name>
+            <sys_updated_by>system</sys_updated_by>
+            <sys_updated_on>2017-11-12 20:50:37</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

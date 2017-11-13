@@ -3,123 +3,153 @@
     <sys_ui_list parent="" relationship="" sys_domain="global" table="x_saic4_saic_team_training_budget" version="2" view="">
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>budget</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <element>actuals_to_date</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>2a62ef3c1346c74098317e276144b0ae</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>521ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>fy</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <element>approved_demand</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>1</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>aa62ef3c1346c74098317e276144b0ae</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>d21ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>budget_total</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <element>balance</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>2</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>2e62ef3c1346c74098317e276144b0ae</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>561ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>balance</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <element>budget</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>3</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>ae62ef3c1346c74098317e276144b0ae</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>d61ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>approved_demand</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <element>budget_total</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>4</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>2262ef3c1346c74098317e276144b0af</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>5a1ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>pending_demand</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <element>fy</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>5</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>a262ef3c1346c74098317e276144b0af</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>da1ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>level_2_rollup</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>6</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>2662ef3c1346c74098317e276144b0af</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>5e1ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>level_3_rollup</element>
-            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1662ef3c1346c74098317e276144b0ae</list_id>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>7</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-24 12:44:04</sys_created_on>
-            <sys_id>a662ef3c1346c74098317e276144b0af</sys_id>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>de1ecb4713520300f6f4b53a6144b05f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-24 12:44:04</sys_updated_on>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>notes</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>8</position>
+            <sum>false</sum>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>521ecb4713520300f6f4b53a6144b060</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>pending_demand</element>
+            <list_id display_value="x_saic4_saic_team_training_budget" element="NULL" name="x_saic4_saic_team_training_budget" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">1e1ecb4713520300f6f4b53a6144b05e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>9</position>
+            <sum>false</sum>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-11-12 21:17:21</sys_created_on>
+            <sys_id>9a1ec38713520300f6f4b53a6144b032</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-11-12 21:17:21</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
@@ -133,11 +163,11 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-29 20:58:43</sys_created_on>
+            <sys_created_on>2017-11-12 21:17:18</sys_created_on>
             <sys_customer_update>true</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>81930f26134e4b4098317e276144b0c8</sys_id>
+            <sys_id>ed1e038713520300f6f4b53a6144b017</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_saic4_saic_team_training_budget</sys_name>
             <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -146,8 +176,8 @@
             <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
             <sys_update_name>sys_ui_list_x_saic4_saic_team_training_budget_null</sys_update_name>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-29 20:58:43</sys_updated_on>
-            <sys_user display_value="Joe Sabados Admin">b190f484c4fa8200181ebac48d5e67fa</sys_user>
+            <sys_updated_on>2017-11-12 21:17:18</sys_updated_on>
+            <sys_user/>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>
         </sys_ui_list>

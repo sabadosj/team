@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function ($scope, $location,$http) {
+        <client_script><![CDATA[function ($timeout, $scope, $location,$http) {
 	var c = this;
-    $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeam?sysID=f148cd5d2b4d3100979e1ee119da15e5')
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeam?sysID=f148cd5d2b4d3100979e1ee119da15e5')
        .then(function(res) {
        $scope.data.directReports = res.data.result;
-    });
+  });
 
 	
 	$scope.showFullInfoCollegues = false;
@@ -33,6 +33,18 @@
 			($scope.directReports && $scope.directReports.length > 0);
 	};
 
+	$scope.getPMs = function(empSysID,name){
+		//alert(empSysID);
+    $timeout(function(){
+	     $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyPM?empSysID='+empSysID)
+		   .then(function(resEmp) {
+			    c.data.pm = resEmp.data.result;
+				  c.name = name;
+//      _createChart();
+				 //alert(c.data.pm);
+	     });
+	  });
+  };
 /*	
 	$scope.updateList = function(variable, value) {
 		if (variable == "showFullInfoReports")
@@ -108,7 +120,7 @@ data.user_id = gs.getUserID();]]></script>
         <sys_created_on>2017-11-09 20:51:29</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>0e6be70613da030098317e276144b014</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>72</sys_mod_count>
         <sys_name>My SAIC Team</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -116,53 +128,84 @@ data.user_id = gs.getUserID();]]></script>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_0e6be70613da030098317e276144b014</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-10 20:52:14</sys_updated_on>
+        <sys_updated_on>2017-11-13 02:41:00</sys_updated_on>
         <template><![CDATA[<sp-panel rect="rect" title="'${Team}'">
+ <div id="direct_reports">
+  <h5 ng-if="directReports.length > 0 && !showMyProfile" class="team_header">${My Direct Reports}</h5>
+  <h5 ng-if="directReports.length > 0 && showMyProfile" class="team_header">${Direct Reports}</h5>
+  <div class="row info-row" ng-repeat="direct_report in c.data.directReports">
+   <div class="col-xs-1" ng-click="openProfile(direct_report)">
+    <span class="navbar-avatar">
+     <sn-avatar class="avatar-small-medium" primary="direct_report.sys_id" show-presence="false" />
+    </span>
+   </div>
+   <div class="col-xs-2" ng-click="openProfile(direct_report)">{{direct_report['name']}}</div>
+   <div class="col-xs-1" ng-class="{'hide-element': !direct_report.phone}">
+    <a title="{{direct_report.phone}}" href="tel:{{direct_report.phone}}">
+     <fa name="phone" size="2"></fa>
+    </a>
+   </div>
+   <div class="col-xs-1" ng-class="{'hide-element': !direct_report.email}" style="text-align: right;">
+    <a title="{{direct_report.email}}" href="mailto:{{direct_report.email}}">
+     <fa name="envelope" size="2"></fa>
+    </a>
+   </div>
+   <div class="col-xs-4" ng-class="{'hide-element': !direct_report.pmInfo[0].pm_name}" >
+    <a data-toggle="modal" data-target="#myModal" ng-click="getPMs(direct_report.sys_id,direct_report.name)" title="One PM found. PoP End: {{direct_report.pmInfo[0].popEnd}}" ng-if="direct_report.pmInfo.length ==1" href="javascript:void(0)">
+     <fa name="user" size="2"></fa>
+     {{direct_report.pmInfo[0].pm_name}}
+    </a>
+    <a data-toggle="modal" data-target="#myModal" ng-click="getPMs(direct_report.sys_id,direct_report.name)" title="Multiple PM's found" ng-if="direct_report.pmInfo.length > 1" href="javascript:void(0)">
+     <fa name="users" size="2"></fa>
+     {{direct_report.pmInfo[0].pm_name}}
+    </a>
+   </div>
+  </div>
+  <div ng-if="directReports.length > data.limitTo" class="pull-right">
+   <a href="javascript:void(0)" class="more_link" ng-if="!showFullInfoReports" ng-click="updateList('showFullInfoReports',true)">${show all ({{directReports.length}})}</a>
+   <a href="javascript:void(0)" class="more_link" ng-if="showFullInfoReports" ng-click="updateList('showFullInfoReports',false)">${show less}</a>
+  </div>
+ </div>
 
 
-	<div id="direct_reports">
-		<h5 ng-if="directReports.length > 0 && !showMyProfile" class="team_header">${My Direct Reports}</h5>
-		<h5 ng-if="directReports.length > 0 && showMyProfile" class="team_header">${Direct Reports}</h5>
 
-		<div class="row info-row" ng-repeat="direct_report in c.data.directReports">
-			<div class="col-xs-2" ng-click="openProfile(direct_report)">
-				<span class="navbar-avatar">
-					<sn-avatar class="avatar-small-medium" primary="direct_report.sys_id" show-presence="false" />
-				</span>
-			</div>
-			<div class="col-xs-2" ng-click="openProfile(direct_report)">{{direct_report['name']}}</div>
-			<div class="col-xs-1" ng-class="{'hide-element': !direct_report.phone}">
-				<a href="tel:{{direct_report.phone}}">
-					<fa name="phone" size="2"></fa>
-				</a>
-			</div>
-			<div class="col-xs-1" ng-class="{'hide-element': !direct_report.email}" style="text-align: right;">
-				<a href="mailto:{{direct_report.email}}">
-					<fa name="envelope" size="2"></fa>
-				</a>
-			</div>
-      <div class="col-xs-4">
-        <div class="row">
-          <table>
-            <tr ng-repeat="pminfo in direct_report.pmInfo">
-              <td>{{pminfo.pm_name}}</td>
-              <td>{{pminfo.contract}}</td>
-              <td>{{pminfo.popStart}}</td>
-              <td>{{pminfo.popEnd}}</td>
-            </tr>
-          </table>
-        </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">PM's for <strong>{{c.name}}</strong></h4>
       </div>
-       
+      <div class="modal-body table-responsive">
+       <table class="table table-condensed table-striped">
+        <tr>
+         <th>PM</th>
+         <th>CRN</th>
+         <th colspan="2">Title</th>
+         <th>PoP Start</th>
+         <th>PoP End</th>
+        </tr>
+        <tr ng-repeat="pminfo in c.data.pm">
+         <td style='white-space: nowrap;'>{{pminfo.pm_name}}</td>
+         <td style='white-space: nowrap;'>{{pminfo.contract}}</td>
+         <td>{{pminfo.title}}</td>
+          <td><fa name="info-circle" size="2" title="Customer: {{pminfo.customer}}"></fa></td>
+         <td style='white-space: nowrap;'>{{pminfo.popStart}}</td>
+         <td style='white-space: nowrap;'>{{pminfo.popEnd}}</td>
+        </tr>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
 
-		<div ng-if="directReports.length > data.limitTo" class="pull-right">
-			<a href="javascript:void(0)" class="more_link" ng-if="!showFullInfoReports" ng-click="updateList('showFullInfoReports',true)">${show all ({{directReports.length}})}</a>
-			<a href="javascript:void(0)" class="more_link" ng-if="showFullInfoReports" ng-click="updateList('showFullInfoReports',false)">${show less}</a>
-		</div>
-
-	</div>
-
-</sp-panel>]]></template>
+  </div>
+</div>
+</sp-panel>
+]]></template>
     </sp_widget>
 </record_update>

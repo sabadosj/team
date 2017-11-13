@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element extends="sys_import_set_row" label="Imp Tmpl X Saic4 Saic Team Training Budget" max_length="40" name="u_imp_tmpl_x_saic4_saic_team_training_budget" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Actuals to Date" max_length="40" name="u_actuals_to_date" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Approved Demand" max_length="40" name="u_approved_demand" type="string"/>
         <element attributes="import_attribute_name=Balance,edge_encryption_enabled=true" label="Balance" max_length="15" name="u_balance" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Budget" max_length="40" name="u_budget" type="string"/>
         <element attributes="import_attribute_name=Budget Total" label="Budget Total" max_length="15" name="u_budget_total" type="integer"/>
         <element attributes="import_attribute_name=Division,edge_encryption_enabled=true" label="Division" max_length="32" name="u_division" type="string"/>
         <element attributes="import_attribute_name=FY" label="FY" max_length="40" name="u_fy" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Level 2 Rollup" max_length="40" name="u_level_2_rollup" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Level 3 Rollup" max_length="40" name="u_level_3_rollup" type="string"/>
         <element attributes="import_attribute_name=Name,edge_encryption_enabled=true" label="Name" max_length="40" name="u_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Pending Demand" max_length="40" name="u_pending_demand" type="string"/>
     </element>
 </database>

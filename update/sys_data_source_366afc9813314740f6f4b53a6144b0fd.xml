@@ -42,7 +42,7 @@
         <sys_class_name>sys_data_source</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-10 00:57:26</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>366afc9813314740f6f4b53a6144b0fd</sys_id>
         <sys_mod_count>1</sys_mod_count>
         <sys_name>emp_crn_seed.xls (Uploaded)</sys_name>

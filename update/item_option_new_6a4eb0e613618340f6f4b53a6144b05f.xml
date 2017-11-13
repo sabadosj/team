@@ -57,7 +57,7 @@
         <sys_class_name>item_option_new</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 14:46:01</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>6a4eb0e613618340f6f4b53a6144b05f</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Travel Required?</sys_name>

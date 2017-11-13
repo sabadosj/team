@@ -17,7 +17,7 @@
         <sys_class_name>sys_transform_map</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-10 00:59:32</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>348a301c13314740f6f4b53a6144b0e8</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Emp PM Transformation</sys_name>

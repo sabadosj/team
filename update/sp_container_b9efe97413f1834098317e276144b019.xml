@@ -14,7 +14,7 @@
         <sys_class_name>sp_container</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-11 18:08:05</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>b9efe97413f1834098317e276144b019</sys_id>
         <sys_mod_count>6</sys_mod_count>
         <sys_name>SAIC Team Management Home - Container 1</sys_name>

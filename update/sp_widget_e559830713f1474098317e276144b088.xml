@@ -110,7 +110,7 @@
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-19 00:25:09</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>e559830713f1474098317e276144b088</sys_id>
         <sys_mod_count>13</sys_mod_count>
         <sys_name>Team Management My Requests Table</sys_name>

@@ -16,7 +16,7 @@
         <icon/>
         <ignore_price>false</ignore_price>
         <image/>
-        <list_price>0</list_price>
+        <list_price>0.00</list_price>
         <location/>
         <meta/>
         <mobile_hide_price>false</mobile_hide_price>
@@ -47,7 +47,7 @@
         <sys_class_name>sc_cat_item</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 13:33:47</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>b1dda02213618340f6f4b53a6144b07a</sys_id>
         <sys_mod_count>9</sys_mod_count>
         <sys_name>Employee Training Request</sys_name>
@@ -62,7 +62,6 @@
         <type>item</type>
         <u_approval_group/>
         <u_approval_info>Approval will route through SLDL and PM, if appropriate.</u_approval_info>
-        <u_legacy>false</u_legacy>
         <u_manager_approval_>false</u_manager_approval_>
         <u_splash_page>true</u_splash_page>
         <use_sc_layout>true</use_sc_layout>

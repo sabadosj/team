@@ -12,7 +12,7 @@
         <sys_class_name>sys_security_acl</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-10 01:46:23</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>239541d013714740f6f4b53a6144b081</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>x_saic4_saic_team_actuals</sys_name>

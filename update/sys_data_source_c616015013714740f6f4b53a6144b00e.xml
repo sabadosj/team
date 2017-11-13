@@ -42,7 +42,7 @@
         <sys_class_name>sys_data_source</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-10 01:48:27</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>c616015013714740f6f4b53a6144b00e</sys_id>
         <sys_mod_count>1</sys_mod_count>
         <sys_name>training actuals.xls (Uploaded)</sys_name>

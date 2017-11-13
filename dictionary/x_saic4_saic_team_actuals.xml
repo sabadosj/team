@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element label="Actuals" max_length="40" name="x_saic4_saic_team_actuals" sizeclass="10354" type="collection">
+    <element label="Actuals" max_length="40" name="x_saic4_saic_team_actuals" sizeclass="16787" type="collection">
         <element label="Account ID" max_length="40" name="account_id" type="string"/>
         <element label="Burden" max_length="40" name="burden" type="integer"/>
         <element label="Charge Code" max_length="40" name="charge_code" type="string"/>

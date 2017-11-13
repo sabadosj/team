@@ -7,7 +7,7 @@
         <sys_class_name>sys_scope_privilege</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-21 13:10:17</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>01ab84881342874098317e276144b089</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>u_division</sys_name>

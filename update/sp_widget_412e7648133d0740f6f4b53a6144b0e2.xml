@@ -93,7 +93,7 @@ function getRecordBeingApproved(gr) {
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-09 15:54:28</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>412e7648133d0740f6f4b53a6144b0e2</sys_id>
         <sys_mod_count>43</sys_mod_count>
         <sys_name>Team Mgmt Approval Info</sys_name>

@@ -6,7 +6,7 @@
         <sys_class_name>sc_cat_item_category</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 13:39:53</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>346fac2213618340f6f4b53a6144b06a</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Training.Employee Training Request</sys_name>

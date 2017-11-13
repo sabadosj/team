@@ -11,7 +11,7 @@
         <sys_class_name>db_image</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-11 17:31:12</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>2077a5f013f1834098317e276144b05f</sys_id>
         <sys_mod_count>1</sys_mod_count>
         <sys_name>bg-header.jpg</sys_name>

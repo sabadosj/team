@@ -21,7 +21,7 @@
         <sys_class_name>sp_page</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-19 00:15:09</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>cf07078313f1474098317e276144b0e9</sys_id>
         <sys_mod_count>2</sys_mod_count>
         <sys_name>team_management_my_requests</sys_name>

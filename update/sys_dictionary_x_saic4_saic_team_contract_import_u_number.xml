@@ -47,7 +47,7 @@
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-09 21:24:54</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>a5c9089413bd0740f6f4b53a6144b04d</sys_id>
+        <sys_id>f6a70f8f13120300f6f4b53a6144b0ad</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>number</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -55,8 +55,8 @@
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_dictionary_x_saic4_saic_team_contract_import_u_number</sys_update_name>
-        <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-10-09 21:24:54</sys_updated_on>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2017-11-12 20:49:54</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <u_model_id/>

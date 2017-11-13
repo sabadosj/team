@@ -94,7 +94,7 @@
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-24 21:45:46</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>616e1585130ac74098317e276144b082</sys_id>
         <sys_mod_count>11</sys_mod_count>
         <sys_name>Team Management Sector Actuals</sys_name>

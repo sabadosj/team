@@ -27,7 +27,7 @@
         <sys_class_name>sys_ws_operation</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-09 16:59:31</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>dc8c07cc133d0740f6f4b53a6144b0ff</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>getReqTotImct</sys_name>

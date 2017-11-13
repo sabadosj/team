@@ -54,7 +54,7 @@
         <element label="Requested By" max_length="32" name="requested_by" reference="sys_user" type="reference"/>
         <element label="Requested for" max_length="32" name="requested_for" reference="sys_user" type="reference"/>
         <element label="Request Description" max_length="500" name="request_description" type="string"/>
-        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element default="javascript:current.getTableName();" dynamic_default_value="b5cb83a85f220100a9ad2572f2b4773c" label="Class" max_length="80" name="sys_class_name" type="sys_class_name" use_dynamic_default="true"/>
         <element choice="1" label="Type" max_length="40" name="type" type="choice">
             <choice>
                 <element label="Professional Development" value="prof_dev"/>
@@ -69,27 +69,33 @@
             <element name="approved_by"/>
         </index>
         <index name="index2">
-            <element name="requested_by"/>
+            <element name="original_request_id"/>
         </index>
         <index name="index3">
-            <element name="customer_group"/>
+            <element name="requested_by"/>
         </index>
         <index name="index4">
-            <element name="level_3_manager"/>
+            <element name="customer_group"/>
         </index>
         <index name="index5">
-            <element name="level_2_manager"/>
+            <element name="level_3_manager"/>
         </index>
         <index name="index6">
-            <element name="requested_for"/>
+            <element name="level_2_manager"/>
         </index>
         <index name="index7">
-            <element name="pm"/>
+            <element name="requested_for"/>
         </index>
         <index name="index8">
-            <element name="level_1_manager"/>
+            <element name="pm"/>
         </index>
         <index name="index9">
+            <element name="level_1_manager"/>
+        </index>
+        <index name="index10">
+            <element name="budget"/>
+        </index>
+        <index name="index11">
             <element name="level_4_manager"/>
         </index>
     </element>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="m2m_sp_theme_css_include">
+    <m2m_sp_theme_css_include action="INSERT_OR_UPDATE">
+        <order/>
+        <sp_css_include display_value="PortalSupport">4435238d13f9834098317e276144b062</sp_css_include>
+        <sp_theme display_value="SAIC Team Theme">a5b41f8b13520300f6f4b53a6144b052</sp_theme>
+        <sys_class_name>m2m_sp_theme_css_include</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-12 21:50:18</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>78a5db8b13520300f6f4b53a6144b080</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PortalSupport.SAIC Team Theme</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>m2m_sp_theme_css_include_78a5db8b13520300f6f4b53a6144b080</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-12 21:50:18</sys_updated_on>
+    </m2m_sp_theme_css_include>
+</record_update>

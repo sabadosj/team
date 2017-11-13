@@ -57,7 +57,7 @@
         <sys_class_name>item_option_new</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 14:24:17</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>25e8782613618340f6f4b53a6144b07d</sys_id>
         <sys_mod_count>5</sys_mod_count>
         <sys_name>What type of request is this?</sys_name>

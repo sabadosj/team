@@ -21,7 +21,7 @@
         <sys_class_name>sys_db_object</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-12 13:07:40</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>ca84b9c91339834098317e276144b020</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Training Budget</sys_name>

@@ -57,7 +57,7 @@
         <sys_class_name>item_option_new</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 14:34:52</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>c2cbfc6613618340f6f4b53a6144b008</sys_id>
         <sys_mod_count>2</sys_mod_count>
         <sys_name>Course Duration</sys_name>

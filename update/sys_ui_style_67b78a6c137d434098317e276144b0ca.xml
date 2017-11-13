@@ -7,7 +7,7 @@
         <sys_class_name>sys_ui_style</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-11 01:14:11</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>67b78a6c137d434098317e276144b0ca</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>x_saic4_saic_team_training_requests</sys_name>

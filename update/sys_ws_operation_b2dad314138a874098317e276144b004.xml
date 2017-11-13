@@ -27,7 +27,7 @@
         <sys_class_name>sys_ws_operation</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-22 22:54:06</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>b2dad314138a874098317e276144b004</sys_id>
         <sys_mod_count>1</sys_mod_count>
         <sys_name>updateBudgetFromActuals</sys_name>

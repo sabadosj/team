@@ -57,7 +57,7 @@
         <sys_class_name>item_option_new</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-05 13:23:59</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>c794f9f213a98340f6f4b53a6144b0cd</sys_id>
         <sys_mod_count>3</sys_mod_count>
         <sys_name>Justification</sys_name>

@@ -10,7 +10,7 @@
         <delivery_plan/>
         <delivery_plan_script/>
         <delivery_time>1970-01-03 00:00:00</delivery_time>
-        <description><![CDATA[<p style="margin: 0in 0in 10pt;" data-mce-style="margin: 0in 0in 10pt;"><span style="color: #717171; font-size: 12pt;" data-mce-style="color: #717171; font-size: 12pt;">Request training here! Approval is required for any external training, whether it is technical, professional, a conference, tuition assistance, or certification training. This also includes requests for technical society dues or subscriptions.&nbsp; This is true if SAIC pays or the customer pays. It all starts here. </span></p>]]></description>
+        <description><![CDATA[<p style="margin: 0in 0in 10pt;"><span style="color: #717171; font-size: 12pt;">Request training here! Approval is required for any external training, whether it is technical, professional, a conference, tuition assistance, or certification training. This also includes requests for technical society dues or subscriptions.&nbsp; This is true if SAIC pays or the customer pays. It all starts here. </span></p>]]></description>
         <entitlement_script/>
         <group/>
         <icon/>
@@ -23,7 +23,7 @@
         <mobile_picture/>
         <mobile_picture_type>use_desktop_picture</mobile_picture_type>
         <model/>
-        <name>Employee Training Request</name>
+        <name>Training Request</name>
         <no_cart>false</no_cart>
         <no_order>false</no_order>
         <no_order_now>false</no_order_now>
@@ -42,22 +42,22 @@
         <sc_catalogs>908ee42213618340f6f4b53a6144b06e</sc_catalogs>
         <sc_ic_item_staging/>
         <sc_ic_version/>
-        <short_description>Request for training initiated by the Employee. </short_description>
+        <short_description>Request for training initiated by the Employee or Supervisor</short_description>
         <start_closed>false</start_closed>
         <sys_class_name>sc_cat_item</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 13:33:47</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_customer_update>true</sys_customer_update>
         <sys_id>b1dda02213618340f6f4b53a6144b07a</sys_id>
-        <sys_mod_count>9</sys_mod_count>
-        <sys_name>Employee Training Request</sys_name>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>Training Request</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sc_cat_item_b1dda02213618340f6f4b53a6144b07a</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-09 17:27:27</sys_updated_on>
+        <sys_updated_on>2017-11-14 21:23:48</sys_updated_on>
         <template/>
         <type>item</type>
         <u_approval_group/>

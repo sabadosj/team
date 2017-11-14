@@ -145,7 +145,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	 },
 
 	 // *****************************************************************************
-     // Approve a request
+     // Approve or Reject a request
      // *****************************************************************************
      updateCatRequest: function(sysapprover,appState,comments) {
 		 var itmGr = new GlideRecord('sysapproval_approver');
@@ -163,6 +163,58 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	          rtnValue = itmGr.update();
            }
 		   return 'Request has been '+appState;
+		 }
+	 },
+
+	 // *****************************************************************************
+     // Get Approval Status
+     // *****************************************************************************
+     getRequestApprovalStatus: function(reqSysID) {
+		 var aprvrGr = new GlideRecord('sysapproval_approver');
+         //itmGr.addEncodedQuery('sys_id=4cb8042f135a0300aa7f5eff3244b0c4');
+         aprvrGr.addEncodedQuery('sysapproval='+reqSysID);
+         aprvrGr.query();
+		 var approvers = [];
+         var details = [];
+		 if (aprvrGr.getRowCount() < 1) {
+            gs.info('SI:getRequestApprovalStatus - no record found for sysapproval:'+reqSysID);
+            return 'An error occured.  No action taken.';
+		 } else {
+			var overallStatus = "";
+            while (aprvrGr.next()) {
+			  var recState = aprvrGr.getValue('state');
+			  if (recState =='rejected') {
+				  overallStatus = 'Rejected';
+			  } else if (recState =='approved') {
+				  overallStatus = 'Approved';
+			  } else if (recState =='cancelled') {
+				  overallStatus = 'Cancelled';
+			  } 
+
+              // get all approvers and comments
+              var comments = aprvrGr.comments.getJournalEntry(-1);
+			  comments = comments.split("\n\n");
+              for (var i = 0; i < comments.length; i++) {
+				  comments[i] = comments[i].replace('(Comments)\n','');
+			  }               
+
+			  details.push(
+			    {
+                 "approverSysID"  : aprvrGr.approver.toString(),
+                 "approver"       : aprvrGr.getDisplayValue('approver'),
+                 "state"          : aprvrGr.getDisplayValue('state'),
+                 "comments"       : comments
+			    }
+              );
+            }
+ 			approvers.push({
+				 "status" : overallStatus,
+				 "details" : details
+			});
+
+			 
+//		   approvers.status = overallStatus;
+		   return approvers;
 		 }
 	 },
 
@@ -943,7 +995,7 @@ gr.addEncodedQuery(qryStr);
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>367</sys_mod_count>
+        <sys_mod_count>378</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -951,6 +1003,6 @@ gr.addEncodedQuery(qryStr);
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-14 02:30:12</sys_updated_on>
+        <sys_updated_on>2017-11-14 13:04:57</sys_updated_on>
     </sys_script_include>
 </record_update>

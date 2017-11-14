@@ -7,7 +7,7 @@
         <applies_req_item>false</applies_req_item>
         <applies_sc_task>false</applies_sc_task>
         <applies_to>item</applies_to>
-        <cat_item display_value="Employee Training Request">b1dda02213618340f6f4b53a6144b07a</cat_item>
+        <cat_item display_value="Training Request">b1dda02213618340f6f4b53a6144b07a</cat_item>
         <cat_variable>IO:c35f78e613618340f6f4b53a6144b0c0</cat_variable>
         <condition/>
         <description/>

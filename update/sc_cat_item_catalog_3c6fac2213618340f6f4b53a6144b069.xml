@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sc_cat_item_catalog">
     <sc_cat_item_catalog action="INSERT_OR_UPDATE">
-        <sc_cat_item display_value="Employee Training Request">b1dda02213618340f6f4b53a6144b07a</sc_cat_item>
+        <sc_cat_item display_value="Training Request">b1dda02213618340f6f4b53a6144b07a</sc_cat_item>
         <sc_catalog display_value="Team Management">908ee42213618340f6f4b53a6144b06e</sc_catalog>
         <sys_class_name>sc_cat_item_catalog</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>

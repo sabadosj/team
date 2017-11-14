@@ -36,7 +36,13 @@
      });
   };
 			   
-  $http.get('/api/x_saic4_saic_team/teammgmtutils/getTrainRequest?reqID='+$location.search().reqSysID)
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getRequestApprovalStatus?reqSysID='+$location.search().reqSysID)
+    .then(function(resStatus) {
+     $scope.data.stats = resStatus.data.result;
+//		 $scope.data.comments = resStatus.data.result.details.comments;
+  });
+
+	$http.get('/api/x_saic4_saic_team/teammgmtutils/getTrainRequest?reqID='+$location.search().reqSysID)
     .then(function(res) {
      $scope.data.trnReq = res.data.result;
         var userID   = $scope.data.trnReq.requested_for;
@@ -171,7 +177,7 @@
         <sys_created_on>2017-10-09 14:04:02</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>ebd4eac813f90740f6f4b53a6144b028</sys_id>
-        <sys_mod_count>104</sys_mod_count>
+        <sys_mod_count>142</sys_mod_count>
         <sys_name>Team Management Approval Record</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -179,9 +185,9 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_ebd4eac813f90740f6f4b53a6144b028</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-14 02:37:10</sys_updated_on>
+        <sys_updated_on>2017-11-14 15:39:24</sys_updated_on>
         <template><![CDATA[<div>
-<div class="panel panel-{{::options.color}} b">
+<div class="panel panel-{{::options.color}} b" ng-if="c.data.stats[0].status.length > 0" >
  <div class="panel-heading">
   <h4 class="panel-title"><!--${Approval request for {{::task.table}} {{::task.number.display_value}}}-->Request Details</h4>
  </div>
@@ -189,14 +195,41 @@
   <div class="well">
    <div class="panel panel-default b">
     <div class="panel-body">
-      <div ng-if="!c.data.rslts" class="question">
-        <button type="button" name="approve" class="btn btn-success btn-question" ng-click="c.action('approved')">${Approve}</button>
-        <div class="spacer"></div>
-        <button type="button" name="reject" class="btn btn-default btn-question" ng-click="c.action('rejected')">${Reject}</button>
+     <div ng-if="c.data.stats[0].status.length > 0 && c.data.stats[0].status != 'Approved' && c.data.stats[0].status != 'Rejected' && c.data.stats[0].status != 'Cancelled'"  class="question">
+      <button type="button" name="approve" class="btn btn-success btn-question" ng-click="c.action('approved')">${Approve}</button>
+      <div class="spacer"></div>
+      <button type="button" name="reject" class="btn btn-default btn-question" ng-click="c.action('rejected')">${Reject}</button>
+     </div>
+     <div ng-if="c.data.stats[0].status == 'Approved'" class="panel panel-success">
+      <div class="panel-heading">Approved</div>
+      <div class="panel-body"><span>This request has a current status of <strong>{{c.data.stats[0].status}}</strong></span></div>
+      <div>
+       <ul>
+        <li ng-repeat="stats in c.data.stats[0].details">
+         {{stats.approver}} - {{stats.state}}
+          <br/><span ng-repeat="comments in stats.comments">{{comments}}<br/></span> 
+
+        </li>
+       </ul>
       </div>
-     <div class="col-sm-12"><hr/>
-      <strong>{{c.data.trnReq.request_description}}</strong>
-     </div>       
+     </div>
+     <div ng-if="c.data.stats[0].status == 'Rejected'" class="panel panel-danger">
+      <div class="panel-heading">Rejected</div>
+      <div class="panel-body">
+       <span>This request has a current status of <strong>{{c.data.stats[0].status}}</strong></span>
+       <ul>
+         <li ng-repeat="comments in c.data.stats.details">
+           {{comments.comments}}<br/>
+         </li>
+       </ul>
+      </div>
+      
+     </div>
+     <div ng-if="c.data.stats[0].status == 'Cancelled'" class="panel panel-info">
+      <div class="panel-heading">Cancelled</div>
+      <div class="panel-body"><span>This request has a current status of <strong>{{c.data.stats[0].status}}</strong></span></div>
+     </div>
+     <strong>{{c.data.trnReq.request_description}}</strong>
      <div class="col-sm-12"><br/>
       <table class="table table-condensed trnReq" >
        <tr>

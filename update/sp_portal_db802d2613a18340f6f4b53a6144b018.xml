@@ -63,6 +63,7 @@ $text-muted: #979797;
         <sys_updated_on>2017-11-12 21:47:47</sys_updated_on>
         <theme display_value="SAIC Team Theme">a5b41f8b13520300f6f4b53a6144b052</theme>
         <title>SAIC Team Management</title>
+        <u_catalog_list/>
         <url_suffix>team</url_suffix>
     </sp_portal>
     <sys_attachment action="INSERT_OR_UPDATE">

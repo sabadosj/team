@@ -105,6 +105,9 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
 	 },
 
+	 // *****************************************************************************
+     // Return a dollar formatted number (string) of a value passed in
+     // *****************************************************************************
      formatDollar: function(value) {
 	    var returnval = parseInt(value);
 	    returnval = returnval.toFixed(2);
@@ -142,6 +145,28 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	 },
 
 	 // *****************************************************************************
+     // Approve a request
+     // *****************************************************************************
+     updateCatRequest: function(sysapprover,appState,comments) {
+		 var itmGr = new GlideRecord('sysapproval_approver');
+         //itmGr.addEncodedQuery('sys_id=4cb8042f135a0300aa7f5eff3244b0c4');
+         itmGr.addEncodedQuery('sys_id='+sysapprover);
+         itmGr.query();
+		 var rtnValue = "";
+		 if (itmGr.getRowCount() < 1) {
+			 gs.info('SI:updateCatRequest - no record found for sysapprover:'+sysapprover);
+			 return 'An error occured.  No action taken.';
+		 } else {
+           while (itmGr.next()) {
+	          itmGr.state = appState;
+			  itmGr.comments = comments;
+	          rtnValue = itmGr.update();
+           }
+		   return 'Request has been '+appState;
+		 }
+	 },
+
+	// *****************************************************************************
      // GET my PM if you can
 	 // *****************************************************************************
      getMyPM: function(sysUserID) {
@@ -152,8 +177,6 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		PMs.details = [];
         if (pm.getRowCount() < 1) {
            return 'no pm';
-//        } else if (pm.getRowCount() > 1) {
-//           return pm.getRowCount()+ "pm's";
         } else {
            while (pm.next()) {
 			 PMs.details.push(
@@ -175,7 +198,6 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	 // *****************************************************************************
      // Return general total stats on actuals
      // *****************************************************************************
-		 
      getActualsStats: function() {
         // Calculate current FY
 		var datetoconvert = new GlideDate();
@@ -919,9 +941,9 @@ gr.addEncodedQuery(qryStr);
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>350</sys_mod_count>
+        <sys_mod_count>367</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -929,6 +951,6 @@ gr.addEncodedQuery(qryStr);
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-10 15:24:56</sys_updated_on>
+        <sys_updated_on>2017-11-14 02:30:12</sys_updated_on>
     </sys_script_include>
 </record_update>

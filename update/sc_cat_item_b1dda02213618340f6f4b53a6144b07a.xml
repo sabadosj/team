@@ -16,7 +16,7 @@
         <icon/>
         <ignore_price>false</ignore_price>
         <image/>
-        <list_price>0.00</list_price>
+        <list_price>0</list_price>
         <location/>
         <meta/>
         <mobile_hide_price>false</mobile_hide_price>
@@ -62,6 +62,7 @@
         <type>item</type>
         <u_approval_group/>
         <u_approval_info>Approval will route through SLDL and PM, if appropriate.</u_approval_info>
+        <u_legacy>false</u_legacy>
         <u_manager_approval_>false</u_manager_approval_>
         <u_splash_page>true</u_splash_page>
         <use_sc_layout>true</use_sc_layout>

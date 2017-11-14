@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>actuals_to_date</field>
+        <global>true</global>
+        <messages/>
+        <name>Setup Display</name>
+        <order/>
+        <script><![CDATA[function onLoad() {
+   //Type appropriate comment here, and begin script below
+   g_form.setReadOnly('balance','true');
+   g_form.setReadOnly('actuals','true');
+   g_form.setReadOnly('actuals_to_date','true');
+   g_form.setReadOnly('approved_demand','true');
+   g_form.setReadOnly('pending_demand','true');
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-14 22:27:49</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>8001793f13da030098317e276144b0a6</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Setup Display</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_script_client_8001793f13da030098317e276144b0a6</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-14 22:30:32</sys_updated_on>
+        <table>x_saic4_saic_team_training_budget</table>
+        <type>onLoad</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

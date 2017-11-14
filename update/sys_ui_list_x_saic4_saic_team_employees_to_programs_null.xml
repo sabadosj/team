@@ -3,168 +3,153 @@
     <sys_ui_list parent="" relationship="" sys_domain="global" table="x_saic4_saic_team_employees_to_programs" version="2" view="">
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>employee</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>program</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>fa61b9891339834098317e276144b01f</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>3014fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>employee.manager</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>program.title</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>1</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>7e61b9891339834098317e276144b01f</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>b014fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>employee.u_division_name</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>program.program_manager</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>2</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>fe61b9891339834098317e276144b01f</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>3414fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>employee.u_division_id</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>program.pop_start</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>3</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>7261b9891339834098317e276144b020</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>b414fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>employee.u_l2_manager_id</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>program.pop_stop</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>4</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>f261b9891339834098317e276144b020</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>3814fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>employee.u_l1_manager_id</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>employee</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>5</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>7661b9891339834098317e276144b020</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>b814fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>program</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>employee.manager</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>6</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>f661b9891339834098317e276144b020</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>3c14fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>program.customer</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>employee.u_division_id</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>7</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>7a61b9891339834098317e276144b020</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>bc14fd3f13da030098317e276144b09e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>program.program_manager</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>employee.u_l2_manager_id</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>8</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>fa61b9891339834098317e276144b020</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>3014fd3f13da030098317e276144b09f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>program.pop_start</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
+            <element>employee.u_l1_manager_id</element>
+            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">3c14fd3f13da030098317e276144b09d</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>9</position>
             <sum>false</sum>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>7e61b9891339834098317e276144b020</sys_id>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_id>b014fd3f13da030098317e276144b09f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
-        </sys_ui_list_element>
-        <sys_ui_list_element action="INSERT_OR_UPDATE">
-            <average_value>false</average_value>
-            <element>program.pop_stop</element>
-            <list_id display_value="x_saic4_saic_team_employees_to_programs" element="NULL" name="x_saic4_saic_team_employees_to_programs" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">b661b9891339834098317e276144b01f</list_id>
-            <max_value>false</max_value>
-            <min_value>false</min_value>
-            <position>10</position>
-            <sum>false</sum>
-            <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_id>fe61b9891339834098317e276144b020</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
@@ -178,11 +163,11 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>adminjoe</sys_created_by>
-            <sys_created_on>2017-10-12 12:53:11</sys_created_on>
-            <sys_customer_update>false</sys_customer_update>
+            <sys_created_on>2017-11-14 22:39:28</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>b661b9891339834098317e276144b01f</sys_id>
+            <sys_id>3c14fd3f13da030098317e276144b09d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_saic4_saic_team_employees_to_programs</sys_name>
             <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -191,7 +176,7 @@
             <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
             <sys_update_name>sys_ui_list_x_saic4_saic_team_employees_to_programs_null</sys_update_name>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-12 12:53:11</sys_updated_on>
+            <sys_updated_on>2017-11-14 22:39:28</sys_updated_on>
             <sys_user/>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>

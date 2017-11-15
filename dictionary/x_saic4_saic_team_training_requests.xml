@@ -13,14 +13,14 @@
         <element label="Budget" max_length="40" name="budget" reference="x_saic4_saic_team_training_budget" type="reference"/>
         <element choice="1" label="Category" max_length="40" name="category" type="choice">
             <choice>
-                <element label="Certification - Other" value="certification_other"/>
-                <element label="Certification - Platform" value="certification_platform"/>
-                <element label="Certification - Security" value="certification _security"/>
-                <element label="IaaS/PaaS/SaaS Training" value="cloud_svc_training"/>
-                <element label="Platform Training" value="platform_training"/>
-                <element label="Process Training" value="process_training"/>
-                <element label="Software Training" value="software_training"/>
-                <element label="Software/System Development" value="software_development"/>
+                <element label="Conferences" value="conferences"/>
+                <element label="Contractually required training or certification" value="contractually_required"/>
+                <element label="Leadership Training" value="leadership_training"/>
+                <element label="Other" value="other"/>
+                <element label="Program Management" value="program_management"/>
+                <element label="Proposal and Basis of Estimate (BOE)" value="boe_training"/>
+                <element label="Subscription and Membership Fees" value="subscription_and_membership"/>
+                <element label="Technical Training (non-contractually required)" value="technical_training"/>
             </choice>
         </element>
         <element label="Category Explanation" max_length="200" name="category_other_explanation" type="string"/>
@@ -55,16 +55,6 @@
         <element label="Requested for" max_length="32" name="requested_for" reference="sys_user" type="reference"/>
         <element label="Request Description" max_length="500" name="request_description" type="string"/>
         <element default="javascript:current.getTableName();" dynamic_default_value="b5cb83a85f220100a9ad2572f2b4773c" label="Class" max_length="80" name="sys_class_name" type="sys_class_name" use_dynamic_default="true"/>
-        <element choice="1" label="Type" max_length="40" name="type" type="choice">
-            <choice>
-                <element label="Professional Development" value="prof_dev"/>
-                <element label="Program Required Training" value="prog_req"/>
-                <element label="Service Line Required Training" value="sl_required"/>
-                <element label="Technical Conference" value="tech_conference"/>
-                <element label="Technical Society Dues/Subscriptions" value="tech_society_dues_subscriptions"/>
-                <element label="Tuition Assistance" value="tuition_assistance"/>
-            </choice>
-        </element>
         <index name="index">
             <element name="approved_by"/>
         </index>

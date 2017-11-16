@@ -11,6 +11,168 @@
 TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
 	 // *****************************************************************************
+     // Return all sys_id's of all employees where the mgr_sys_id is the manager 
+     // and return all employees that may also have subordinates.
+     // *****************************************************************************
+     getMyTeamSysIDs: function(mgr_sys_id) {
+//		mgr_sys_id = gs.getUserID();
+        var in_scope_users = "sys_idIN";
+        var usr = new GlideRecord('sys_user');
+        usr.addQuery('manager',mgr_sys_id);
+		usr.addQuery('active',true);
+        usr.query();
+        while (usr.next()) {
+          if (in_scope_users.length > 0) {
+            //build a comma separated string of groups if there is more than one
+            in_scope_users+= (',' + usr.sys_id).toString();
+			in_scope_users+= (',' + getExtendedTeam2(usr.sys_id)).toString();
+          }
+          else
+		  {
+            in_scope_users= usr.sys_id.toString();
+			in_scope_users+= (',' + getExtendedTeam2(usr.sys_id)).toString();
+          }
+		}
+
+		return in_scope_users;
+		
+        // sabados - I know there's a better way to do this recursively but I don't know how to do that so taking the brute force approach
+		// ******************************************************************************************************************************
+        // Retrieve any level 2 employees   e.g., if the user is moraco, this would be his direct reports (e.g., Nazzik )
+        // ******************************************************************************************************************************
+        function getExtendedTeam2(user_sys_id) {
+		   var additional_members2 = "";
+           var in_scope_users = "sys_idIN";
+           var moreusr2 = new GlideRecord('sys_user');
+           moreusr2.addQuery('manager',user_sys_id);
+	       moreusr2.addQuery('active',true);
+           moreusr2.query();
+           while (moreusr2.next()) {
+             if (additional_members2.length > 0) {
+               //build a comma separated string of groups if there is more than one
+               additional_members2+= (',' + moreusr2.sys_id).toString();
+   			   additional_members2+= (',' + getExtendedTeam3(moreusr2.sys_id)).toString();
+             }
+             else
+		     {
+               additional_members2= moreusr2.sys_id.toString();
+   			   additional_members2+= (',' + getExtendedTeam3(moreusr2.sys_id)).toString();
+             }
+   		   }
+		   if (additional_members2.length>0)
+  		      return additional_members2;
+		   			
+		} 
+
+     	// ******************************************************************************************************************************
+        // Retrieve any level 3 employees   e.g., if the user is moraco, this would be Directors of market sub-segments
+        // ******************************************************************************************************************************
+        function getExtendedTeam3(user_sys_id) {
+		   var additional_members3 = "";
+           var in_scope_users = "sys_idIN";
+           var moreusr3 = new GlideRecord('sys_user');
+           moreusr3.addQuery('manager',user_sys_id);
+	       moreusr3.addQuery('active',true);
+           moreusr3.query();
+           while (moreusr3.next()) {
+             if (additional_members3.length > 0) {
+               //build a comma separated string of groups if there is more than one
+               additional_members3+= (',' + moreusr3.sys_id).toString();
+   			   additional_members3+= (',' + getExtendedTeam4(moreusr3.sys_id)).toString();
+             }
+             else
+		     {
+               additional_members3= moreusr3.sys_id.toString();
+   			   additional_members3+= (',' + getExtendedTeam4(moreusr3.sys_id)).toString();
+             }
+   		   }
+		   if (additional_members3.length>0)
+  		      return additional_members3;
+		   			
+		} 
+
+     	// ******************************************************************************************************************************
+        // Retrieve any level 4 employees   e.g., if the user is moraco, this would be SLTL's
+        // ******************************************************************************************************************************
+		function getExtendedTeam4(user_sys_id) {
+		   var additional_members4 = "";
+           var in_scope_users = "sys_idIN";
+           var moreusr4 = new GlideRecord('sys_user');
+           moreusr4.addQuery('manager',user_sys_id);
+	       moreusr4.addQuery('active',true);
+           moreusr4.query();
+           while (moreusr4.next()) {
+             if (additional_members4.length > 0) {
+               //build a comma separated string of groups if there is more than one
+               additional_members4+= (',' + moreusr4.sys_id).toString();
+   			   additional_members4+= (',' + getExtendedTeam5(moreusr4.sys_id)).toString();
+             }
+             else
+		     {
+               additional_members4= moreusr4.sys_id.toString();
+   			   additional_members4+= (',' + getExtendedTeam5(moreusr4.sys_id)).toString();
+             }
+   		   }
+		   if (additional_members4.length>0)
+  		      return additional_members4;
+   			
+		} 
+
+     	// ********************************************************************************************************************************
+        // Retrieve any level 5 employees   e.g., if the user is moraco, this would be employees that don't have anyone reporting to them
+        // ********************************************************************************************************************************
+		function getExtendedTeam5(user_sys_id) {
+		   var additional_members5 = "";
+           var in_scope_users = "sys_idIN";
+           var moreusr5 = new GlideRecord('sys_user');
+           moreusr5.addQuery('manager',user_sys_id);
+	       moreusr5.addQuery('active',true);
+           moreusr5.query();
+           while (moreusr5.next()) {
+             if (additional_members5.length > 0) {
+               //build a comma separated string of groups if there is more than one
+               additional_members5+= (',' + moreusr5.sys_id).toString();
+   			   additional_members5+= (',' + getExtendedTeam6(moreusr5.sys_id)).toString();
+             }
+             else
+		     {
+               additional_members5= moreusr5.sys_id.toString();
+   			   additional_members5+= (',' + getExtendedTeam6(moreusr5.sys_id)).toString();
+             }
+   		   }
+		   if (additional_members5.length>0)
+  		      return additional_members5;
+   			
+		} 
+     	// ********************************************************************************************************************************
+        // Retrieve any level 6 employees   e.g., if the user is moraco, this would be employees that don't have anyone reporting to them
+        // ********************************************************************************************************************************
+		function getExtendedTeam6(user_sys_id) {
+		   var additional_members6 = "";
+           var in_scope_users = "sys_idIN";
+           var moreusr6 = new GlideRecord('sys_user');
+           moreusr6.addQuery('manager',user_sys_id);
+	       moreusr6.addQuery('active',true);
+           moreusr6.query();
+           while (moreusr6.next()) {
+             if (additional_members6.length > 0) {
+               //build a comma separated string of groups if there is more than one
+               additional_members6+= (',' + moreusr6.sys_id).toString();
+//   			   additional_members6+= (',' + getExtendedTeam7(moreusr6.sys_id)).toString();
+             }
+             else
+		     {
+               additional_members6= moreusr6.sys_id.toString();
+//   			   additional_members6+= (',' + getExtendedTeam7(moreusr6.sys_id)).toString();
+             }
+   		   }
+		   if (additional_members6.length>0)
+  		      return additional_members6;
+   			
+		} 
+	 },
+	
+	 // *****************************************************************************
      // Determine where in the organization the logged in user is
      // *****************************************************************************
      whoAmI: function(sysID) {
@@ -995,7 +1157,7 @@ gr.addEncodedQuery(qryStr);
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>378</sys_mod_count>
+        <sys_mod_count>401</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -1003,6 +1165,6 @@ gr.addEncodedQuery(qryStr);
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-14 13:04:57</sys_updated_on>
+        <sys_updated_on>2017-11-16 14:38:30</sys_updated_on>
     </sys_script_include>
 </record_update>

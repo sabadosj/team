@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function ($http, $scope, $timeout, $animate, $rootScope, $location,$window) {
-	//$http, $timeout, $scope, $rootScope, spUtil, snRecordWatcher
-
+        <client_script><![CDATA[function ($http, $scope, $timeout, $animate, $rootScope, $location, $window) {
 	var c = this;
 
-	/*$scope.$watch("data.task", function() {
-    $scope.task = $scope.data.task; // copy for shortcuts above
-  })*/
-
-  // Start tab Control
+  // *************************************************************
+	// Start tab Control
 	$scope.active = 1;
 	$scope.selectTab = function(value){
 		$scope.active = value;
@@ -25,21 +20,20 @@
 		}
 	};
 	// End Tab Control
+  // *************************************************************
 	
   c.action = function(state) {
 //	  alert()
-     $http.get('/api/x_saic4_saic_team/teammgmtutils/updateCatRequest?sysapprover='+$location.search().sysapprover+'&reqState='+state+'&comments=rejected from portal')
+    $http.get('/api/x_saic4_saic_team/teammgmtutils/updateCatRequest?sysapprover='+$location.search().sysapprover+'&reqState='+state+'&comments=rejected from portal')
      .then(function(sysapprovalres) {
         $scope.data.rslts = sysapprovalres.data.result;
 		alert($scope.data.rslts);
 		$window.location.href = '/team';
-     });
+    });
   };
-			   
   $http.get('/api/x_saic4_saic_team/teammgmtutils/getRequestApprovalStatus?reqSysID='+$location.search().reqSysID)
     .then(function(resStatus) {
      $scope.data.stats = resStatus.data.result;
-//		 $scope.data.comments = resStatus.data.result.details.comments;
   });
 
 	$http.get('/api/x_saic4_saic_team/teammgmtutils/getTrainRequest?reqID='+$location.search().reqSysID)
@@ -48,8 +42,9 @@
         var userID   = $scope.data.trnReq.requested_for;
         var reqSysID = $scope.data.trnReq.sys_id;
         var fy       = $scope.data.trnReq.fy;
-        getHistory(userID, reqSysID, fy);
-				 //alert($scope.data.trnReq.requested_for);
+		    if (userID) {
+           getHistory(userID, reqSysID, fy);
+				}
   });
 	
 	function getHistory(userID, reqSysID, fy){
@@ -73,7 +68,7 @@
 				   ['#cccccc','#85a545','#006BB6'] 
 			  });
 			  Highcharts.chart('container', {
-			 	chart: {
+         chart: {
 					type: 'column'
 					},
 					title: {
@@ -177,7 +172,7 @@
         <sys_created_on>2017-10-09 14:04:02</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>ebd4eac813f90740f6f4b53a6144b028</sys_id>
-        <sys_mod_count>142</sys_mod_count>
+        <sys_mod_count>156</sys_mod_count>
         <sys_name>Team Management Approval Record</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -185,20 +180,19 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_ebd4eac813f90740f6f4b53a6144b028</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-14 15:39:24</sys_updated_on>
+        <sys_updated_on>2017-11-17 22:11:49</sys_updated_on>
         <template><![CDATA[<div>
 <div class="panel panel-{{::options.color}} b" ng-if="c.data.stats[0].status.length > 0" >
  <div class="panel-heading">
   <h4 class="panel-title"><!--${Approval request for {{::task.table}} {{::task.number.display_value}}}-->Request Details</h4>
  </div>
- <div >
+ <div ng-if="c.data.stats[0].status">
   <div class="well">
    <div class="panel panel-default b">
     <div class="panel-body">
      <div ng-if="c.data.stats[0].status.length > 0 && c.data.stats[0].status != 'Approved' && c.data.stats[0].status != 'Rejected' && c.data.stats[0].status != 'Cancelled'"  class="question">
       <button type="button" name="approve" class="btn btn-success btn-question" ng-click="c.action('approved')">${Approve}</button>
-      <div class="spacer"></div>
-      <button type="button" name="reject" class="btn btn-default btn-question" ng-click="c.action('rejected')">${Reject}</button>
+      <button type="button" name="reject" class="btn btn-default btn-question" ng-click="c.action('rejected')">${Reject}</button><hr/>
      </div>
      <div ng-if="c.data.stats[0].status == 'Approved'" class="panel panel-success">
       <div class="panel-heading">Approved</div>

@@ -26,10 +26,10 @@ var usr = gs.getUser().getID();
 
 // use record watchers to tell header when to update dropdown counts
 t.record_watchers = [];
-//// u_approving_catalog_item=Employee Training Request
+//// u_approving_catalog_item=Training Request
 // only show requests needing approval appropriate for this portal (e.g., employee training...)
 
-var usrFilter = 'approver=' + usr + '^state=requested^u_approving_catalog_item=Employee Training Request'
+var usrFilter = 'approver=' + usr + '^state=requested^u_approving_catalog_item=Training Request'
 t.record_watchers.push({'table':'sysapproval_approver','filter': usrFilter});
 
 var z = new GlideRecord('sysapproval_approver');
@@ -99,7 +99,7 @@ function getRecordBeingApproved(gr) {
         <sys_created_on>2017-10-06 13:55:36</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>37350b4b13e1c340f6f4b53a6144b0b5</sys_id>
-        <sys_mod_count>31</sys_mod_count>
+        <sys_mod_count>33</sys_mod_count>
         <sys_name>Approvals</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -107,7 +107,7 @@ function getRecordBeingApproved(gr) {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_rectangle_menu_item_37350b4b13e1c340f6f4b53a6144b0b5</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-17 17:32:23</sys_updated_on>
+        <sys_updated_on>2017-11-17 21:40:11</sys_updated_on>
         <table/>
         <type>scripted</type>
         <url/>

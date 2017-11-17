@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Job Code Reference" max_length="40" name="x_saic4_saic_team_job_code_reference" type="collection">
+        <element label="Bid Code" max_length="40" name="bid_code" type="string"/>
+        <element label="Bid Code Description" max_length="40" name="bid_code_description" type="string"/>
+        <element label="EEO1 Description" max_length="40" name="eeo1_description" type="string"/>
+        <element label="EEO-1 Cat" max_length="40" name="eeo_1_cat" type="string"/>
+        <element label="FLSA Stat" max_length="40" name="flsa_stat" type="string"/>
+        <element label="Grade" max_length="40" name="grade" type="string"/>
+        <element label="Job Code" max_length="40" name="job_code" type="string"/>
+        <element label="Job Code Title" max_length="40" name="job_code_title" type="string"/>
+        <element label="Job Family" max_length="40" name="job_family" type="string"/>
+        <element label="Job Level" max_length="40" name="job_level" type="integer"/>
+        <element label="Job Sub-Family" max_length="40" name="job_sub_family" type="string"/>
+        <element label="Job Sub-family &amp; Level" max_length="40" name="job_sub_family_level" type="string"/>
+        <element label="Salary Max" max_length="40" name="salary_max" type="currency"/>
+        <element label="Salary Mid" max_length="40" name="salary_mid" type="currency"/>
+        <element label="Salary Min" max_length="40" name="salary_min" type="currency"/>
+        <element label="Typical Education Required" max_length="200" name="typical_education_required" type="string"/>
+    </element>
+</database>

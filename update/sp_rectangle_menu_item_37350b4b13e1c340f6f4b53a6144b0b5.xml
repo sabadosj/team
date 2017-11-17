@@ -35,7 +35,7 @@ t.record_watchers.push({'table':'sysapproval_approver','filter': usrFilter});
 var z = new GlideRecord('sysapproval_approver');
 z.addQuery("approver", gs.getUserID());
 z.addQuery("state", "requested");
-z.addQuery("u_approving_catalog_item","Employee Training Request");
+z.addQuery("u_approving_catalog_item","Training Request");
 z.orderByDesc('sys_updated_on');
 z.setLimit(max);
 z.query();
@@ -97,9 +97,9 @@ function getRecordBeingApproved(gr) {
         <sys_class_name>sp_rectangle_menu_item</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-06 13:55:36</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_customer_update>true</sys_customer_update>
         <sys_id>37350b4b13e1c340f6f4b53a6144b0b5</sys_id>
-        <sys_mod_count>30</sys_mod_count>
+        <sys_mod_count>31</sys_mod_count>
         <sys_name>Approvals</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -107,7 +107,7 @@ function getRecordBeingApproved(gr) {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_rectangle_menu_item_37350b4b13e1c340f6f4b53a6144b0b5</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-10-16 17:12:26</sys_updated_on>
+        <sys_updated_on>2017-11-17 17:32:23</sys_updated_on>
         <table/>
         <type>scripted</type>
         <url/>

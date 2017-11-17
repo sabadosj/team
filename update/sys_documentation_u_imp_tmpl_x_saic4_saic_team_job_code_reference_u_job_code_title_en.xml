@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="u_job_code_title" label="Job Code Title" language="en" table="u_imp_tmpl_x_saic4_saic_team_job_code_reference">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_job_code_title</element>
+            <help/>
+            <hint/>
+            <label>Job Code Title</label>
+            <language>en</language>
+            <name>u_imp_tmpl_x_saic4_saic_team_job_code_reference</name>
+            <plural>Job Code Titles</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-11-17 15:52:59</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>f7c3732013e2830098317e276144b01a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Job Code Title</sys_name>
+            <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+            <sys_update_name>sys_documentation_u_imp_tmpl_x_saic4_saic_team_job_code_reference_u_job_code_title_en</sys_update_name>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-11-17 15:52:59</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

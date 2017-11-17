@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Imp Tmpl X Saic4 Saic Team Job Code Reference" max_length="40" name="u_imp_tmpl_x_saic4_saic_team_job_code_reference" type="collection">
+        <element attributes="import_attribute_name=Bid Code,edge_encryption_enabled=true" label="Bid Code" max_length="40" name="u_bid_code" type="string"/>
+        <element attributes="import_attribute_name=Bid Code Description,edge_encryption_enabled=true" label="Bid Code Description" max_length="40" name="u_bid_code_description" type="string"/>
+        <element attributes="import_attribute_name=EEO1 Description,edge_encryption_enabled=true" label="EEO1 Description" max_length="40" name="u_eeo1_description" type="string"/>
+        <element attributes="import_attribute_name=EEO-1 Cat,edge_encryption_enabled=true" label="EEO-1 Cat" max_length="40" name="u_eeo_1_cat" type="string"/>
+        <element attributes="import_attribute_name=FLSA Stat,edge_encryption_enabled=true" label="FLSA Stat" max_length="40" name="u_flsa_stat" type="string"/>
+        <element attributes="import_attribute_name=Grade,edge_encryption_enabled=true" label="Grade" max_length="40" name="u_grade" type="string"/>
+        <element attributes="import_attribute_name=Job Code,edge_encryption_enabled=true" label="Job Code" max_length="40" name="u_job_code" type="string"/>
+        <element attributes="import_attribute_name=Job Code Title,edge_encryption_enabled=true" label="Job Code Title" max_length="40" name="u_job_code_title" type="string"/>
+        <element attributes="import_attribute_name=Job Family,edge_encryption_enabled=true" label="Job Family" max_length="40" name="u_job_family" type="string"/>
+        <element attributes="import_attribute_name=Job Level" label="Job Level" max_length="40" name="u_job_level" type="integer"/>
+        <element attributes="import_attribute_name=Job Sub-Family,edge_encryption_enabled=true" label="Job Sub-Family" max_length="40" name="u_job_sub_family" type="string"/>
+        <element attributes="import_attribute_name=Job Sub-family &amp; Level,edge_encryption_enabled=true" label="Job Sub-family &amp; Level" max_length="40" name="u_job_sub_family___level" type="string"/>
+        <element attributes="import_attribute_name=Salary Max" label="Salary Max" max_length="15" name="u_salary_max" type="integer"/>
+        <element attributes="import_attribute_name=Salary Mid" label="Salary Mid" max_length="15" name="u_salary_mid" type="integer"/>
+        <element attributes="import_attribute_name=Salary Min" label="Salary Min" max_length="15" name="u_salary_min" type="integer"/>
+        <element attributes="import_attribute_name=Typical Education Required,edge_encryption_enabled=true" label="Typical Education Required" max_length="200" name="u_typical_education_required" type="string"/>
+    </element>
+</database>

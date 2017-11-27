@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function ($timeout, $scope, $location,$http) {
-	var c = this;
-  $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeam?sysID=f148cd5d2b4d3100979e1ee119da15e5')
-       .then(function(res) {
-       $scope.data.directReports = res.data.result;
+        <client_script><![CDATA[function ($timeout, $rootScope, $scope, $location, $http) {
+  var c = this;
+  // joseph sabados = f148cd5d2b4d3100979e1ee119da15e5
+
+	$rootScope.$on('loadTeam', function(event,data) {	
+    c.showWidget = true;
+    $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeam?sysID=f148cd5d2b4d3100979e1ee119da15e5')
+      .then(function(res) {
+      $scope.data.directReports = res.data.result;
+    });
+  });
+  $rootScope.$on('loadTeamOff', function(event,data) {	
+		 c.showWidget = false;
   });
 
 	
-	$scope.showFullInfoCollegues = false;
-	$scope.showFullInfoReports = false;
-	$scope.showMyProfile = false;
+  $scope.showFullInfoCollegues = false;
+  $scope.showFullInfoReports = false;
+  $scope.showMyProfile = false;
 
-	$scope.$on('finishedChanged', function(event, data) {
-      $scope.myManager = data.profile.manager;
-      $scope.teamMembers = data.profile.members;
-			$scope.directReports = data.profile.direct_reports;
-			if(data.profile.user && data.profile.user.sys_id) { //if user exists, then this isn't 'my' profile. It's someone elses.
-				$scope.showMyProfile = true;
-				$scope.userID = data.profile.user.sys_id;
-			}
-	});
+  $scope.$on('finishedChanged', function(event, data) {
+    $scope.myManager = data.profile.manager;
+    $scope.teamMembers = data.profile.members;
+    $scope.directReports = data.profile.direct_reports;
+    if(data.profile.user && data.profile.user.sys_id) { //if user exists, then this isn't 'my' profile. It's someone elses.
+       $scope.showMyProfile = true;
+       $scope.userID = data.profile.user.sys_id;
+    }
+  });
 
-	$scope.openProfile = function(user) {
-		$location.search("id=team_user_profile&sys_id=" + user.sys_id); 
-	};
-
-	$scope.showTeamWidget = function() {
-		return ($scope.myManager && $scope.myManager.sys_id) ||
-			($scope.teamMembers && $scope.teamMembers.length > 1) ||
-			($scope.directReports && $scope.directReports.length > 0);
-	};
-
-	$scope.getPMs = function(empSysID,name){
-		//alert(empSysID);
-    $timeout(function(){
-	     $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyPM?empSysID='+empSysID)
-		   .then(function(resEmp) {
-			    c.data.pm = resEmp.data.result;
-				  c.name = name;
-//      _createChart();
-				 //alert(c.data.pm);
-	     });
-	  });
+  $scope.openProfile = function(user) {
+    $location.search("id=team_user_profile&sys_id=" + user.sys_id); 
   };
+
+  $scope.showTeamWidget = function() {
+    return ($scope.myManager && $scope.myManager.sys_id) ||
+           ($scope.teamMembers && $scope.teamMembers.length > 1) ||
+           ($scope.directReports && $scope.directReports.length > 0);
+   };
+
+   $scope.getPMs = function(empSysID,name){
+      //alert(empSysID);
+     $timeout(function(){
+        $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyPM?empSysID='+empSysID).then(function(resEmp) {
+           c.data.pm = resEmp.data.result;
+           c.name = name;
+//      _createChart();
+           //alert(c.data.pm);
+        });
+     });
+   };
 /*	
 	$scope.updateList = function(variable, value) {
 		if (variable == "showFullInfoReports")
@@ -120,7 +127,7 @@ data.user_id = gs.getUserID();]]></script>
         <sys_created_on>2017-11-09 20:51:29</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>0e6be70613da030098317e276144b014</sys_id>
-        <sys_mod_count>72</sys_mod_count>
+        <sys_mod_count>88</sys_mod_count>
         <sys_name>My SAIC Team</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -128,8 +135,8 @@ data.user_id = gs.getUserID();]]></script>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_0e6be70613da030098317e276144b014</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-13 02:41:00</sys_updated_on>
-        <template><![CDATA[<sp-panel rect="rect" title="'${Team}'">
+        <sys_updated_on>2017-11-27 17:03:56</sys_updated_on>
+        <template><![CDATA[<sp-panel ng-if="c.showWidget" rect="rect" title="'${Team}'">
  <div id="direct_reports">
   <h5 ng-if="directReports.length > 0 && !showMyProfile" class="team_header">${My Direct Reports}</h5>
   <h5 ng-if="directReports.length > 0 && showMyProfile" class="team_header">${Direct Reports}</h5>

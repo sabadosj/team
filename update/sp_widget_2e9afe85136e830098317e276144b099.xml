@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($http,$location,$scope) {
+  /* widget controller */
+  var c = this;
+  $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeamStats?usrSysID='+$location.search().sys_id)
+    .then(function(resStatus) {
+     $scope.data.stats = resStatus.data.result;
+  });
+
+  var loadTeam = false;
+  var loadChart = false;
+  $scope.loadTeam = function(){
+		if (!loadTeam) {
+        loadTeam = true;
+		    $rootScope.$broadcast('loadTeam');
+		} else {
+			  loadTeam = false;
+		    $rootScope.$broadcast('loadTeamOff');
+		}
+	};
+
+	/*
+	agencies
+	cert
+	location
+	comptech
+	lang
+	ed
+	progmgmt
+	prog
+	eng
+	techrole
+	spec
+	tools
+	*/
+	
+  $scope.loadChart = function(chartArea){
+		if (!loadChart) {
+        loadChart = true;
+        $rootScope.$broadcast('loadChart',chartArea);
+		} else {
+			  loadChart = false;
+		    $rootScope.$broadcast('loadChartOff');
+		}
+  };
+	
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link/>
+        <name>My Team Capabilities Menu</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-19 01:01:43</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>2e9afe85136e830098317e276144b099</sys_id>
+        <sys_mod_count>64</sys_mod_count>
+        <sys_name>My Team Capabilities Menu</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_2e9afe85136e830098317e276144b099</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-27 17:50:30</sys_updated_on>
+        <template><![CDATA[<sp-panel rect="rect" title="'${Team Capabilities}'">
+<div>
+  <a ng-click="loadTeam()" href="javascript:void(0)" class="list-group-item">
+    <fa name="users" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Team {{c.data.stats[0].memberCount}}</span>
+  </a>
+  <a ng-click="loadChart('agencies')" href="javascript:void(0)" class="list-group-item">
+    <fa name="university" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Agency {{c.data.stats[0].agencies}}</span>
+  </a>
+  <a ng-click="loadChart('cert')" href="javascript:void(0)" class="list-group-item">
+    <fa name="certificate" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Certificate {{c.data.stats[0].certifications}}</span>
+  </a>
+  <a ng-click="loadChart('location')" href="javascript:void(0)" class="list-group-item">
+    <fa name="globe" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Location {{c.data.stats[0].location}}</span>
+  </a>
+  <a ng-click="loadChart('comptech')" href="javascript:void(0)" class="list-group-item">
+    <fa name="cog" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Computer Tech {{c.data.stats[0].computerTech}}</span>
+  </a>
+  <a ng-click="loadChart('lang')" href="javascript:void(0)" class="list-group-item">
+    <fa name="language" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Language {{c.data.stats[0].language}}</span>
+  </a>
+  <a ng-click="loadChart('ed')" href="javascript:void(0)" class="list-group-item">
+    <fa name="book" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Education {{c.data.stats[0].education}}</span>
+  </a>
+  <a ng-click="loadChart('progmgmt')" href="javascript:void(0)" class="list-group-item">
+    <fa name="pie-chart" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Prog Mgmt {{c.data.stats[0].progMgmt}}</span>
+  </a>
+  <a ng-click="loadChart('prog')" href="javascript:void(0)" class="list-group-item">
+    <fa name="heartbeat" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Programs {{c.data.stats[0].programs}}</span>
+  </a>
+  <a ng-click="loadChart('eng')" href="javascript:void(0)" class="list-group-item">
+    <fa name="wrench" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Engineering {{c.data.stats[0].engineering}}</span>
+  </a>
+  <a ng-click="loadChart('techrole')" href="javascript:void(0)" class="list-group-item">
+    <fa name="users" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Tech Role {{c.data.stats[0].techRole}}</span>
+  </a>
+  <a ng-click="loadChart('spec')" href="javascript:void(0)" class="list-group-item">
+    <fa name="flask" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Speciality {{c.data.stats[0].speciality}}</span>
+  </a>
+  <a ng-click="loadChart('tools')" href="javascript:void(0)" class="list-group-item">
+    <fa name="cogs" size="2"></fa>
+    <span style="font-size: 100%; background-color:#428bca;" class="badge">Tools/Vendors {{c.data.stats[0].toolsVendors}}</span>
+  </a>
+</div>
+</sp-panel>]]></template>
+    </sp_widget>
+</record_update>

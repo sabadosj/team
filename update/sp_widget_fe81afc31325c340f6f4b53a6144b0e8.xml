@@ -289,7 +289,7 @@ function getRecordBeingApproved(gr) {
         <sys_created_on>2017-10-06 15:55:12</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>fe81afc31325c340f6f4b53a6144b0e8</sys_id>
-        <sys_mod_count>297</sys_mod_count>
+        <sys_mod_count>298</sys_mod_count>
         <sys_name>SAIC Team Mgmt Approvals</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -297,7 +297,7 @@ function getRecordBeingApproved(gr) {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_fe81afc31325c340f6f4b53a6144b0e8</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-17 17:46:57</sys_updated_on>
+        <sys_updated_on>2017-11-27 18:51:07</sys_updated_on>
         <template><![CDATA[<div class="panel panel-{{::options.color}} b">
  <div class="panel-heading">
   <h4 class="panel-title"><fa ng-if="::options.glyph.length" name="{{::options.glyph}}" class="m-r-sm" />${My Approvals}</h4>
@@ -361,26 +361,26 @@ function getRecordBeingApproved(gr) {
             <td align="right">$ {{c.data.trnReq.estimated_travel_cost}}</td>
            </tr>
 		   <tr>
-            <td><strong>Type</strong></td>
-            <td>{{c.data.trnReq.type}}</td>
+            <td><strong>Category</strong></td>
+            <td>{{c.data.trnReq.category}}</td>
             <td><strong>Lab Fees</strong></td>
             <td align="right">$ {{c.data.trnReq.estimated_lab_fees_books}}</td>
            </tr>
 		   <tr>
-            <td><strong>Category</strong></td>
-            <td>{{c.data.trnReq.category}}</td>
+            <td><strong>Delivery Method</strong></td>
+            <td>{{c.data.trnReq.delivery_method}}</td>
             <td><strong>Exam Fees</strong></td>
             <td align="right">$ {{c.data.trnReq.estimated_exam_fees}}</td>
            </tr>
 		   <tr>
-            <td><strong>Delivery Method</strong></td>
-            <td>{{c.data.trnReq.delivery_method}}</td>
-            <td><strong>Labor Cost</strong></td>
-            <td align="right">$ </td>
-           </tr>
-		   <tr>
             <td><strong>Duration</strong></td>
             <td>{{c.data.trnReq.duration}} hours</td>
+            <td><strong>Labor Cost</strong></td>
+            <td align="right">$ {{c.data.trnReq.estimated_labor_cost}}</td>
+           </tr>
+		   <tr>
+            <td></td>
+            <td></td>
             <td><strong>Total Cost</strong></td>
             <td style="border-top:solid 1px black;" align="right">$ {{c.data.trnReq.total_cost}}</td>
            </tr>

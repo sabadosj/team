@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function ($http, $scope, $timeout, $animate, $rootScope, $location, $window) {
+	var c = this;
+
+  // *************************************************************
+	// Start tab Control
+	$scope.active = 1;
+	$scope.selectTab = function(value){
+		$scope.active = value;
+	};
+
+	$scope.isActive = function(value){
+		if($scope.active==value){
+			return true;
+		}
+		else{
+			return false;
+		}
+	};
+	// End Tab Control
+  // *************************************************************
+
+	$rootScope.$on('loadChart', function(event,data) {	
+     c.showWidget = true;
+//		 alert(data);
+		 c.chartArea = data
+     $http.get('/api/x_saic4_saic_team/teammgmtutils/getPieStats?sysUserID='+$location.search().sys_id+'&area='+c.chartArea)
+       .then(function(res) {
+          $scope.data.title  = res.data.result[0].title;
+          $scope.data.cats   = res.data.result[0].categories;
+          $scope.data.counts = res.data.result[0].data;
+          buildChart();
+       });
+  });
+  $rootScope.$on('loadChartOff', function(event,data) {	
+		 c.showWidget = false;
+  });
+
+	function buildChart() {
+		    //fLen = $scope.data.chartdata.length;
+		    //var st = "'something',32";
+		    //var chartText =[];
+		    //chartText.push(st);
+		    //for (i = 0; i < fLen; i++) {
+        //    chartText[i] = [$scope.data.chartdata[i]];
+        //}
+		    //var something = [];
+        //chartText[0]= ['something',32];
+		    //chartText = chartText.substr(0,chartText.length-1);
+		   // alert(isArray(chartText));
+	     //	chartText = $scope.data.chartdata;
+		   //alert(chartText);
+		
+	      Highcharts.setOptions({
+           colors: 
+             ['#cccccc','#85a545','#006BB6'] 
+			  });
+			  Highcharts.chart('container', {
+         chart: {
+					type: 'bar'
+					},
+					title: {
+						text: $scope.data.title
+					},
+          credits: {
+            enabled: false
+          },
+          subtitle: {
+            text: 'Source: <a href="https://openair.com">RMS</a>'
+          },
+          xAxis: {
+						categories: $scope.data.cats,
+            type: 'category',
+            labels: {
+                //rotation: -90,
+                style: {
+                    fontSize: '10px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+          },
+          yAxis: {
+            min: 0,
+            title: {
+                text: 'Counts'
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          tooltip: {
+             pointFormat: 'Count from RMS: <b>{point.y} </b>'
+          },
+					plotOptions: {
+						column: {
+							//stacking: 'normal',
+							dataLabels: {
+								enabled: true,
+								formatter: function () {
+									return "$" +this.point.y.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								}
+							}
+
+						}
+					},
+          series: [{
+            name: 'Agencies',
+            data: $scope.data.counts,
+                  dataLabels: {
+                    enabled: true,
+                    //rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y}', // one decimal
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                       fontSize: '13px',
+                       fontFamily: 'Verdana, sans-serif'
+                    }
+                  }
+                }]
+          });
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>team-chart</id>
+        <internal>false</internal>
+        <link/>
+        <name>Team Chart</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-25 17:20:22</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>ad84191f13ee470098317e276144b05f</sys_id>
+        <sys_mod_count>100</sys_mod_count>
+        <sys_name>Team Chart</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_widget_ad84191f13ee470098317e276144b05f</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-27 18:15:58</sys_updated_on>
+        <template><![CDATA[<sp-panel ng-if="c.showWidget" rect="rect" title="c.data.title">
+  <div id="container" style="min-height: 300px; height: 1800px; margin: 0 auto"></div>
+</sp-panel>]]></template>
+    </sp_widget>
+</record_update>

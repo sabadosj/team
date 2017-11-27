@@ -336,7 +336,9 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         //Calculate direct reports
         var directReportGR = new GlideRecord("sys_user");
         directReportGR.addActiveQuery();
-        directReportGR.addQuery("manager", sysUserID);
+		var encQry = fn.getMyTeamSysIDs(sysUserID,sysUserID);
+		directReportGR.addEncodedQuery(encQry);
+//        directReportGR.addQuery("manager", sysUserID);
         directReportGR.query();
         while(directReportGR.next()) {
             teamData.direct_reports.push(
@@ -352,6 +354,222 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			);
 		}
         return teamData.direct_reports;
+	 },
+
+	 // *******************************************************************************************
+     // Return Stats of a particular capability by users team in array format (for highcharts)
+     // *******************************************************************************************
+     getPieStats: function(sysUserID,area) {
+        var tbl,col,title;
+		if (area=='agencies') {
+			tbl   = 'u_rms_agency';
+			col   = 'u_agency';
+			title = 'Angencies';
+		} else if (area=='cert') {
+			tbl   = 'u_rms_certifications';
+			col   = 'u_certification';
+			title = 'Certifications';
+		} else if (area=='location') {
+			tbl   = 'u_rms_location';
+			col   = 'u_location';
+			title = 'Locations';
+		} else if (area=='comptech') {
+			tbl   = 'u_rms_computer_technology';
+			col   = 'u_computer_technology';
+			title = 'Computer Technology';
+		} else if (area=='lang') {https://saicitodev.service-now.com/images/icons/save.gifx
+			tbl   = 'u_rms_foreign_language';
+			col   = 'u_lanaguage';
+			title = 'Foreign Language';
+		} else if (area=='ed') {
+			tbl   = 'u_rms_education';
+			col   = 'u_education';
+			title = 'Education';
+		} else if (area=='progmgmt') {
+			tbl   = 'u_rms_program_management';
+			col   = 'u_postion';
+			title = 'Program Management';
+		} else if (area=='prog') {
+			tbl   = 'u_rms_program_type';
+			col   = 'u_program_type';
+			title = 'Program Types';
+		} else if (area=='eng') {
+			tbl   = 'u_rms_system_engineering';
+			col   = 'u_system_engineering';
+			title = 'Cystem Engineering';
+		} else if (area=='techrole') {
+			tbl   = 'u_rms_technical_role';
+			col   = 'u_technical_role';
+			title = 'Technical Role';
+		} else if (area=='spec') {
+			tbl   = 'u_rms_technical_specialty';
+			col   = 'u_technical_specialty';
+			title = 'Technical Specialty';
+		} else if (area=='tools') {
+			tbl   = 'u_rms_tools_vendor_experience';
+			col   = 'u_tool_vendor';
+			title = 'Vendor/Tools';
+		}
+
+		var series = []; 
+		var data = [];
+		var counts = [];
+		var fn = new TeamMgmt();
+		var encQry = fn.getMyTeamSysIDs(sysUserID,sysUserID);
+        var statGR = new GlideAggregate(tbl);
+//gs.info(encQry);
+		 statGR.addEncodedQuery('u_employee_name.'+encQry);
+//        statGR.addAggregate('COUNT(DISTINCT',col);
+        statGR.addAggregate('COUNT',col);
+        statGR.groupBy(col);
+        statGR.setGroup(false);
+        statGR.query();
+		 cnt = 0;
+        while(statGR.next()) {
+           data.push(statGR.getValue(col));
+		   counts.push(1*statGR.getAggregate('COUNT',col));
+			cnt += 1;
+		}
+		series.push( {
+			"title"      : title,
+			"categories" : data,
+			"data"       : counts
+		});
+		return series; 
+		//return details.substr(0,details.length-1);
+	 },
+	
+	 // *****************************************************************************
+     // Return Stats for for user passed in
+     // *****************************************************************************
+     getMyTeamStats: function(sysUserID) {
+		var fn = new TeamMgmt();
+		var encQry = fn.getMyTeamSysIDs(sysUserID,sysUserID);
+        var teamStats = [];
+        teamStats.push(
+          {
+            "memberCount"    : getUsersStat('sys_user',encQry,'memberCount') || 0,
+            "location"       : getUsersStat('sys_user',encQry,'memberLocation') || 0,
+			"jobFamily"      : getUsersStat('sys_user',encQry,'jobFamily') || 0,
+            "agencies"       : getUsersStat('u_rms_agency','u_employee_name.'+encQry,'agency') || 0,
+            "clearance"      : getUsersStat('u_rms_clearance','u_employee_name.'+encQry,'clear') || 0,
+            "certifications" : getUsersStat('u_rms_certifications','u_employee_name.'+encQry,'cert') || 0,
+            "computerTech"   : getUsersStat('u_rms_computer_technology','u_employee_name.'+encQry,'comptech') || 0,
+            "language"       : getUsersStat('u_rms_foreign_language','u_employee_name.'+encQry,'lang') || 0,
+			"education"      : getUsersStat('u_rms_education','u_employee_name.'+encQry,'ed') || 0,
+			"progMgmt"       : getUsersStat('u_rms_program_management','u_employee_name.'+encQry,'prgmgmt') || 0,
+			"programs"       : getUsersStat('x_saic4_saic_team_employees_to_programs','employee.'+encQry,'prog') || 0,
+			"engineering"    : getUsersStat('u_rms_system_engineering','u_employee_name.'+encQry,'eng') || 0,
+			"techRole"       : getUsersStat('u_rms_technical_role','u_employee_name.'+encQry,'techrole') || 0,
+			"speciality"     : getUsersStat('u_rms_technical_specialty','u_employee_name.'+encQry,'spec') || 0,
+			"toolsVendors"   : getUsersStat('u_rms_tools_vendor_experience','u_employee_name.'+encQry,'vend') || 0
+          }
+        );
+        return teamStats;
+
+        // sys_user stat function
+		function getUsersStat(tbl,usrScope,qtype) {
+           var teamStatsGR = new GlideAggregate(tbl);
+           if (tbl=='sys_user') {
+              teamStatsGR.addQuery('active',true);
+		   }
+           teamStatsGR.addEncodedQuery(usrScope);
+           if (qtype == 'memberLocation') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','location');
+              teamStatsGR.groupBy('location');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'memberCount') {
+              teamStatsGR.addAggregate('COUNT');
+           } else if (qtype == 'jobFamily') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_job_code');
+              teamStatsGR.groupBy('u_job_code');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'agency') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_agency');
+              teamStatsGR.groupBy('u_agency');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'cert') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_certification');
+              teamStatsGR.groupBy('u_certification');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'clear') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_clearance_type');
+              teamStatsGR.groupBy('u_clearance_type');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'comptech') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_computer_technology');
+              teamStatsGR.groupBy('u_computer_technology');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'lang') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_lanaguage');
+              teamStatsGR.groupBy('u_lanaguage');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'ed') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_education');
+              teamStatsGR.groupBy('u_education');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'prgmgmt') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_postion');
+              teamStatsGR.groupBy('u_postion');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'prog') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','program.customer');
+              teamStatsGR.groupBy('program.customer');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'eng') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_system_engineering');
+              teamStatsGR.groupBy('u_system_engineering');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'techrole') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_technical_role');
+              teamStatsGR.groupBy('u_technical_role');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'spec') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_technical_specialty');
+              teamStatsGR.groupBy('u_technical_specialty');
+              teamStatsGR.setGroup(false);
+		   } else if (qtype == 'vend') {
+              teamStatsGR.addAggregate('COUNT(DISTINCT','u_tool_vendor');
+              teamStatsGR.groupBy('u_tool_vendor');
+              teamStatsGR.setGroup(false);
+		   } 
+           teamStatsGR.query();
+           var rtnCount = 0;
+           while(teamStatsGR.next()) {
+              if (qtype == 'memberLocation') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','location')*1;
+              } else if (qtype == 'memberCount') {
+                rtnCount = teamStatsGR.getAggregate('COUNT');
+              } else if (qtype == 'jobFamily') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_job_code')*1;
+              } else if (qtype == 'agency') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_agency')*1;
+              } else if (qtype == 'cert') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_certification')*1;
+              } else if (qtype == 'clear') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_clearance_type')*1;
+              } else if (qtype == 'comptech') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_computer_technology')*1;
+              } else if (qtype == 'lang') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_lanaguage')*1;
+              } else if (qtype == 'ed') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_education')*1;
+              } else if (qtype == 'prgmgmt') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_postion')*1;
+              } else if (qtype == 'prog') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','program.customer')*1;
+              } else if (qtype == 'eng') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_system_engineering')*1;
+              } else if (qtype == 'techrole') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_technical_role')*1;
+              } else if (qtype == 'spec') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_technical_specialty')*1;
+              } else if (qtype == 'vend') {
+                rtnCount += teamStatsGR.getAggregate('COUNT(DISTINCT','u_tool_vendor')*1;
+              }
+           }
+		   return rtnCount;
+	    }	 
 	 },
 
 	 // *****************************************************************************
@@ -1207,7 +1425,7 @@ gr.addEncodedQuery(qryStr);
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>412</sys_mod_count>
+        <sys_mod_count>491</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -1215,6 +1433,6 @@ gr.addEncodedQuery(qryStr);
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-18 00:47:03</sys_updated_on>
+        <sys_updated_on>2017-11-27 18:11:18</sys_updated_on>
     </sys_script_include>
 </record_update>

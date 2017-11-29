@@ -356,6 +356,97 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         return teamData.direct_reports;
 	 },
 
+	 // *****************************************************************************
+     // Return A persons teams training activity
+     // *****************************************************************************
+     getMyTrnActivty: function(sysUserID,fy) {
+
+		// GET Current FY if it was not passed in 
+		if (!fy || fy=="") {
+           var datetoconvert = new GlideDate();
+           fycal = new global.AccountingCalendar(datetoconvert);
+           fy = fycal.fy; //shows Fiscal Year
+		}
+        var totPending       = 0;
+		var totApproved      = 0;
+		var totDenied        = 0;
+        var totPendingCount  = 0;
+		var totApprovedCount = 0;
+		var totDeniedCount   = 0;
+		var total_cost       = 0;
+		var impctrez         = {};
+		 
+		var usrStats = new GlideRecord('x_saic4_saic_team_training_requests');
+        usrStats.addQuery('approval_status','IN','Pending,Approved,Denied');
+        usrStats.addQuery('fy',fy);
+		usrStats.addEncodedQuery('requested_for.IN'+sysUserID);
+        usrStats.query();
+        while (usrStats.next()) {
+			total_cost =  usrStats.getValue('estimated_course_cost')*1;
+			total_cost += usrStats.getValue('estimated_labor_cost')*1;
+			total_cost += usrStats.getValue('estimated_exam_fees')*1;
+			total_cost += usrStats.getValue('estimated_lab_fees_books')*1;
+			total_cost += usrStats.getValue('estimated_travel_cost')*1;
+			if (usrStats.approval_status =='Pending') {
+				totPending       += parseFloat(total_cost);
+				totPendingCount  += 1;
+			}
+			if (usrStats.approval_status =='Approved') {
+				totApproved      += parseFloat(total_cost);
+				totApprovedCount += 1;
+			}
+			if (usrStats.approval_status =='Denied') {
+				totDenied        += parseFloat(total_cost);
+				totDeniedCount   += 1;
+			}
+        }
+		impctrez.totPending       = parseFloat(Math.round(totPending * 100) / 100);
+		impctrez.totPendingCount  = totPendingCount;
+		impctrez.totApproved      = parseFloat(Math.round(totApproved * 100) / 100);
+		impctrez.totApprovedCount = totApprovedCount;
+		impctrez.totDenied        = parseFloat(Math.round(totDenied * 100) / 100);
+		impctrez.totDeniedCount   = totDeniedCount;
+
+				 
+        return impctrez;
+	 },
+	
+	 // *****************************************************************************
+     // Return A persons teams training activity
+     // *****************************************************************************
+     getMyTeamTrainActivty: function(sysUserID) {
+		var fn = new TeamMgmt();
+        var teamData = {};
+        teamData.direct_reports = [];
+ 
+        var directReportGR = new GlideRecord("sys_user");
+        directReportGR.addActiveQuery();
+		var encQry = fn.getMyTeamSysIDs(sysUserID,sysUserID);
+		directReportGR.addEncodedQuery(encQry);
+        directReportGR.query();
+        while(directReportGR.next()) {
+			var empAct = fn.getMyTrnActivty(directReportGR.getValue("sys_id"));
+            teamData.direct_reports.push(
+				{
+                  "email"            : directReportGR.getValue("email") || "",
+                  "first_name"       : directReportGR.getValue("first_name"),
+                  "last_name"        : directReportGR.getValue("last_name"),
+                  "name"             : directReportGR.getValue("name"),
+                  "phone"            : directReportGR.getValue("phone") || "",
+                  "sys_id"           : directReportGR.getValue("sys_id"),
+			      "pmInfo"           : fn.getMyPM(directReportGR.getValue("sys_id")),
+			      "totPending"       : empAct.totPending,
+			      "totPendingCount"  : empAct.totPendingCount,
+			      "totApproved"      : empAct.totApproved,
+			      "totApprovedCount" : empAct.totApprovedCount,
+			      "totDenied"        : empAct.totDenied,
+			      "totDeniedCount"   : empAct.totDeniedCount
+				}
+			);
+		}
+        return teamData.direct_reports;
+	 },
+
 	 // *******************************************************************************************
      // Return Stats of a particular capability by users team in array format (for highcharts)
      // *******************************************************************************************
@@ -377,7 +468,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			tbl   = 'u_rms_computer_technology';
 			col   = 'u_computer_technology';
 			title = 'Computer Technology';
-		} else if (area=='lang') {https://saicitodev.service-now.com/images/icons/save.gifx
+		} else if (area=='lang') {
 			tbl   = 'u_rms_foreign_language';
 			col   = 'u_lanaguage';
 			title = 'Foreign Language';
@@ -762,12 +853,16 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	 // *****************************************************************************
      // Return general stats on training metrics
      // *****************************************************************************
-     getEntRequestActivity: function() {
+     getEntRequestActivity: function(sysUserID) {
         // Calculate current FY
 		var datetoconvert = new GlideDate();
         fycal = new global.AccountingCalendar(datetoconvert);
         var fy = fycal.fy; //shows Fiscal Year
 
+		var fn = new TeamMgmt();
+		var encQry = fn.getMyTeamSysIDs(sysUserID,sysUserID);
+		 
+		 
         var totBudget        = 0;
         var budgetBalance    = 0;
         var totBudgetCount   = 0;
@@ -786,6 +881,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		var entStats = new GlideRecord('x_saic4_saic_team_training_requests');
         entStats.addQuery('approval_status','IN','Pending,Approved,Denied');
         entStats.addQuery('fy',fy);
+		entStats.addEncodedQuery('requested_for.'+encQry);
         entStats.query();
         while (entStats.next()) {
 			var total_cost = 0;
@@ -818,6 +914,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		trngActuals.addAggregate('COUNT');
 		trngActuals.setGroup(false);
         trngActuals.addQuery('fy', fy);
+		trngActuals.addEncodedQuery('employee.'+encQry);
         trngActuals.query();
         while (trngActuals.next()) {
 		     totActuals      = trngActuals.getAggregate('SUM', 'total_burdened_cost');
@@ -830,7 +927,9 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         trngrbdgt.addAggregate('SUM', 'balance');
         trngrbdgt.addAggregate('COUNT');
 		trngrbdgt.setGroup(false);
-        trngrbdgt.addQuery('fy', fy);		
+//        trngrbdgt.addQuery('fy', fy);		
+//        trngrbdgt.addQuery('budget.sys_id', sysUserID);
+		trngrbdgt.addEncodedQuery('budget.sys_id='+sysUserID+'^ORbudget.'+encQry+'^fy='+fy);
         trngrbdgt.query();
         while (trngrbdgt.next()) {
 		     totBudget      = trngrbdgt.getAggregate('SUM', 'budget_total');
@@ -1301,20 +1400,14 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	// *****************************************************************************
 	// Return all historical training requests by user
 	// *****************************************************************************
-//	allTrainReqsByUsr: function(fy,usrSysID,reqSysID) {
 	allTrainReqsByUsr: function(usrSysID,reqSysID) {
 		// Calculate current FY
 		var datetoconvert = new GlideDate();
         fycal = new global.AccountingCalendar(datetoconvert);
         var fy = fycal.fy; //shows Fiscal Year
-
-//https://saicitodev.service-now.com/x_saic4_saic_team_training_requests_list.do?sysparm_query=requested_for%3D1138a2d568df310073b89ba81df3ae40&sysparm_list_mode=grid		
-		
-		
 		var gr = new GlideRecord('x_saic4_saic_team_training_requests');
-var qryStr = 'requested_for='+usrSysID.toString();
-//		gr.addQuery('requested_for',usrSysID);
-gr.addEncodedQuery(qryStr);
+        var qryStr = 'requested_for='+usrSysID.toString();
+        gr.addEncodedQuery(qryStr);
 		gr.addQuery('fy',fy);
 		gr.addQuery('sys_id','!=',reqSysID);
 		gr.orderBy('pd');
@@ -1425,7 +1518,7 @@ gr.addEncodedQuery(qryStr);
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>491</sys_mod_count>
+        <sys_mod_count>510</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -1433,6 +1526,6 @@ gr.addEncodedQuery(qryStr);
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-27 18:11:18</sys_updated_on>
+        <sys_updated_on>2017-11-28 20:44:34</sys_updated_on>
     </sys_script_include>
 </record_update>

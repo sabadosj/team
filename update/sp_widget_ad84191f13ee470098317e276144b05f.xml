@@ -53,11 +53,11 @@
 	     //	chartText = $scope.data.chartdata;
 		   //alert(chartText);
 		
-	      Highcharts.setOptions({
+	  Highcharts.setOptions({
            colors: 
-             ['#cccccc','#85a545','#006BB6'] 
+             ['#85a545','#006BB6'] 
 			  });
-			  Highcharts.chart('container', {
+			  var chart = Highcharts.chart('container', {
          chart: {
 					type: 'bar'
 					},
@@ -120,12 +120,62 @@
                        fontFamily: 'Verdana, sans-serif'
                     }
                   }
-                }]
-          });
+          }],
+				  responsive: {
+           rules: [{
+             condition: {
+                maxWidth: 500,
+							  maxHeight: 1800
+           },
+           chartOptions: {
+              legend: {
+                  align: 'center',
+                  verticalAlign: 'bottom',
+                  layout: 'horizontal'
+              },
+              yAxis: {
+                  labels: {
+                     align: 'left',
+                     x: 0,
+                     y: -5
+                  },
+                  title: {
+                     text: null
+                  }
+              },
+              subtitle: {
+                  text: null
+              },
+              credits: {
+                  enabled: false
+              }
+           }
+        }]
+       }
+
+       });
+       $('#small').click(function () {
+          chart.setSize(850,400);
+       });
+
+       $('#medium').click(function () {
+          chart.setSize(850,1100);
+       });
+
+		   $('#large').click(function () {
+          chart.setSize(850,1800);
+       });
 	}
-}]]></client_script>
+
+}
+]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>#container {
+	height: 600px;
+	min-width: 310px;
+	max-width: 800px;
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -150,7 +200,7 @@
         <sys_created_on>2017-11-25 17:20:22</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>ad84191f13ee470098317e276144b05f</sys_id>
-        <sys_mod_count>100</sys_mod_count>
+        <sys_mod_count>120</sys_mod_count>
         <sys_name>Team Chart</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -158,9 +208,11 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_ad84191f13ee470098317e276144b05f</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-27 18:15:58</sys_updated_on>
-        <template><![CDATA[<sp-panel ng-if="c.showWidget" rect="rect" title="c.data.title">
-  <div id="container" style="min-height: 300px; height: 1800px; margin: 0 auto"></div>
-</sp-panel>]]></template>
+        <sys_updated_on>2017-11-28 02:35:31</sys_updated_on>
+        <template><![CDATA[<sp-panel ng-if="c.showWidget" rect="rect" title="Team Capabilities">
+<button id="small">Smaller</button><button id="medium">Medium</button><button id="large">Large</button>
+</sp-panel>
+<div ng-if="c.showWidget"  id="container"></div>
+]]></template>
     </sp_widget>
 </record_update>

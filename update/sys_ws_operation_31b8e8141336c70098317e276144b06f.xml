@@ -7,44 +7,40 @@
         <default_operation_uri/>
         <enforce_acl/>
         <http_method>GET</http_method>
-        <name>getEntRequestActivity</name>
+        <name>getMyTeamTrainActivty</name>
         <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
 
 	var pu = new TeamMgmt();
-
 	var qp = request.queryParams;
-	var sysID = "";
-	var reqSysID = "";
-    if (qp.usrSysID) {
-       sysID = qp.usrSysID;
-	} else {
-	   sysID = gs.getUserID();
+	var sysUserID = qp.usrSysID;
+	if (!sysUserID) {
+		sysUserID = gs.getUserID();
 	}
-	return pu.getEntRequestActivity(sysID);
+    return pu.getMyTeamTrainActivty(sysUserID);
 
 })(request, response);]]></operation_script>
-        <operation_uri>/api/x_saic4_saic_team/teammgmtutils/getEntRequestActivity</operation_uri>
+        <operation_uri>/api/x_saic4_saic_team/teammgmtutils/getMyTeamTrainActivty</operation_uri>
         <produces>application/json,application/xml,text/xml</produces>
         <produces_customized>false</produces_customized>
-        <relative_path>/getEntRequestActivity</relative_path>
+        <relative_path>/getMyTeamTrainActivty</relative_path>
         <request_example/>
         <requires_acl_authorization>false</requires_acl_authorization>
         <requires_authentication>true</requires_authentication>
         <short_description/>
         <sys_class_name>sys_ws_operation</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
-        <sys_created_on>2017-10-23 17:18:18</sys_created_on>
+        <sys_created_on>2017-11-28 16:42:53</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
-        <sys_id>b5971b6013ce874098317e276144b005</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>getEntRequestActivity</sys_name>
+        <sys_id>31b8e8141336c70098317e276144b06f</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>getMyTeamTrainActivty</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
-        <sys_update_name>sys_ws_operation_b5971b6013ce874098317e276144b005</sys_update_name>
+        <sys_update_name>sys_ws_operation_31b8e8141336c70098317e276144b06f</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-28 02:52:52</sys_updated_on>
+        <sys_updated_on>2017-11-28 17:48:37</sys_updated_on>
         <web_service_definition display_value="TeamMgmtUtils">7e3471ae13a18340f6f4b53a6144b063</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>

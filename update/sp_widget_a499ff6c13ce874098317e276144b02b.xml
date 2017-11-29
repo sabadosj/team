@@ -4,7 +4,7 @@
         <client_script><![CDATA[function ($http, $scope, $timeout, $rootScope) {
 	
 	var c = this;
-	$http.get('/api/x_saic4_saic_team/teammgmtutils/getEntRequestActivity')
+	$http.get('/api/x_saic4_saic_team/teammgmtutils/getEntRequestActivity?usrSysID=9ce7ea9568df310073b89ba81df3aef0')
     .then(function(stats) {
      $scope.data.stats = stats.data.result;
      $scope.data.b1tooltip = $scope.data.stats.TotalBudgetCount + " budgets have been defined in the system totaling " + $scope.data.stats.TotalBudget + ".  " + $scope.data.stats.totActuals + " have been posted to finance leaving a balance of "+ $scope.data.stats.BudgetBalance;
@@ -82,13 +82,13 @@ a.color_box h4 {
   background-color: #005799;
 }
 .bg3 {
-  background-color: #006EC2;
+  background-color: #476A00;
 }
 .bg4 {
-  background-color: #367CB1;
+  background-color: #CBB700;
 }
 .bg5 {
-  background-color: #528EBC;
+  background-color: #F97100;
 }
 .bg6 {
   //background-color: #cccccc;
@@ -118,9 +118,9 @@ a.color_box h4 {
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-23 19:46:46</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_customer_update>true</sys_customer_update>
         <sys_id>a499ff6c13ce874098317e276144b02b</sys_id>
-        <sys_mod_count>138</sys_mod_count>
+        <sys_mod_count>150</sys_mod_count>
         <sys_name>Team Management Sector Indicators</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -128,7 +128,7 @@ a.color_box h4 {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_a499ff6c13ce874098317e276144b02b</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-10-24 21:49:23</sys_updated_on>
+        <sys_updated_on>2017-11-28 13:44:10</sys_updated_on>
         <template><![CDATA[<script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 

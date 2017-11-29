@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_db_view_table">
+    <sys_db_view_table action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <left_join>true</left_join>
+        <order>50</order>
+        <sys_class_name>sys_db_view_table</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-28 15:25:49</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>49d614101336c70098317e276144b053</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>sys_user</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_db_view_table_49d614101336c70098317e276144b053</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-28 15:31:18</sys_updated_on>
+        <table>sys_user</table>
+        <variable_prefix>usr</variable_prefix>
+        <view display_value="x_saic4_saic_team_users_with_training_requests">008650101336c70098317e276144b0cf</view>
+        <where_clause>usr_sys_id=treq_requested_for</where_clause>
+    </sys_db_view_table>
+</record_update>

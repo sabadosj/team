@@ -4,8 +4,8 @@
         <active>true</active>
         <applies_catalog>true</applies_catalog>
         <applies_extended>false</applies_extended>
-        <applies_req_item>false</applies_req_item>
-        <applies_sc_task>false</applies_sc_task>
+        <applies_req_item>true</applies_req_item>
+        <applies_sc_task>true</applies_sc_task>
         <applies_to>item</applies_to>
         <cat_item display_value="Training Request">b1dda02213618340f6f4b53a6144b07a</cat_item>
         <cat_variable>IO:26a234a213618340f6f4b53a6144b012</cat_variable>
@@ -23,7 +23,24 @@
   if (newValue == 'other') {
      g_form.setDisplay('category_other_explanation',true);
      g_form.setMandatory('category_other_explanation',true);
+	 g_form.setReadonly('course_duration',false);
+	 g_form.setValue('course_duration', '');
+	 g_form.setReadonly('dev_method',false);
+	 g_form.setValue('dev_method', '');
+  } else if (newValue == 'subscription_and_membership') {
+     g_form.setReadonly('course_duration',false);
+     g_form.setValue('course_duration', '0');
+     g_form.setReadonly('course_duration',true);
+     g_form.setValue('dev_method', 'other');
+     g_form.setReadonly('dev_method',true);
+     g_form.setValue('category_other_explanation','');
+	 g_form.setMandatory('category_other_explanation',false);
+	 g_form.setDisplay('category_other_explanation',false);
   } else {
+	 g_form.setReadonly('course_duration',false);
+	 g_form.setValue('course_duration', '');
+	 g_form.setReadonly('dev_method',false);
+	 g_form.setValue('dev_method', '');
      g_form.setValue('category_other_explanation','');
 	 g_form.setMandatory('category_other_explanation',false);
 	 g_form.setDisplay('category_other_explanation',false);
@@ -33,11 +50,11 @@
         <sys_class_name>catalog_script_client</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-11-09 17:35:17</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_customer_update>true</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>441efac6139a030098317e276144b0db</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>Is Category Other</sys_name>
         <sys_overrides/>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -46,7 +63,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>catalog_script_client_441efac6139a030098317e276144b0db</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-09 18:29:28</sys_updated_on>
+        <sys_updated_on>2017-12-04 14:55:00</sys_updated_on>
         <table/>
         <type>onChange</type>
         <ui_type>10</ui_type>

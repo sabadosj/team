@@ -4,49 +4,49 @@
         <active>true</active>
         <applies_catalog>true</applies_catalog>
         <applies_extended>false</applies_extended>
-        <applies_req_item>true</applies_req_item>
-        <applies_sc_task>true</applies_sc_task>
+        <applies_req_item>false</applies_req_item>
+        <applies_sc_task>false</applies_sc_task>
         <applies_to>item</applies_to>
         <cat_item display_value="Training Request">b1dda02213618340f6f4b53a6144b07a</cat_item>
-        <cat_variable>IO:25e8782613618340f6f4b53a6144b07d</cat_variable>
+        <cat_variable>IO:c58a746613618340f6f4b53a6144b003</cat_variable>
         <condition/>
         <description/>
         <field/>
         <global>true</global>
         <messages/>
-        <name>Show Course Duration</name>
+        <name>Is Delivery Method</name>
         <order/>
         <script><![CDATA[function onChange(control, oldValue, newValue, isLoading) {
    if (isLoading || newValue == '') {
       return;
    }
-   if (newValue == "tech_society_dues_subscriptions" || newValue == "tuition_assistance") {
-	   g_form.setVisible('course_duration',false);
-       g_form.setMandatory('course_duration',false);
-   } else {
-	   g_form.setVisible('course_duration',true); 
-  	   g_form.setMandatory('course_duration',true);
-	   g_form.setValue('course_duration','');
+
+   if (newValue == 'self_paced') {
+      g_form.setValue('course_duration', '0');
+      g_form.setReadonly('course_duration',true);
+   } else if (g_form.getValue('request_category') != 'subscription_and_membership') {
+      g_form.setReadonly('course_duration',false);
+      g_form.setValue('course_duration', '');
    }
-}
-]]></script>
+   
+}]]></script>
         <sys_class_name>catalog_script_client</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
-        <sys_created_on>2017-10-25 18:57:40</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_created_on>2017-12-01 17:45:57</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>a851429513cec74098317e276144b000</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>Show Course Duration</sys_name>
+        <sys_id>d963981d13be0b0098317e276144b0d1</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Is Delivery Method</sys_name>
         <sys_overrides/>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
-        <sys_update_name>catalog_script_client_a851429513cec74098317e276144b000</sys_update_name>
+        <sys_update_name>catalog_script_client_d963981d13be0b0098317e276144b0d1</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-10-25 18:57:40</sys_updated_on>
+        <sys_updated_on>2017-12-04 14:58:32</sys_updated_on>
         <table/>
         <type>onChange</type>
         <ui_type>10</ui_type>

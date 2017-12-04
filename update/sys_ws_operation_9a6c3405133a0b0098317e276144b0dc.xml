@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl/>
+        <http_method>GET</http_method>
+        <name>getMyTrnBudgetImpact</name>
+        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+    // This will return all existing requests with all status for the current fiscal year with the exception of the one 
+	// the approval is viewing.
+	var pu = new TeamMgmt();
+	var qp = request.queryParams;
+	return pu.getMyTrnBudgetImpact(qp.impactedBudget, qp.totApproved, qp.totPending, qp.totActuals, qp.fy);
+
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_saic4_saic_team/teammgmtutils/getMyTrnBudgetImpact</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/getMyTrnBudgetImpact</relative_path>
+        <request_example/>
+        <requires_acl_authorization>false</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-12-01 02:04:22</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>9a6c3405133a0b0098317e276144b0dc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>getMyTrnBudgetImpact</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_ws_operation_9a6c3405133a0b0098317e276144b0dc</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-12-01 02:04:22</sys_updated_on>
+        <web_service_definition display_value="TeamMgmtUtils">7e3471ae13a18340f6f4b53a6144b063</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>

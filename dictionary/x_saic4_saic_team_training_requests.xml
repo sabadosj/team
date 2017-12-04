@@ -28,10 +28,11 @@
         <element label="Customer Group" max_length="32" name="customer_group" reference="u_customer_group" type="reference"/>
         <element choice="1" label="Delivery Method" max_length="40" name="delivery_method" type="choice">
             <choice>
-                <element label="Online" value="online"/>
-                <element label="other" value="Other or N/A"/>
-                <element label="Self-Paced after hours" value="self_paced"/>
-                <element label="Training Center" value="training_center"/>
+                <element label="External Site" value="external_site"/>
+                <element label="Other or N/A" value="other"/>
+                <element label="SAIC site" value="training_center"/>
+                <element label="Virtual during working hours" value="online"/>
+                <element label="Virtual/Self-paced on employee's time" value="self_paced"/>
             </choice>
         </element>
         <element label="Division" max_length="40" name="division" type="string"/>

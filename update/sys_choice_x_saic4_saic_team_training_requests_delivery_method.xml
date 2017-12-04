@@ -6,7 +6,26 @@
             <element>delivery_method</element>
             <hint/>
             <inactive>false</inactive>
-            <label>Online</label>
+            <label>External Site</label>
+            <language>en</language>
+            <name>x_saic4_saic_team_training_requests</name>
+            <sequence/>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-12-04 15:07:55</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>927c0bc613f68b00f6f4b53a6144b090</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-12-04 15:08:39</sys_updated_on>
+            <value>external_site</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>delivery_method</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Virtual during working hours</label>
             <language>en</language>
             <name>x_saic4_saic_team_training_requests</name>
             <sequence/>
@@ -15,9 +34,9 @@
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>42a23db213a98340f6f4b53a6144b04a</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_mod_count>1</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-05 13:12:26</sys_updated_on>
+            <sys_updated_on>2017-12-04 15:09:06</sys_updated_on>
             <value>online</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -25,7 +44,7 @@
             <element>delivery_method</element>
             <hint/>
             <inactive>false</inactive>
-            <label>other</label>
+            <label>Other or N/A</label>
             <language>en</language>
             <name>x_saic4_saic_team_training_requests</name>
             <sequence/>
@@ -34,17 +53,17 @@
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>5a82b9b213a98340f6f4b53a6144b05f</sys_id>
-            <sys_mod_count>2</sys_mod_count>
+            <sys_mod_count>4</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-05 13:12:13</sys_updated_on>
-            <value>Other or N/A</value>
+            <sys_updated_on>2017-12-04 15:09:30</sys_updated_on>
+            <value>other</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
             <dependent_value/>
             <element>delivery_method</element>
             <hint/>
             <inactive>false</inactive>
-            <label>Self-Paced after hours</label>
+            <label>Virtual/Self-paced on employee's time</label>
             <language>en</language>
             <name>x_saic4_saic_team_training_requests</name>
             <sequence/>
@@ -53,9 +72,9 @@
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>13b23db213a98340f6f4b53a6144b0d0</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_mod_count>1</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-05 13:12:50</sys_updated_on>
+            <sys_updated_on>2017-12-04 15:10:41</sys_updated_on>
             <value>self_paced</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">
@@ -63,7 +82,7 @@
             <element>delivery_method</element>
             <hint/>
             <inactive>false</inactive>
-            <label>Training Center</label>
+            <label>SAIC site</label>
             <language>en</language>
             <name>x_saic4_saic_team_training_requests</name>
             <sequence/>
@@ -72,9 +91,9 @@
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>94d27db213a98340f6f4b53a6144b08c</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_mod_count>1</sys_mod_count>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-05 13:13:13</sys_updated_on>
+            <sys_updated_on>2017-12-04 15:09:55</sys_updated_on>
             <value>training_center</value>
         </sys_choice>
         <sys_choice_set action="INSERT_OR_UPDATE">
@@ -85,7 +104,7 @@
             <sys_created_on>2017-10-05 13:11:44</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
             <sys_id>e0f703cf13120300f6f4b53a6144b083</sys_id>
-            <sys_mod_count>6</sys_mod_count>
+            <sys_mod_count>14</sys_mod_count>
             <sys_name>delivery_method</sys_name>
             <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
             <sys_policy/>
@@ -93,7 +112,7 @@
             <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
             <sys_update_name>sys_choice_x_saic4_saic_team_training_requests_delivery_method</sys_update_name>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-05 13:13:13</sys_updated_on>
+            <sys_updated_on>2017-12-04 15:10:41</sys_updated_on>
         </sys_choice_set>
     </sys_choice>
 </record_update>

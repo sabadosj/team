@@ -120,7 +120,7 @@ a.color_box h4 {
         <sys_created_on>2017-10-23 19:46:46</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>a499ff6c13ce874098317e276144b02b</sys_id>
-        <sys_mod_count>150</sys_mod_count>
+        <sys_mod_count>151</sys_mod_count>
         <sys_name>Team Management Sector Indicators</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -128,12 +128,18 @@ a.color_box h4 {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_a499ff6c13ce874098317e276144b02b</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-28 13:44:10</sys_updated_on>
+        <sys_updated_on>2017-11-29 15:24:57</sys_updated_on>
         <template><![CDATA[<script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
 });
 </script>
+<div class="row">
+ <a class="bg6">
+  <h3></h3>
+  <span></span>
+ </a>
+</div>
 <div class="row" ng-click="selectBudget()">
   <a href="javascript:void(0)" class="color_box bg1 text-white" data-html="true" data-toggle="tooltip" title="<div style='width:180px;z-index:2000'>{{data.b1tooltip}}</div>" data-placement="right">
    <div class="fa fa-usd fa-2x"></div>

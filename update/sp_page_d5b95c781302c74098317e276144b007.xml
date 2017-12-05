@@ -2,7 +2,7 @@
 <record_update table="sp_page">
     <sp_page action="INSERT_OR_UPDATE">
         <css/>
-        <id>team_management_metrics</id>
+        <id>team_training_metrics</id>
         <internal>false</internal>
         <public>false</public>
         <roles/>
@@ -10,17 +10,17 @@
         <sys_class_name>sp_page</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-23 22:07:10</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_customer_update>true</sys_customer_update>
         <sys_id>d5b95c781302c74098317e276144b007</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>team_management_metrics</sys_name>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>team_training_metrics</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_page_d5b95c781302c74098317e276144b007</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-10-23 22:08:04</sys_updated_on>
-        <title>Team Management Metrics</title>
+        <sys_updated_on>2017-12-05 00:41:44</sys_updated_on>
+        <title>Team Training Stats</title>
     </sp_page>
 </record_update>

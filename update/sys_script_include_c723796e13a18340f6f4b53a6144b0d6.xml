@@ -387,7 +387,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         var pcntApprovedImp = 0;
         var pcntAcutalsImp  = 0;
         var budget          = 0;
-        var budget2          = 0;
+        var budget2         = 0;
 		
 		var impctrez        = {};
 
@@ -449,6 +449,8 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		var totDeniedCount   = 0;
 		var total_cost       = 0;
 		var impactedBudget   = "";
+		var impactedBudgetNm = "";
+		var requestedFor     = "";
 		var impctrez         = {};
 		 
 		var usrStats = new GlideRecord('x_saic4_saic_team_training_requests');
@@ -475,7 +477,9 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 				totDeniedCount   += 1;
 			}
 			if (!impactedBudget) {
-		       impactedBudget = usrStats.getValue('budget');
+		       impactedBudget   = usrStats.getValue('budget');
+               impactedBudgetNm	= usrStats.getDisplayValue('budget');
+               requestedFor     = usrStats.getDisplayValue('requested_for');
 			}
         }
 		impctrez.totPending       = totPending; //parseFloat(Math.round(totPending * 100) / 100);
@@ -485,6 +489,8 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		impctrez.totDenied        = totDenied; //parseFloat(Math.round(totDenied * 100) / 100);
 		impctrez.totDeniedCount   = totDeniedCount;
 		impctrez.impactedBudget   = impactedBudget.toString();
+		impctrez.impactedBudgetNm = impactedBudgetNm;
+		impctrez.requestedFor     = requestedFor;
 	 
         return impctrez;
 	 },
@@ -501,6 +507,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         directReportGR.addActiveQuery();
 		var encQry = fn.getMyTeamSysIDs(sysUserID,sysUserID);
 		directReportGR.addEncodedQuery(encQry);
+        directReportGR.orderBy('last_name');
         directReportGR.query();
         while(directReportGR.next()) {
 			var totActuals = fn.getMyTrnActuals(directReportGR.getValue("sys_id"));
@@ -1042,45 +1049,49 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	 updateBudgetFromActuals: function(fy) {
         var divs = [];
 		var encQry = 'fy='+fy;
-        var trngActuals = new GlideAggregate('x_saic4_saic_team_actuals');
-		trngActuals.addAggregate('SUM', 'total_burdened_cost');
-		trngActuals.groupBy('employee.u_division');
-		trngActuals.groupBy('employee.u_division.u_division_manager');
-        trngActuals.addEncodedQuery(encQry);
-        trngActuals.query();
-        while (trngActuals.next()) {
-			var divMgr = trngActuals.getValue('employee.u_division.u_division_manager');
-			var divStr = trngActuals.getDisplayValue('employee.u_division');
-			if (divStr.length == 2) {
-				divStr = "000"+divStr;			
-			} else if (divStr.length == 3) {
-				divStr = "00"+divStr;			
-			} else if (divStr.length == 4) {
-				divStr = "0"+divStr;			
-			} 
-
-			var trngrbdgt = new GlideRecord('x_saic4_saic_team_training_budget');
-            trngrbdgt.addQuery('budget',divMgr);
-            trngrbdgt.query();
-			var updateStatus = "";
-	        while (trngrbdgt.next()) {
-				var tot_burden = trngActuals.getAggregate('SUM', 'total_burdened_cost');
-				trngrbdgt.actuals_to_date = tot_burden;
-		        trngrbdgt.balance= trngrbdgt.budget_total - trngActuals.getAggregate('SUM', 'total_burdened_cost');
-                updateStatus = trngrbdgt.update();
-//                gs.info("Budget record updated with status: " + updateStatus+ " total Burden = "+ tot_burden + ".  Budget total = "+trngrbdgt.budget_total);
-            }
-			divs.push({
-				"strDir"           : divStr,
-				"division"         : trngActuals.getDisplayValue('employee.u_division'),
-				"total_burden"     : trngActuals.getAggregate('SUM', 'total_burdened_cost'),
-				"div_mgr"          : divMgr,
-				"budget_update"    : updateStatus
-			});
+        var trngrbdgt = new GlideRecord('x_saic4_saic_team_training_budget');
+        trngrbdgt.addEncodedQuery(encQry);
+        trngrbdgt.query();
+        var updateStatus = "";
+        while (trngrbdgt.next()) {
+//           gs.info("trngrbdgt.getValue('budget'): " + trngrbdgt.getValue('budget') );
+		   var totBurden = getActuals(trngrbdgt.getValue('budget'));
+           trngrbdgt.actuals_to_date = totBurden;
+           trngrbdgt.balance= trngrbdgt.budget_total - totBurden;
+           updateStatus = trngrbdgt.update();
+ //          gs.info("Budget record updated with status: " + updateStatus+ " total Burden = "+ totBurden + ".  Budget total = "+trngrbdgt.budget_total);
+           divs.push({
+              "budget"           : trngrbdgt.getValue('budget'),
+              "budgetDisplay"    : trngrbdgt.getDisplayValue('budget'),
+              "totalBudget"      : trngrbdgt.getValue('budget_total'),
+              "total_burden"     : totBurden,
+              "budget_update"    : updateStatus
+           });
         }
-		 return divs;
+		 
+        return divs;
+		 
+        function getActuals(budget) {
+           var actEncQry = 'fy='+fy+'^employee.u_division.u_division_manager.sys_id='+budget;
+//           gs.info('actEncQry = '+actEncQry);
+           var trngActuals = new GlideAggregate('x_saic4_saic_team_actuals');
+           trngActuals.addAggregate('SUM', 'total_burdened_cost');
+           trngActuals.groupBy('employee.u_division.u_division_manager');
+           trngActuals.addEncodedQuery(actEncQry);
+           trngActuals.query();
+           var tot_burden = 0;
+	       while (trngActuals.next()) {
+              tot_burden = trngActuals.getAggregate('SUM', 'total_burdened_cost');
+		   }
+//         gs.info('tot_burden = '+tot_burden);
+           if (tot_burden>0) {
+			  return tot_burden;
+		   } else {
+			  return 0;
+		   }
+		}
+        
     },
-	
 	
 	// *****************************************************************************
 	// This is meant to be used in workflow to add identified approves of a request to the watchlist, giving them 
@@ -1603,7 +1614,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>550</sys_mod_count>
+        <sys_mod_count>566</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -1611,6 +1622,6 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-12-01 17:06:54</sys_updated_on>
+        <sys_updated_on>2017-12-05 02:42:32</sys_updated_on>
     </sys_script_include>
 </record_update>

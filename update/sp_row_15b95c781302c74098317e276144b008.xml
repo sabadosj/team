@@ -4,7 +4,7 @@
         <class_name/>
         <order>1</order>
         <sp_column/>
-        <sp_container display_value="Team Management Metrics - Container 1">9db95c781302c74098317e276144b007</sp_container>
+        <sp_container display_value="Team Training Stats - Container 1">9db95c781302c74098317e276144b007</sp_container>
         <sys_class_name>sp_row</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-23 22:07:11</sys_created_on>

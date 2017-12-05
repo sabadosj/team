@@ -17,31 +17,8 @@
 		 c.showWidget = false;
   });
   c.data.activeQuery = "";
-/*  $rootScope.$on('loadTable', function(event,data) {
-		var paramItems = data.split("|");
-		alert(data);
-		if (paramItems[0]=='undefined' || paramItems[0]=='ALL') {
-			sl='';
-		} else {
-			sl=paramItems[0];
-		}
-		if (paramItems[1]=='undefined' || paramItems[1]=='ALL') {
-			cg='';
-		} else {
-			cg=paramItems[1];
-		}
-		if (paramItems[2]=='undefined' || paramItems[2]=='ALL') {
-			rl='';
-		} else {
-			rl=paramItems[2];
-		}
-		if (paramItems[3]=='undefined' || paramItems[3]=='ALL') {
-			loc='';
-		} else {
-			loc=paramItems[3];
-		}*/
   $timeout(function(){	
-     $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeamTrainActivty?usrSysID=f148cd5d2b4d3100979e1ee119da15e5')
+     $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeamTrainActivty?usrSysID='+$scope.data.usrSysID)
 	       .then(function(res) {
                $scope.gridOptions.data   = res.data.result;
 			   c.data.activeQuery = "true";
@@ -50,48 +27,61 @@
 	
 	// This is a handler for when a row is clicked
 	$scope.rowClickHandler = function rowClickHandler (row) {
-		//alert(row.entity.crmID);
+		//alert(row.entity.last_name);
 //		alert('You clicked on the row for: ' + row.entity.crmID +' '+ row.entity.name);
 		$timeout(function(){
-	    $http.get('/api/x_saic4_kps_core/kpc_pursuitdetails/onePursuitDetail?sys_id='+row.entity.sysID)
-        .then(function(res) {
-        c.data.purRec2 = res.data.result;
-        c.data.crmID = c.data.purRec2.crmID;
-        c.data.crm_sys_id = c.data.purRec2.crm_sys_id;
-        c.data.descript = c.data.purRec2.descript;
-//				alert('desc:' + c.data.descript);
+	      $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTrnActivty?usrSysID='+row.entity.sys_id)
+          .then(function(res) {
+			  alert(res.data.result.impactedBudgetNm);
+             c.data.act = res.data.result;
+				alert('budget:' + c.data.act.impactedBudgetNm);
 				c.modalInstance = $uibModal.open({
-			    templateUrl: 'modalTemplate',
-			    scope: $scope
-		    });
-      });
-	  });
-  };
+			       templateUrl: 'modalTemplate',
+			       scope: $scope
+		        });
+          });
+	    });
+    };
 
 	c.closeModal = function() {
 		c.modalInstance.close();
-	}
+	};
+
+	$scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+      if( col.filters[0].term ){
+        return 'header-filtered';
+      } else {
+        return '';
+      }
+    };
 
 
 	$scope.gridOptions = {
 		enableFiltering: true,
-//    showGridFooter: true,
-    showColumnFooter: true,
+//      showGridFooter: true,
+        showColumnFooter: true,
 
-		onRegisterApi: function(gridApi){
-      $scope.gridApi = gridApi;			
+	    onRegisterApi: function(gridApi){
+        $scope.gridApi = gridApi;			
     },
 
-		// This template applies the "rowClickHandler" to all rows.
-		rowTemplate: '<div ng-click="grid.appScope.rowClickHandler(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" class="ui-grid-cell" ng-class="col.colIndex()" ui-grid-cell></div>',
+	// This template applies the "rowClickHandler" to all rows.
+	rowTemplate: '<div ng-click="grid.appScope.rowClickHandler(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" class="ui-grid-cell" ng-class="col.colIndex()" ui-grid-cell></div>',
 		
     columnDefs: [
+			{ 
+				name: 'sys_id',
+				field: 'sys_id',
+				displayName: "Sys ID",
+				visible:false,
+			    width:'80'
+			},			
 			{ 
 				name: 'first_name',
 				field: 'first_name',
 				displayName: "First Name",
 				visible:true,
-			  width:'80'
+			    width:'80'
 			},			
 /*			{ 
 				name: 'name',
@@ -108,10 +98,21 @@
 				name: 'totPending',
 				field: 'totPending',
 				displayName: "Total Pending",
-        type: 'number',
+                type: 'number',
 				width:"90",
 				cellClass:'text-right',
-				aggregationType: uiGridConstants.aggregationTypes.sum
+				aggregationType: uiGridConstants.aggregationTypes.sum,
+				filters: [
+                           {
+                             condition: uiGridConstants.filter.GREATER_THAN,
+                             placeholder: '>'
+                           },
+                           {
+                             condition: uiGridConstants.filter.LESS_THAN,
+                             placeholder: '<'
+                           }
+                         ], 
+				         headerCellClass: $scope.highlightFilteredHeader
 			},			
 			{ 
 				name: 'totApproved',
@@ -120,23 +121,56 @@
 				type: 'number',
 				width:"90",
 				cellClass:'text-right',
-				aggregationType: uiGridConstants.aggregationTypes.sum
+				aggregationType: uiGridConstants.aggregationTypes.sum,
+				filters: [
+                           {
+                             condition: uiGridConstants.filter.GREATER_THAN,
+                             placeholder: '>'
+                           },
+                           {
+                             condition: uiGridConstants.filter.LESS_THAN,
+                             placeholder: '<'
+                           }
+                         ], 
+				         headerCellClass: $scope.highlightFilteredHeader
 			},			
 			{ 
 				name: 'totDenied',
 				field: 'totDenied',
 				displayName: "Total Denied",
-				width:"90",
+				width:"100",
 				cellClass:'text-right',
-				aggregationType: uiGridConstants.aggregationTypes.sum
-			},			
+				aggregationType: uiGridConstants.aggregationTypes.sum,
+				filters: [
+                           {
+                             condition: uiGridConstants.filter.GREATER_THAN,
+                             placeholder: '>'
+                           },
+                           {
+                             condition: uiGridConstants.filter.LESS_THAN,
+                             placeholder: '<'
+                           }
+                         ], 
+				         headerCellClass: $scope.highlightFilteredHeader
+			},
 			{ 
 				name: 'totActuals',
 				field: 'totActuals',
 				displayName: "Total Actuals",
 				width:"90",
 				cellClass:'text-right',
-				aggregationType: uiGridConstants.aggregationTypes.sum
+				aggregationType: uiGridConstants.aggregationTypes.sum,
+				filters: [
+                           {
+                             condition: uiGridConstants.filter.GREATER_THAN,
+                             placeholder: '>'
+                           },
+                           {
+                             condition: uiGridConstants.filter.LESS_THAN,
+                             placeholder: '<'
+                           }
+                         ], 
+				         headerCellClass: $scope.highlightFilteredHeader
 			},
 			{ 
 				name: 'pcntPendingImp',
@@ -144,7 +178,18 @@
 				displayName: "Pending Impact",
 				width:"90",
 				cellClass:'text-right',
-				aggregationType: uiGridConstants.aggregationTypes.sum
+				aggregationType: uiGridConstants.aggregationTypes.sum,
+				filters: [
+                           {
+                             condition: uiGridConstants.filter.GREATER_THAN,
+                             placeholder: '>'
+                           },
+                           {
+                             condition: uiGridConstants.filter.LESS_THAN,
+                             placeholder: '<'
+                           }
+                         ], 
+				         headerCellClass: $scope.highlightFilteredHeader
 			},
 			{ 
 				name: 'pcntApprovedImp',
@@ -152,7 +197,18 @@
 				displayName: "Approved Impact",
 				width:"90",
 				cellClass:'text-right',
-				aggregationType: uiGridConstants.aggregationTypes.sum
+				aggregationType: uiGridConstants.aggregationTypes.sum,
+				filters: [
+                           {
+                             condition: uiGridConstants.filter.GREATER_THAN,
+                             placeholder: '>'
+                           },
+                           {
+                             condition: uiGridConstants.filter.LESS_THAN,
+                             placeholder: '<'
+                           }
+                         ], 
+				         headerCellClass: $scope.highlightFilteredHeader
 			},
 			{ 
 				name: 'pcntAcutalsImp',
@@ -160,7 +216,18 @@
 				displayName: "Actuals Impact",
 				width:"90",
 				cellClass:'text-right',
-				aggregationType: uiGridConstants.aggregationTypes.sum
+				aggregationType: uiGridConstants.aggregationTypes.sum,
+				filters: [
+                           {
+                             condition: uiGridConstants.filter.GREATER_THAN,
+                             placeholder: '>'
+                           },
+                           {
+                             condition: uiGridConstants.filter.LESS_THAN,
+                             placeholder: '<'
+                           }
+                         ], 
+				         headerCellClass: $scope.highlightFilteredHeader
 			}
 		],
 		
@@ -194,7 +261,9 @@
 
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>.header-filtered {&#13;
+  color: blue;&#13;
+}</css>
         <data_table>sp_instance_table</data_table>
         <demo_data/>
         <description/>
@@ -209,6 +278,8 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function(){
+	data.usrSysID = gs.getUserID();
+
 	/*  "use strict"; - linter issues */
 	// populate the 'data' object
 	var sp_page = $sp.getValue('sp_page');
@@ -266,7 +337,7 @@
         <sys_created_on>2017-11-28 20:47:34</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>06b0699c1376c70098317e276144b0f8</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>48</sys_mod_count>
         <sys_name>My SAIC Team Training Activity</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -274,7 +345,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_06b0699c1376c70098317e276144b0f8</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-12-01 16:58:49</sys_updated_on>
+        <sys_updated_on>2017-12-05 02:44:31</sys_updated_on>
         <template><![CDATA[<sp-panel ng-if="c.showWidget" rect="rect" title="'${Team}'">
   <div ui-grid="gridOptions" 
      ui-grid-pagination
@@ -284,45 +355,60 @@
   </div>
 </sp-panel>
 
-<!-- Modal -->
+<!-- MODAL -->
 <script type="text/ng-template" id="modalTemplate">
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+ <!-- Modal content-->
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">PM's for <strong>{{c.name}}</strong></h4>
-      </div>
-      <div class="modal-body table-responsive">
-       <table class="table table-condensed table-striped">
-        <tr>
-         <th>PM</th>
-         <th>CRN</th>
-         <th colspan="2">Title</th>
-         <th>PoP Start</th>
-         <th>PoP End</th>
-        </tr>
-        <tr ng-repeat="pminfo in c.data.pm">
-         <td style='white-space: nowrap;'>{{pminfo.pm_name}}</td>
-         <td style='white-space: nowrap;'>{{pminfo.contract}}</td>
-         <td>{{pminfo.title}}</td>
-          <td><fa name="info-circle" size="2" title="Customer: {{pminfo.customer}}"></fa></td>
-         <td style='white-space: nowrap;'>{{pminfo.popStart}}</td>
-         <td style='white-space: nowrap;'>{{pminfo.popEnd}}</td>
-        </tr>
-       </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+ <!--<div class="modal-dialog ">-->
+  <div class="modal-content modal-lg">
+   <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="c.closeModal()">&times;</button>
+    <h4 class="modal-title"><strong>{{c.data.act.requestedFor}}</strong> ({{c.data.act.impactedBudgetNm}} budget)</h4>
+   </div>
+   <div class="modal-body">  
+    <div class="row">
+     <div class="col-sm-3">	
+      <strong>RFP Release</strong>: {{c.data.purRec2.dateRFP}}
+     </div>     
+     <div class="col-sm-3">
+      <strong>Proposal Due</strong>: {{c.data.purRec2.dateProp}}
+     </div>      
+     <div class="col-sm-3">
+      <strong>Award Date</strong>: {{c.data.purRec2.dateAward}}
+     </div>     
+     <div class="col-sm-3">
+      <strong>Status</strong>: {{c.data.purRec2.oppStatus}}
+     </div>
     </div>
-
+    <div class="row"> 
+     <div class="col-sm-3">
+      <strong>Capture Manager</strong>: <a href="mailto:{{c.data.purRec2.capMgreMail}}">{{c.data.purRec2.capMgr}}</a>
+     </div>     
+     <div class="col-sm-3">
+      <strong>VP of Program</strong>: <a href="mailto:{{c.data.purRec2.vpProgeMail}}">{{c.data.purRec2.vpProg}}</a>
+     </div>     
+     <div class="col-sm-6">
+      <strong>CG Priority</strong>: {{c.data.purRec.priority}}
+     </div>     
+    </div>       
+    <div class="row">
+     <div class="col-sm-12">
+      <strong>Description of Work</strong>: 
+     </div>     
+    </div>       
+    <div class="row">
+     <div class="col-sm-12">
+      <span ng-bind-html="c.data.purRec2.descript">{{c.data.purRec2.descript}}</span>
+     </div>     
+    </div>
+   </div>
+   <div class="modal-footer">
+    <div class="pull-right"><i>Keystone Pursuits</i></div>
+   </div>
   </div>
-</div>
+<!-- </div>-->
 
 </script>
-]]></template>
+  ]]></template>
     </sp_widget>
 </record_update>

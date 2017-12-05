@@ -15,9 +15,9 @@
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 17:17:52</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
+        <sys_customer_update>true</sys_customer_update>
         <sys_id>4e41616613a18340f6f4b53a6144b031</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>Welcome to SAIC Team Management</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -25,13 +25,13 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_instance_4e41616613a18340f6f4b53a6144b031</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-10-12 22:13:00</sys_updated_on>
+        <sys_updated_on>2017-12-05 14:06:39</sys_updated_on>
         <title>Welcome to SAIC Team Management</title>
         <url/>
         <widget_parameters><![CDATA[{
 	"html": {
-		"value": "<div class='well'>Request training here!  Approval is required for any external training, whether it is technical training, a conference, tuition reimbursement, certification training.  This is true if SAIC pays or the customer pays.  It all starts here</div>",
-		"displayValue": "<div class='well'>Request training here!  Approval is required for any external training, whether it is technical training, a conference, tuition reimbursement, certification training.  This is true if SAIC pays or the customer pays.  It all starts here</div>"
+		"value": "<div class='well'>Request training here!  Approval is required for any external training, whether it is technical training, a conference, certification training.  This is true if SAIC pays or the customer pays.  It all starts here</div>",
+		"displayValue": "<div class='well'>Request training here!  Approval is required for any external training, whether it is technical training, a conference, certification training.  This is true if SAIC pays or the customer pays.  It all starts here</div>"
 	}
 }]]></widget_parameters>
     </sp_instance>

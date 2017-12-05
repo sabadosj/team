@@ -10,7 +10,7 @@
         <delivery_plan/>
         <delivery_plan_script/>
         <delivery_time>1970-01-03 00:00:00</delivery_time>
-        <description><![CDATA[<p style="margin: 0in 0in 10pt;"><span style="color: #717171; font-size: 12pt;">Request training here! Approval is required for any external training, whether it is technical, professional, a conference, tuition assistance, or certification training. This also includes requests for technical society dues or subscriptions.&nbsp; This is true if SAIC pays or the customer pays. It all starts here. </span></p>]]></description>
+        <description><![CDATA[<p style="margin: 0in 0in 10pt;"><span style="color: #717171; font-size: 12pt;">Request training here! Approval is required for any external training, whether it is technical, professional, a conference, or certification training. This also includes requests for technical society dues or subscriptions.&nbsp; This is true if SAIC pays or the customer pays. It all starts here. </span></p>]]></description>
         <entitlement_script/>
         <group/>
         <icon/>
@@ -49,7 +49,7 @@
         <sys_created_on>2017-10-04 13:33:47</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>b1dda02213618340f6f4b53a6144b07a</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>Training Request</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -57,7 +57,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sc_cat_item_b1dda02213618340f6f4b53a6144b07a</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-15 20:55:03</sys_updated_on>
+        <sys_updated_on>2017-12-05 14:07:32</sys_updated_on>
         <template/>
         <type>item</type>
         <u_approval_group/>

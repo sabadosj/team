@@ -25,7 +25,7 @@ $text-muted: #979797;
         <default>false</default>
         <homepage display_value="team_home">2141a1e213a18340f6f4b53a6144b03d</homepage>
         <icon/>
-        <kb_knowledge_base display_value="">fac06d2613a18340f6f4b53a6144b0d4</kb_knowledge_base>
+        <kb_knowledge_base display_value="Team Management">fc78446a1332cb00f6f4b53a6144b079</kb_knowledge_base>
         <kb_knowledge_page/>
         <login_page/>
         <logo/>
@@ -46,13 +46,13 @@ $text-muted: #979797;
         <sc_catalog_page display_value="sc_home">fe87a11147132100ba13a5554ee490b9</sc_catalog_page>
         <sp_chat_queue/>
         <sp_rectangle_menu display_value="Team Mgmt Heading">94e4cf0b13e1c340f6f4b53a6144b077</sp_rectangle_menu>
-        <sqanda_knowledge_base display_value="">fac06d2613a18340f6f4b53a6144b0d4</sqanda_knowledge_base>
+        <sqanda_knowledge_base display_value="Team Management">fc78446a1332cb00f6f4b53a6144b079</sqanda_knowledge_base>
         <sys_class_name>sp_portal</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 17:15:02</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>db802d2613a18340f6f4b53a6144b018</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>16</sys_mod_count>
         <sys_name>SAIC Team Management</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -60,7 +60,7 @@ $text-muted: #979797;
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_portal_db802d2613a18340f6f4b53a6144b018</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-12 21:47:47</sys_updated_on>
+        <sys_updated_on>2017-12-05 14:13:09</sys_updated_on>
         <theme display_value="SAIC Team Theme">a5b41f8b13520300f6f4b53a6144b052</theme>
         <title>SAIC Team Management</title>
         <u_catalog_list/>

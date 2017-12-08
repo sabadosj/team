@@ -6,36 +6,38 @@
 
   // *************************************************************
 	// Start tab Control
-	$scope.active = 1;
-	$scope.selectTab = function(value){
-		$scope.active = value;
-	};
+	   $scope.active = 1;
+	   $scope.selectTab = function(value){
+		     $scope.active = value;
+	   };
 
-	$scope.isActive = function(value){
-		if($scope.active==value){
-			return true;
-		}
-		else{
-			return false;
-		}
-	};
+	   $scope.isActive = function(value){
+		    if($scope.active==value){
+			    return true;
+		    } else {
+			    return false;
+		    }
+	   };
 	// End Tab Control
   // *************************************************************
 	
-  c.action = function(state) {
-//	  alert()
-    $http.get('/api/x_saic4_saic_team/teammgmtutils/updateCatRequest?sysapprover='+$location.search().sysapprover+'&reqState='+state+'&comments=rejected from portal')
+  // The Approve or Reject button was pushed so update the request as a result //
+	c.action = function(state) {
+    $http.get('/api/x_saic4_saic_team/teammgmtutils/updateCatRequest?sysapprover='+$location.search().sysapprover+'&reqState='+state+'&comments=approved or rejected from portal')
      .then(function(sysapprovalres) {
         $scope.data.rslts = sysapprovalres.data.result;
-		alert($scope.data.rslts);
-		$window.location.href = '/team';
-    });
+		    //alert($scope.data.rslts);
+		    $window.location.href = '/team';
+     });
   };
-  $http.get('/api/x_saic4_saic_team/teammgmtutils/getRequestApprovalStatus?reqSysID='+$location.search().reqSysID)
+
+	 // Get the current status of the request so buttons to approve/reject won't be visible if not active any longer //
+   $http.get('/api/x_saic4_saic_team/teammgmtutils/getRequestApprovalStatus?reqSysID='+$location.search().reqSysID)
     .then(function(resStatus) {
      $scope.data.stats = resStatus.data.result;
   });
 
+  // Retrieve all the output for the widget pertaining to the request, the employee's history and the current state of the budget //
 	$http.get('/api/x_saic4_saic_team/teammgmtutils/getTrainRequest?reqID='+$location.search().reqSysID)
     .then(function(res) {
      $scope.data.trnReq = res.data.result;
@@ -44,38 +46,54 @@
         var fy       = $scope.data.trnReq.fy;
 		    if (userID) {
            getHistory(userID, reqSysID, fy);
+           geActuals(userID, reqSysID, fy);
+           buildChart(userID,fy);
 				}
   });
 	
 	function getHistory(userID, reqSysID, fy){
-//		alert("userID: "+ userID+ ", reqSysID: "+ reqSysID + ", fy: " +fy);
 		$timeout(function(){	
       $http.get('/api/x_saic4_saic_team/teammgmtutils/getAllUserTrnReqs?usrSysID='+userID+'&reqSysID='+reqSysID+'&fy='+fy)
 	       .then(function(res2) {
-         $scope.data.allTrnReq = res2.data.result;
+              $scope.data.allTrnReq = res2.data.result;
+      });
+    });
+	}
+
+	function geActuals(userID, reqSysID, fy){
+		$timeout(function(){	
+      $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTrnActualsDetail?usrSysID='+userID+'&fy='+fy)
+	       .then(function(res3) {
+             $scope.data.allActuals = res3.data.result;
 		  });
     });
-    buildChart(userID,fy);
 	}
 
 	function buildChart(userID,fy) {
 		$timeout(function(){	
-           $http.get('/api/x_saic4_saic_team/teammgmtutils/getReqTotImct?usrSysID='+userID+'&fy='+fy)
-	       .then(function(res3) {
-              $scope.data.chartData = res3.data.result;
-		      Highcharts.setOptions({
+//      $http.get('/api/x_saic4_saic_team/teammgmtutils/getReqTotImct?usrSysID='+userID+'&fy='+fy)
+      $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeamTrainActivty?usrSysID='+userID+'&fy='+fy)
+	       .then(function(res4) {
+              $scope.data.chartData = res4.data.result;
+             doChart1();
+				     doChart2();
+			   });
+       });
+ 
+  function doChart1() {
+	      Highcharts.setOptions({
                 colors: 
 				   ['#cccccc','#85a545','#006BB6'] 
 			  });
-			  Highcharts.chart('container', {
+			  Highcharts.chart('container1', {
          chart: {
 					type: 'column'
 					},
 					title: {
-						text: 'Demand vs Actual'
+						text: "Current Demand and Actuals"
 					},
 					subtitle: {
-						text: ''
+						text: "Member: <strong>"+$scope.data.chartData[0].name+"</strong>"
 					},
 					xAxis: {
 						categories: ['Demand', 'Actuals']
@@ -85,14 +103,17 @@
 						title: {
 							text: 'Total Demand ($)'
 					    },
-		                stackLabels: {
-                            enabled: true,
-                            style: {
-                               fontWeight: 'bold',
-                               color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                            }
-				        }
+		          stackLabels: {
+                   enabled: true,
+                   style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                          }
+			        }
 					},
+          credits: {
+             enabled: false
+          },
 					tooltip: {
 						headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
 						pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
@@ -117,19 +138,100 @@
 					[{
                        stack: 1,
                        name: 'Pending',
-                       data: [$scope.data.chartData.totPending]
+                       data: [$scope.data.chartData[0].totPending]
 					}, {
                        stack: 1,
                        name: 'Approved',
-                       data: [$scope.data.chartData.totApproved]
+                       data: [$scope.data.chartData[0].totApproved]
 					}, {
                        stack: 2,
                        name: 'Actual',
-                       data: [$scope.data.chartData.totActuals]
+                       data: [$scope.data.chartData[0].totActuals]
 					}]
               });
-           });
-       });
+
+	}
+	
+  function doChart2() {
+	      Highcharts.setOptions({
+                colors: 
+				   ['black','darkred','#cccccc','#85a545','#006BB6']  
+			  });
+			  Highcharts.chart('container2', {
+         chart: {
+					type: 'bar'
+					},
+					title: {
+						text: "Overall Budget Metrics"
+					},
+					subtitle: {
+						text: 'Budget: <strong>'+$scope.data.chartData[0].impactedBudgetNm+'</strong>'
+					},
+					xAxis: {
+						categories: ['Budget', 'Balance','Actuals', 'Demand']
+					},
+					yAxis: {
+//						min: -1000000,
+						title: {
+							text: 'Total Demand ($)'
+					    },
+		          stackLabels: {
+                   enabled: true,
+                   style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                          }
+			        }
+					},
+          credits: {
+             enabled: false
+          },
+					tooltip: {
+						headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+						pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+						'<td style="padding:0"><b>$ {point.y:.1f}</b></td></tr>',
+						footerFormat: '</table>',
+						shared: true,
+						useHTML: true
+					},
+					plotOptions: {
+						column: {
+							stacking: 'normal',
+							dataLabels: {
+								enabled: true,
+								formatter: function () {
+									return "$" +this.point.y.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								}
+							}
+
+						}
+					},
+					series: 
+					      [{
+                   name:  'Budget',
+                   data:  [$scope.data.chartData[0].impactedBudgetAmt]
+					       }, {
+                   name:  'Balance',
+                   data:  [$scope.data.chartData[0].impactedbudgetBalance]
+					       }, {
+									 stack: 1,
+                   name:  'Actuals',
+                   data:  [$scope.data.chartData[0].impactedbudgetActuals]
+					       }, {
+									 stack: 1,
+                   name:  'Pending Demand',
+                   data:  [$scope.data.chartData[0].impactedbudgetPending]
+                }, {
+									 stack: 1,
+                   name:  'Approved Demand',
+                   data:  [$scope.data.chartData[0].impactedbudgetApproved]
+								}]
+               });
+
+	}
+	
+	
+	
 	}
 }]]></client_script>
         <controller_as>c</controller_as>
@@ -172,7 +274,7 @@
         <sys_created_on>2017-10-09 14:04:02</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>ebd4eac813f90740f6f4b53a6144b028</sys_id>
-        <sys_mod_count>157</sys_mod_count>
+        <sys_mod_count>206</sys_mod_count>
         <sys_name>Team Management Approval Record</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -180,7 +282,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_ebd4eac813f90740f6f4b53a6144b028</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-27 19:41:31</sys_updated_on>
+        <sys_updated_on>2017-12-07 23:12:51</sys_updated_on>
         <template><![CDATA[<div>
 <div class="panel panel-{{::options.color}} b" ng-if="c.data.stats[0].status.length > 0" >
  <div class="panel-heading">
@@ -217,7 +319,6 @@
          </li>
        </ul>
       </div>
-      
      </div>
      <div ng-if="c.data.stats[0].status == 'Cancelled'" class="panel panel-info">
       <div class="panel-heading">Cancelled</div>
@@ -267,7 +368,7 @@
      <div class="col-sm-12">
       <strong>Justification</strong>
      </div>       
-     <div class="col-sm-12">
+     <div class="col-sm-12 well">
       {{c.data.trnReq.justification}}
      </div>       
      <div class="col-sm-12"><br/>
@@ -275,9 +376,11 @@
        <ul class="nav nav-tabs">
         <li ng-click="selectTab(1)" ng-class="{active:isActive(1)}"><a href="javascript:void(0);">Historical Requests</a></li>
         <li ng-click="selectTab(2)" ng-class="{active:isActive(2)}"><a href="javascript:void(0);">Impact</a></li>
+        <li ng-click="selectTab(3)" ng-class="{active:isActive(3)}"><a href="javascript:void(0);">Actuals</a></li>
        </ul>
       <!--</div>-->
       <div class="tab-content">
+  <!-- Historical Activity ---->
        <div ng-show="isActive(1)" class="tab"><br/>
         <table ng-if="c.data.allTrnReq[0].number" class="table table-condensed table-striped" >
          <tr>
@@ -305,9 +408,47 @@
         </div>
        </div>
   <!-- CHART ---->
-       <div ng-show="isActive(2)" class="tab">
-        <div id="container" style="min-width: 100px; height: 320px; margin: 0 auto"></div>
+       <div ng-if="c.data.chartData[0].impactedbudgetBalance < 0">
+        <div class="alert alert-danger">
+         <strong>Warning</strong> The budget has been depleted and currently has a balance of <strong>${{c.data.chartData[0].impactedbudgetBalance}}</strong>
+        </div>  
        </div>
+       <div ng-show="isActive(2)" class="tab col-xs-12">
+        <div class="col-xs-6" id="container1" style="float: none !important; display: inline-block !important; height: 320px; margin: 0 auto"></div>
+        <div class="col-xs-6" id="container2" style="height: 320px; margin: 0 auto"></div>
+       </div>
+  <!-- ACTUALS ---->
+       <div ng-show="isActive(3)" class="tab"><br/>
+        <table ng-if="c.data.allActuals[0].transaction_amount" class="table table-condensed table-striped" >
+         <tr>
+          <td colspan="6"><strong>Actuals for this FY</strong></td>
+         </tr>
+         <tr>
+          <th>Period</th>
+          <th>Sub-Period</th>
+          <th>Account ID</th>
+          <th class="text-center">Charge Code</th>
+          <th class="text-center">Project Name</th>
+          <th class="text-nowrap text-right">Purden</th>
+          <th class="text-nowrap text-right">transaction Amount</th>
+          <th class="text-nowrap text-right">Total Burdened Cost</th>
+         </tr>
+         <tr ng-repeat="Actuals in c.data.allActuals" >
+          <td>{{Actuals.period}}</td>
+          <td>{{Actuals.sub_period}}</td>
+          <td>{{Actuals.account_id}}</td>
+          <td class="{{Actuals.approval_status}} text-center">{{Actuals.charge_code}}</td>
+          <td>{{Actuals.project_nam}}</td>
+          <td class="text-center">{{Actuals.burden}}</td>
+          <td class="text-nowrap text-right">$ {{Actuals.transaction_amount}}</td>
+          <td class="text-nowrap text-right">$ {{Actuals.total_burdened_cost}}</td>
+         </tr>
+        </table>
+        <div ng-if="!c.data.allActuals[0].transaction_amount">
+          <i><strong>This employee has no actuals that have hit ths books yet.</strong></i>
+        </div>
+       </div>
+
       </div>
      </div>
     </div>

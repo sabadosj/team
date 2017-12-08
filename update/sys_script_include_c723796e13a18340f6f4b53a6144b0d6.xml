@@ -380,6 +380,46 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	 },
 	
 	 // *****************************************************************************
+     // Return A persons training actual detail records for a FY
+     // *****************************************************************************
+     getMyTrnActualsDetail: function(sysUserID,fy) {
+//		 gs.info('sysUserID: '+sysUserID+' | fy: '+fy);
+
+		// GET Current FY if it was not passed in 
+		if (!fy || fy=="") {
+           var datetoconvert = new GlideDate();
+           fycal = new global.AccountingCalendar(datetoconvert);
+           fy = fycal.fy; //shows Fiscal Year
+		}
+
+		var dd = new TeamMgmt();
+
+		var actCount = new GlideRecord('x_saic4_saic_team_actuals');
+        actCount.addQuery('employee', sysUserID);
+        actCount.addQuery('fy', fy);
+        actCount.orderByDesc('period');
+        actCount.orderByDesc('sub_period');
+        actCount.query();   
+        var totActuals  = 0;
+		var actRez = [];
+        while (actCount.next()) {
+			actRez.push({
+                "account_id"              : actCount.getValue('account_id'),
+                "charge_code"             : actCount.getValue('charge_code'),
+                "project_nam"             : actCount.getValue('project_nam'),
+                "period"                  : actCount.getValue('period'),
+                "sub_period"              : actCount.getValue('sub_period'),
+                "burden"                  : actCount.getValue('burden'),
+                "transaction_amount"      : dd.formatDollar(actCount.getValue('transaction_amount')),
+                "total_burdened_cost"     : dd.formatDollar(actCount.getValue('total_burdened_cost')),
+				"transaction_description" : actCount.getValue('transaction_description')
+			});
+		}
+
+		return actRez;
+	 },
+
+	 // *****************************************************************************
      // Return A persons training impact on the budget
      // *****************************************************************************
      getMyTrnBudgetImpact: function(impactedBudget, totApproved, totPending, totActuals, fy) {
@@ -387,7 +427,10 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         var pcntApprovedImp = 0;
         var pcntAcutalsImp  = 0;
         var budget          = 0;
-        var budget2         = 0;
+        var budgetBalance   = 0;
+        var pending_demand  = 0;
+        var approved_demand = 0;
+        var actuals_to_date = 0;
 		
 		var impctrez        = {};
 
@@ -396,10 +439,10 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
            impctrez.pcntApprovedImp = pcntPendingImp;
            impctrez.pcntAcutalsImp  = pcntAcutalsImp;
 		   impctrez.budget          = 'not passed';
-		   gs.info('A) impactedBudget: NOT PASSED - this could be because the user has acutals but no requests');
+//		   gs.info('A) impactedBudget: NOT PASSED - this could be because the user has acutals but no requests');
            return impctrez;			
         } else {
-          gs.info('A) impactedBudget: '+impactedBudget.toString()+'  totApproved: '+totApproved+'  totPending: '+totPending+'  totActuals: '+totActuals);
+//          gs.info('A) impactedBudget: '+impactedBudget.toString()+'  totApproved: '+totApproved+'  totPending: '+totPending+'  totActuals: '+totActuals);
 
           // GET Current FY if it was not passed in 
           if (!fy || fy=="") {
@@ -417,15 +460,22 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			 pcntApprovedImp = (parseFloat(totApproved) / parseFloat(trngrbdgt.getValue('budget_total'))) * 100;
 			 pcntAcutalsImp  = (parseFloat(totActuals)  / parseFloat(trngrbdgt.getValue('budget_total'))) * 100;
              budget          = trngrbdgt.getValue('budget_total');  
-			 budget2         = parseFloat(trngrbdgt.budget_total.getReferenceValue());
+             budgetBalance   = trngrbdgt.getValue('balance');  
+             pending_demand  = trngrbdgt.getValue('pending_demand');  
+             actuals_to_date = trngrbdgt.getValue('actuals_to_date');  
+             approved_demand = trngrbdgt.getValue('approved_demand');  
 		  }
 		  impctrez.pcntPendingImp  = pcntPendingImp.toFixed(2);
 		  impctrez.pcntApprovedImp = pcntApprovedImp.toFixed(2);
 		  impctrez.pcntAcutalsImp  = pcntAcutalsImp.toFixed(2);
 		  impctrez.budget          = parseFloat(budget);
-		  impctrez.budget2          = budget2;
+		  impctrez.budgetBalance   = parseFloat(budgetBalance);
+		  impctrez.budgetPending   = parseFloat(pending_demand);
+		  impctrez.budgetActuals   = parseFloat(actuals_to_date);
+		  impctrez.budgetApproved  = parseFloat(approved_demand);
 			
-		  gs.info('B) impactedBudget: '+impactedBudget.toString()+' | pcntPendingImp: '+pcntPendingImp+' | pcntApprovedImp: '+pcntApprovedImp+' | pcntAcutalsImp: '+pcntAcutalsImp);
+			
+//		  gs.info('B) impactedBudget: '+impactedBudget.toString()+' | pcntPendingImp: '+pcntPendingImp+' | pcntApprovedImp: '+pcntApprovedImp+' | pcntAcutalsImp: '+pcntAcutalsImp);
           return impctrez;
 		}
 	 },
@@ -476,8 +526,8 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 				totDenied        += total_cost; //parseFloat(total_cost);
 				totDeniedCount   += 1;
 			}
-			if (!impactedBudget) {
-		       impactedBudget   = usrStats.getValue('budget');
+			if (impactedBudget=='') {
+		       impactedBudget   = usrStats.budget;
                impactedBudgetNm	= usrStats.getDisplayValue('budget');
                requestedFor     = usrStats.getDisplayValue('requested_for');
 			}
@@ -490,7 +540,6 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		impctrez.totDeniedCount   = totDeniedCount;
 		impctrez.impactedBudget   = impactedBudget.toString();
 		impctrez.impactedBudgetNm = impactedBudgetNm;
-		impctrez.requestedFor     = requestedFor;
 	 
         return impctrez;
 	 },
@@ -515,24 +564,29 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			var empImpact  = fn.getMyTrnBudgetImpact(empAct.impactedBudget, empAct.totApproved, empAct.totPending, totActuals);
             teamData.direct_reports.push(
 				{
-                  "email"            : directReportGR.getValue("email") || "",
-                  "first_name"       : directReportGR.getValue("first_name"),
-                  "last_name"        : directReportGR.getValue("last_name"),
-                  "name"             : directReportGR.getValue("name"),
-                  "phone"            : directReportGR.getValue("phone") || "",
-                  "sys_id"           : directReportGR.getValue("sys_id"),
-			      "pmInfo"           : fn.getMyPM(directReportGR.getValue("sys_id")),
-			      "totPending"       : empAct.totPending.toFixed(2),
-			      "totPendingCount"  : empAct.totPendingCount,
-			      "totApproved"      : empAct.totApproved.toFixed(2),
-			      "totApprovedCount" : empAct.totApprovedCount,
-			      "totDenied"        : empAct.totDenied.toFixed(2),
-			      "totDeniedCount"   : empAct.totDeniedCount,
-                  "totActuals"       : totActuals.toFixed(2),
-                  "pcntPendingImp"   : empImpact.pcntPendingImp,
-                  "pcntApprovedImp"  : empImpact.pcntApprovedImp,
-                  "pcntAcutalsImp"   : empImpact.pcntAcutalsImp,
-                  "impactedBudget"   : empImpact.impactedBudget
+                  "email"                  : directReportGR.getValue("email") || "",
+                  "first_name"             : directReportGR.getValue("first_name"),
+                  "last_name"              : directReportGR.getValue("last_name"),
+                  "name"                   : directReportGR.getValue("name"),
+                  "phone"                  : directReportGR.getValue("phone") || "",
+                  "sys_id"                 : directReportGR.getValue("sys_id"),
+			      "pmInfo"                 : fn.getMyPM(directReportGR.getValue("sys_id")),
+			      "totPending"             : (empAct.totPending.toFixed(2))*1,
+			      "totPendingCount"        : empAct.totPendingCount,
+			      "totApproved"            : (empAct.totApproved.toFixed(2))*1,
+			      "totApprovedCount"       : empAct.totApprovedCount,
+			      "totDenied"              : (empAct.totDenied.toFixed(2))*1,
+			      "totDeniedCount"         : empAct.totDeniedCount,
+                  "totActuals"             : (totActuals.toFixed(2))*1,
+                  "pcntPendingImp"         : empImpact.pcntPendingImp,
+                  "pcntApprovedImp"        : empImpact.pcntApprovedImp,
+                  "pcntAcutalsImp"         : empImpact.pcntAcutalsImp,
+                  "impactedBudgetAmt"      : empImpact.budget,
+                  "impactedbudgetBalance"  : empImpact.budgetBalance,
+                  "impactedbudgetPending"  : empImpact.budgetPending,
+                  "impactedbudgetActuals"  : empImpact.budgetActuals,
+                  "impactedbudgetApproved" : empImpact.budgetApproved,
+                  "impactedBudgetNm"       : empAct.impactedBudgetNm
 				}
 			);
 		}
@@ -1496,7 +1550,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	// *****************************************************************************
 	// Return all historical training requests by user
 	// *****************************************************************************
-	allTrainReqsByUsr: function(usrSysID,reqSysID) {
+	getAllUserTrnReqs: function(usrSysID,reqSysID) {
 		// Calculate current FY
 		var datetoconvert = new GlideDate();
         fycal = new global.AccountingCalendar(datetoconvert);
@@ -1614,7 +1668,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>566</sys_mod_count>
+        <sys_mod_count>586</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -1622,6 +1676,6 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-12-05 02:42:32</sys_updated_on>
+        <sys_updated_on>2017-12-07 18:40:49</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -4,7 +4,9 @@
         <element label="Account ID" max_length="40" name="account_id" type="string"/>
         <element label="Burden" max_length="40" name="burden" type="integer"/>
         <element label="Charge Code" max_length="40" name="charge_code" type="string"/>
+        <element label="Division" max_length="8" name="division" reference="u_saic_divisions" type="reference"/>
         <element label="Employee" max_length="32" name="employee" reference="sys_user" type="reference"/>
+        <element label="Employee Number" max_length="7" name="employee_number" type="string"/>
         <element label="FY" max_length="40" name="fy" type="string"/>
         <element label="Organization  ID" max_length="40" name="organization_id" type="string"/>
         <element label="Period" max_length="40" name="period" type="integer"/>

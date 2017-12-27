@@ -239,6 +239,34 @@
             <sys_user/>
             <type>.end_split</type>
         </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>employee_number</element>
+            <position>17</position>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-12-18 20:39:41</sys_created_on>
+            <sys_id>29bed8ba1347c70098317e276144b039</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_saic4_saic_team_actuals" sys_domain="global" view="Default view">8f1127d413754740f6f4b53a6144b09b</sys_ui_section>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-12-18 20:39:41</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>division</element>
+            <position>18</position>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2017-12-18 20:40:40</sys_created_on>
+            <sys_id>b3ee583e1347c70098317e276144b0fb</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_saic4_saic_team_actuals" sys_domain="global" view="Default view">8f1127d413754740f6f4b53a6144b09b</sys_ui_section>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2017-12-18 20:40:40</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
         <sys_ui_section action="INSERT_OR_UPDATE">
             <caption/>
             <header>false</header>
@@ -251,7 +279,7 @@
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>8f1127d413754740f6f4b53a6144b09b</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_mod_count>2</sys_mod_count>
             <sys_name>x_saic4_saic_team_actuals</sys_name>
             <sys_overrides/>
             <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -260,7 +288,7 @@
             <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
             <sys_update_name>sys_ui_section_8f1127d413754740f6f4b53a6144b09b</sys_update_name>
             <sys_updated_by>adminjoe</sys_updated_by>
-            <sys_updated_on>2017-10-10 13:05:44</sys_updated_on>
+            <sys_updated_on>2017-12-18 20:40:40</sys_updated_on>
             <sys_user/>
             <title>true</title>
             <view display_value="Default view" name="NULL">Default view</view>

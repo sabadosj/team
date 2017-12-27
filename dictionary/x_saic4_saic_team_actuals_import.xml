@@ -6,6 +6,7 @@
         <element attributes="import_attribute_name=BURDENED_COSTS,edge_encryption_enabled=true" label="BURDENED_COSTS" max_length="40" name="u_burdened_costs" type="string"/>
         <element attributes="import_attribute_name=BURDEN_RATE,edge_encryption_enabled=true" label="BURDEN_RATE" max_length="40" name="u_burden_rate" type="string"/>
         <element attributes="import_attribute_name=CHARGE_NBR,edge_encryption_enabled=true" label="CHARGE_NBR" max_length="40" name="u_charge_nbr" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="DIVISION" max_length="40" name="u_division" type="string"/>
         <element attributes="import_attribute_name=FY_CD,edge_encryption_enabled=true" label="FY_CD" max_length="40" name="u_fy_cd" type="string"/>
         <element attributes="import_attribute_name=ID,edge_encryption_enabled=true" label="ID" max_length="40" name="u_id" type="string"/>
         <element attributes="import_attribute_name=ORG_ID,edge_encryption_enabled=true" label="ORG_ID" max_length="40" name="u_org_id" type="string"/>

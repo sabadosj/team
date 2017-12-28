@@ -38,7 +38,7 @@
         <primary>false</primary>
         <read_only>false</read_only>
         <read_roles/>
-        <reference display_value="" name="u_saic_divisions">u_saic_divisions</reference>
+        <reference display_value="" name="u_division">u_division</reference>
         <reference_cascade_rule/>
         <reference_floats>false</reference_floats>
         <reference_key/>
@@ -53,7 +53,7 @@
         <sys_created_on>2017-12-18 20:40:40</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>5bce983e1347c70098317e276144b046</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Division</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -61,7 +61,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_dictionary_x_saic4_saic_team_actuals_division</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-12-19 00:55:12</sys_updated_on>
+        <sys_updated_on>2017-12-28 14:53:58</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <u_model_id/>

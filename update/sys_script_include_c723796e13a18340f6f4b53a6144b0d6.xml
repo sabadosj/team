@@ -1349,10 +1349,11 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		if (!divID) {
 			return null;
 		}
-		if (divID.length!=4){
+/*		if (divID.length!=4){
            divID = divID.substr(divID.length-4, divID.length);
-		}
-		var gr = new GlideRecord('u_saic_divisions');
+		}*/
+//		var gr = new GlideRecord('u_saic_divisions');
+		var gr = new GlideRecord('u_division');
 		gr.addQuery('u_division_id', divID);
 		gr.query();
     	while (gr.next()) {
@@ -1701,7 +1702,7 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_on>2017-10-04 18:37:16</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c723796e13a18340f6f4b53a6144b0d6</sys_id>
-        <sys_mod_count>594</sys_mod_count>
+        <sys_mod_count>596</sys_mod_count>
         <sys_name>TeamMgmt</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy>read</sys_policy>
@@ -1709,6 +1710,6 @@ TeamMgmt.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_script_include_c723796e13a18340f6f4b53a6144b0d6</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-12-19 02:49:05</sys_updated_on>
+        <sys_updated_on>2017-12-28 17:23:06</sys_updated_on>
     </sys_script_include>
 </record_update>

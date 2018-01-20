@@ -32,7 +32,7 @@
   });
 
   $scope.openProfile = function(user) {
-    $location.search("id=team_user_profile&sys_id=" + user.sys_id); 
+    $location.search("id=team_mgmt&sys_id=" + user.sys_id); 
   };
 
   $scope.showTeamWidget = function() {
@@ -127,7 +127,7 @@ data.user_id = gs.getUserID();]]></script>
         <sys_created_on>2017-11-09 20:51:29</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>0e6be70613da030098317e276144b014</sys_id>
-        <sys_mod_count>88</sys_mod_count>
+        <sys_mod_count>89</sys_mod_count>
         <sys_name>My SAIC Team</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -135,7 +135,7 @@ data.user_id = gs.getUserID();]]></script>
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_0e6be70613da030098317e276144b014</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-27 17:03:56</sys_updated_on>
+        <sys_updated_on>2018-01-07 20:07:11</sys_updated_on>
         <template><![CDATA[<sp-panel ng-if="c.showWidget" rect="rect" title="'${Team}'">
  <div id="direct_reports">
   <h5 ng-if="directReports.length > 0 && !showMyProfile" class="team_header">${My Direct Reports}</h5>

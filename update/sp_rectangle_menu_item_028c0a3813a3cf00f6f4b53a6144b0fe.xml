@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_rectangle_menu_item">
+    <sp_rectangle_menu_item action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <color>default</color>
+        <condition/>
+        <display_1/>
+        <display_2/>
+        <display_date/>
+        <filter/>
+        <glyph/>
+        <hint/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <label>My Team</label>
+        <order>100</order>
+        <record_script/>
+        <sc_cat_item/>
+        <sc_category/>
+        <short_description/>
+        <sp_page display_value="team_mgmt">aa9d8b0e139a030098317e276144b0bd</sp_page>
+        <sp_rectangle_menu display_value="Team Mgmt Heading">94e4cf0b13e1c340f6f4b53a6144b077</sp_rectangle_menu>
+        <sp_rectangle_menu_item/>
+        <sys_class_name>sp_rectangle_menu_item</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2018-01-06 20:03:45</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>028c0a3813a3cf00f6f4b53a6144b0fe</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>My Team</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sp_rectangle_menu_item_028c0a3813a3cf00f6f4b53a6144b0fe</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2018-01-09 17:36:30</sys_updated_on>
+        <table/>
+        <type>page</type>
+        <url/>
+    </sp_rectangle_menu_item>
+</record_update>

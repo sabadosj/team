@@ -4,7 +4,19 @@
         <client_script><![CDATA[function($http,$location,$scope) {
   /* widget controller */
   var c = this;
-  $http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeamStats?usrSysID='+$location.search().sys_id)
+	//alert($scope.data.user_id);
+	var uid = $scope.data.user_id;
+	var q_uid = $location.search().sys_id;
+	var id = "";
+	if (!q_uid && q_uid!=="") {
+		 id = uid;
+	}
+	else
+	{
+		 id = q_uid;
+  }
+alert(id);
+	$http.get('/api/x_saic4_saic_team/teammgmtutils/getMyTeamStats?usrSysID='+id)
     .then(function(resStatus) {
      $scope.data.stats = resStatus.data.result;
   });
@@ -71,9 +83,7 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-  /* populate the 'data' object */
-  /* e.g., data.table = $sp.getValue('table'); */
-
+   data.user_id = gs.getUserID();
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
@@ -81,7 +91,7 @@
         <sys_created_on>2017-11-19 01:01:43</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>2e9afe85136e830098317e276144b099</sys_id>
-        <sys_mod_count>76</sys_mod_count>
+        <sys_mod_count>91</sys_mod_count>
         <sys_name>My Team Capabilities Menu</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -89,7 +99,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_2e9afe85136e830098317e276144b099</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-28 02:33:53</sys_updated_on>
+        <sys_updated_on>2018-01-09 18:59:59</sys_updated_on>
         <template><![CDATA[<sp-panel rect="rect" title="'${Team Capabilities}'">
 <div>
   <a ng-click="loadTeam()" href="javascript:void(0)" class="list-group-item">

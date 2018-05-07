@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element label="Contracts" max_length="40" name="x_saic4_saic_team_contracts" type="collection">
-        <element label="Customer" max_length="100" name="customer" type="string"/>
+        <element label="Customer" max_length="150" name="customer" type="string"/>
         <element label="Number" max_length="40" name="number" type="string"/>
         <element label="PoP Start" max_length="40" name="pop_start" type="glide_date_time"/>
         <element label="PoP Stop" max_length="40" name="pop_stop" type="glide_date_time"/>

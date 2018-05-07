@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="u_charge_nbr" label="CHARGE_NBR" language="en" table="x_saic4_saic_team_actuals_seed">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_charge_nbr</element>
+            <help/>
+            <hint/>
+            <label>CHARGE_NBR</label>
+            <language>en</language>
+            <name>x_saic4_saic_team_actuals_seed</name>
+            <plural>CHARGE_NBRs</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>adminjoe</sys_created_by>
+            <sys_created_on>2018-02-08 12:29:16</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>b021ee931388974098317e276144b036</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>CHARGE_NBR</sys_name>
+            <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+            <sys_update_name>sys_documentation_x_saic4_saic_team_actuals_seed_u_charge_nbr_en</sys_update_name>
+            <sys_updated_by>adminjoe</sys_updated_by>
+            <sys_updated_on>2018-02-08 12:29:16</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

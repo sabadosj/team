@@ -18,7 +18,9 @@
         <provider_class/>
         <read_access>true</read_access>
         <super_class display_value="Import Set Row" name="sys_import_set_row">ffab79d16f2201002265bc226e3ee413</super_class>
+        <sys_class_code/>
         <sys_class_name>sys_db_object</sys_class_name>
+        <sys_class_path/>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-20 02:17:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>

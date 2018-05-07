@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_embedded_help_content">
+    <sys_embedded_help_content action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>assessment</category>
+        <content><![CDATA[    <h1 class="title topictitle1">Decision matrix form</h1>        <div class="body taskbody">        <div class="section context" id="asmt_decision_matrix-normal__context_ky1_qc2_yz"><span class="ph">Assessment administrators can view and create these          dynamically updated graphs, which make it possible to compare assessable records by          category. Decision matrixes display data from a trailing twelve month (TTM)        period.</span>            <span class="ph">The name and labels on a decision matrix are closely            linked to the categories you choose for the axes. For that reason, first select the            metric type and define the X and Y axes before you fill in other fields on the Decision            Matrix form.</span></div>        <ol class="ol steps"><li class="li step stepexpand">                <span class="ph cmd">Select the metric <span class="ph uicontrol">Type</span> for which you want to plot                    results.</span>            </li><li class="li step stepexpand">                <span class="ph cmd">Right-click the form header and select <span class="ph uicontrol">Save</span>.</span>                <div class="itemgroup stepresult">The X Axis and Y Axis related lists appear.</div>            </li><li class="li step stepexpand">                <span class="ph cmd">Define which metric categories the axes represent. Each axis can                    represent a single category or multiple categories. You must specify at least                    one category per axis in order for the decision matrix to render properly.</span>                <div class="itemgroup info"><span class="ph">The available categories are limited to those                        associated to the metric type selected. To avoid confusion, always update                        the text for the axis and quadrant labels after editing or adding metric                        categories to an axis.</span></div>            </li><li class="li step stepexpand">                <span class="ph cmd">Complete the remaining fields and save the record.</span>                <div class="itemgroup info">                    <div class="note note"><span class="notetitle">Note:</span> For color fields, either HTML color names or hexidecimal                        (hex) values are acceptable. For hex values, the # character is optional.                        Values are not case-sensitive. For example, all of the following values are                        valid: LightGray, lightgray, #D3D3D3, d3d3d3.</div>                </div>            </li></ol>    </div>    <div class="related-links"><div class="relinfo"><div class="reltitle">Related information<br /><div><a class="link" href="https://docs.servicenow.com/?context&#61;CSHelp:CreateDecisionMatrix&amp;version&#61;kingston" target="_blank">Create a decision matrix</a></div><div><a class="link" href="https://docs.servicenow.com/?context&#61;CSHelp:DecisionMatrix&amp;version&#61;kingston" target="_blank">Decision matrixes</a></div></div></div></div>]]></content>
+        <last_sync>2018-04-28 16:57:06</last_sync>
+        <modifier>normal</modifier>
+        <name>asmt_decision_matrix-normal</name>
+        <page>asmt_decision_matrix</page>
+        <product>1</product>
+        <qualifier/>
+        <role/>
+        <role_order>1000</role_order>
+        <snc_created>true</snc_created>
+        <sys_class_name>sys_embedded_help_content</sys_class_name>
+        <sys_created_by>system</sys_created_by>
+        <sys_created_on>2018-02-27 16:54:15</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>ebf31da1132c134098317e276144b035</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>asmt_decision_matrix-normal</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_embedded_help_content_ebf31da1132c134098317e276144b035</sys_update_name>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2018-04-28 16:57:06</sys_updated_on>
+        <version>k</version>
+    </sys_embedded_help_content>
+</record_update>

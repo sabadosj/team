@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_page">
     <sp_page action="INSERT_OR_UPDATE">
+        <category/>
         <css>.sp-attachments-input {&#13;
   visibility: hidden;&#13;
   position: absolute;&#13;
@@ -12,6 +13,8 @@
   font-size: 24px;&#13;
   margin-top: -5px;&#13;
 }</css>
+        <draft>false</draft>
+        <dynamic_title_structure/>
         <id>team_management_sc_request</id>
         <internal>false</internal>
         <public>false</public>

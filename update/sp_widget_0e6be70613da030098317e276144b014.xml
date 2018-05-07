@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
+        <category/>
         <client_script><![CDATA[function ($timeout, $rootScope, $scope, $location, $http) {
   var c = this;
   // joseph sabados = f148cd5d2b4d3100979e1ee119da15e5

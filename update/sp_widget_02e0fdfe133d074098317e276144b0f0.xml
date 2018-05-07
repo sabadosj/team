@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
+        <category/>
         <client_script><![CDATA[function requestedItemsController($scope, $http, $rootScope, $interpolate, $window, $location) {
   var c = this;
   $http.get('/api/x_saic4_saic_team/teammgmtutils/getTrnReqApprvs?reqSysID='+$location.search().sys_id)

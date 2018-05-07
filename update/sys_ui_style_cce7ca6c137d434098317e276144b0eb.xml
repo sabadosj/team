@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sys_ui_style">
     <sys_ui_style action="INSERT_OR_UPDATE">
+        <alt/>
         <element>approval_status</element>
         <name>x_saic4_saic_team_training_requests</name>
         <style>background-color:maroon;  color:white;</style>

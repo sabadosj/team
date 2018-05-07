@@ -9,6 +9,7 @@
         <id/>
         <interval>5000</interval>
         <order>0</order>
+        <roles/>
         <short_description/>
         <size>md</size>
         <sp_column display_value="1">78cf817813b1834098317e276144b0e9</sp_column>

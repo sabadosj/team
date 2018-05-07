@@ -13,7 +13,7 @@ $saic-blue:				#003da5;&#13;
 $saic-grey:				#7f7f7f;</css_variables>
         <footer/>
         <footer_fixed>true</footer_fixed>
-        <header display_value="Stock Header ">bf5ec2f2cb10120000f8d856634c9c0c</header>
+        <header display_value="Stock Header">bf5ec2f2cb10120000f8d856634c9c0c</header>
         <name>SAIC Team Theme</name>
         <navbar_fixed>true</navbar_fixed>
         <sys_class_name>sp_theme</sys_class_name>

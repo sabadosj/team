@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sys_ui_style">
     <sys_ui_style action="INSERT_OR_UPDATE">
+        <alt/>
         <element>balance</element>
         <name>x_saic4_saic_team_training_budget</name>
         <style>color:red;background-color:yellow;</style>

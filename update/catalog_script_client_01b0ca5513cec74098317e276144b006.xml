@@ -6,6 +6,7 @@
         <applies_extended>false</applies_extended>
         <applies_req_item>true</applies_req_item>
         <applies_sc_task>true</applies_sc_task>
+        <applies_target_record>false</applies_target_record>
         <applies_to>item</applies_to>
         <cat_item display_value="Training Request">b1dda02213618340f6f4b53a6144b07a</cat_item>
         <cat_variable>IO:12bdbca613618340f6f4b53a6144b06f</cat_variable>

@@ -118,11 +118,11 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>prierc</sys_created_by>
-            <sys_created_on>2017-12-04 15:20:21</sys_created_on>
-            <sys_customer_update>true</sys_customer_update>
+            <sys_created_on>2018-02-22 18:35:31</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
             <sys_domain>6c38dcb92b303100979e1ee119da15d2</sys_domain>
             <sys_domain_path>!!!/!!#/</sys_domain_path>
-            <sys_id>8f5f834e1372030098317e276144b046</sys_id>
+            <sys_id>9e3bbfff131c9b0098317e276144b026</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_saic4_saic_team_contracts</sys_name>
             <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -131,7 +131,7 @@
             <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
             <sys_update_name>sys_ui_list_x_saic4_saic_team_contracts_null_6c38dcb92b303100979e1ee119da15d2</sys_update_name>
             <sys_updated_by>prierc</sys_updated_by>
-            <sys_updated_on>2017-12-04 15:20:21</sys_updated_on>
+            <sys_updated_on>2018-02-22 18:35:31</sys_updated_on>
             <sys_user/>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>

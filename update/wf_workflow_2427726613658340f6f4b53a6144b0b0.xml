@@ -13,7 +13,7 @@
         <expected_sequences>b9d0a9741366830098317e276144b081,f5d0a9741366830098317e276144b060,b1d0a9741366830098317e276144b081,3dd0a9741366830098317e276144b05f,7dd0a9741366830098317e276144b05d,fdd0a9741366830098317e276144b060,7dd0a9741366830098317e276144b05c,c6d0a9741366830098317e276144b082,f9d0a9741366830098317e276144b07f,75d0a9741366830098317e276144b05d,35d0a9741366830098317e276144b060</expected_sequences>
         <expected_time>1970-01-01 14:00:00</expected_time>
         <expected_time_type/>
-        <full_sequences>b9d0a9741366830098317e276144b081,f5d0a9741366830098317e276144b060,b1d0a9741366830098317e276144b081,3dd0a9741366830098317e276144b05f,7dd0a9741366830098317e276144b05d,fdd0a9741366830098317e276144b060,ced0a9741366830098317e276144b081,35d0a9741366830098317e276144b05f,b5d0a9741366830098317e276144b05b,75d0a9741366830098317e276144b05d,35d0a9741366830098317e276144b060|b9d0a9741366830098317e276144b081,f5d0a9741366830098317e276144b060,b1d0a9741366830098317e276144b081,3dd0a9741366830098317e276144b05f,7dd0a9741366830098317e276144b05d,fdd0a9741366830098317e276144b060,7dd0a9741366830098317e276144b05c,c6d0a9741366830098317e276144b082,f9d0a9741366830098317e276144b07f,75d0a9741366830098317e276144b05d,35d0a9741366830098317e276144b060</full_sequences>
+        <full_sequences>b9d0a9741366830098317e276144b081,f5d0a9741366830098317e276144b060,b1d0a9741366830098317e276144b081,3dd0a9741366830098317e276144b05f,7dd0a9741366830098317e276144b05d,fdd0a9741366830098317e276144b060,ced0a9741366830098317e276144b081,7dd0a9741366830098317e276144b05c,35d0a9741366830098317e276144b05f,c6d0a9741366830098317e276144b082,b5d0a9741366830098317e276144b05b,f9d0a9741366830098317e276144b07f,75d0a9741366830098317e276144b05d,35d0a9741366830098317e276144b060</full_sequences>
         <journal/>
         <max_activity_count>100</max_activity_count>
         <name>Training - Request Training</name>
@@ -32,9 +32,9 @@
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-11-17 23:49:21</sys_created_on>
         <sys_id>65d0a9741366830098317e276144b05a</sys_id>
-        <sys_mod_count>4</sys_mod_count>
-        <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-18 00:48:47</sys_updated_on>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_updated_by>adminamol</sys_updated_by>
+        <sys_updated_on>2018-02-09 16:51:42</sys_updated_on>
         <table>sc_req_item</table>
         <timezone/>
         <validated>true</validated>
@@ -146,6 +146,32 @@
         <x>684</x>
         <y>85</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=3dd0a9741366830098317e276144b05f"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>3dd0a9741366830098317e276144b05f</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>7dd0a9741366830098317e276144b05f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>// ************************************************************************************************************&#13;
+// Add the first two levels of management to the request item watch list&#13;
+// ************************************************************************************************************&#13;
+&#13;
+var reqID  = workflow.scratchpad.original_request_id;&#13;
+var mgr1ID = workflow.scratchpad.reqLvl1Mgr;&#13;
+var mgr2ID = workflow.scratchpad.reqLvl2Mgr;&#13;
+var mgrs = mgr1ID + "," + mgr2ID;&#13;
+&#13;
+var pu = new TeamMgmt();&#13;
+pu.addToWatchListbySysID('sc_req_item', reqID, mgrs);&#13;
+</value>
+        <variable display_value="">c35ddef20a0a0ba96248a7090eccd518</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>3dd0a9741366830098317e276144b05f</document_key>
@@ -220,6 +246,444 @@ pu.addToWatchListbySysID('sc_req_item', reqID, mgrs);&#13;
         <x>64</x>
         <y>238</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=fdd0a9741366830098317e276144b060"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>2000</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>31d0a9741366830098317e276144b061</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>1</value>
+        <variable display_value="">02ca01820a0a0b261cf923fb95f5e1d0</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1330</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>31d0a9741366830098317e276144b064</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">02c618170a0a0b26436f5c2c9f7a3901</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1355</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>35d0a9741366830098317e276144b063</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">ced766ba13d87640f6f4b53a6144b083</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>900</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>39d0a9741366830098317e276144b062</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a7754e91c0a800664938d0ef6d2664d7</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>900</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>39d0a9741366830098317e276144b065</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a774138dc0a80066000be7af20961c7d</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>310</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>3dd0a9741366830098317e276144b061</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>reject</value>
+        <variable display_value="">502163410a6a803f0356332b24dc7945</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>50</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>3dd0a9741366830098317e276144b064</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">4485eef70a6a803f6bc4bafa9e999640</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>115</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>3dd0a9741366830098317e276144b07e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a76680b9c0a8006661b107d0f21fae67</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>71d0a9741366830098317e276144b063</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>0</value>
+        <variable display_value="">5b6c1739d544164073b88477c2d2c1fc</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>75d0a9741366830098317e276144b062</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a62bd8c6d584164073b88477c2d2c183</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>2010</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>75d0a9741366830098317e276144b065</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>// Set the the variable 'answer' to a string for the approval details&#13;
+//	For example&#13;
+//		var answer = "";&#13;
+//		answer += "This is the details of the approval";&#13;
+//		answer += "\nUsername: "+current.variables.username;&#13;
+</value>
+        <variable display_value="">51eb11ab13cf560098313e276144b037</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>330</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>79d0a9741366830098317e276144b061</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>approval_history</value>
+        <variable display_value="">e863e3b80a0004f911d67787e77e0f16</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>79d0a9741366830098317e276144b064</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>1138a2d568df310073b89ba81df3ae40,b190f484c4fa8200181ebac48d5e67fa</value>
+        <variable display_value="">c35e4cc40a0a0ba96248a7098ec9cb06</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>2050</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>79d0a9741366830098317e276144b07e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>// Set the variable 'answer' to a comma-separated list of user ids and/or group ids or an array of user/group ids to add as approvers.&#13;
+//&#13;
+// For example:&#13;
+//       answer = [];&#13;
+//       answer.push('id1');&#13;
+//       answer.push('id2');&#13;
+answer = [];&#13;
+answer.push(workflow.scratchpad.reqLvl1Mgr);&#13;
+answer.push(workflow.scratchpad.reqLvl2Mgr);&#13;
+answer.push(workflow.scratchpad.reqLvl3Mgr);&#13;
+</value>
+        <variable display_value="">c35e582f0a0a0ba96248a70985207e63</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>7dd0a9741366830098317e276144b063</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a775f59ac0a8006665d72362ae687035</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>2010</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>b1d0a9741366830098317e276144b062</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>&#13;
+// Set the the variable 'answer' to a string for the approval details&#13;
+//	For example&#13;
+//		var answer = "";&#13;
+//		answer += "This is the details of the approval";&#13;
+//		answer += "\nUsername: "+current.variables.username;&#13;
+</value>
+        <variable display_value="">2aa7b9db2b090600979e1ee119da1592</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1150</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>b1d0a9741366830098317e276144b065</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a76b8c6ec0a800664bb14d5d8b9cd7c4</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>b1d0a9741366830098317e276144b07f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>0</value>
+        <variable display_value="">3cd1ac0ad584164073b88477c2d2c150</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>120</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>b5d0a9741366830098317e276144b061</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a77903a7c0a8006641af7c9b1d34444e</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1360</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>b5d0a9741366830098317e276144b064</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>// Set 'answer' to the number of seconds this timer should wait&#13;
+answer = 0;</value>
+        <variable display_value="">a782cde9c0a8006608f39abdd85c8395</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1370</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>b9d0a9741366830098317e276144b063</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>// Set the variable 'answer' to '', 'approved' or 'rejected' to indicate the approval status for this approval.  When called, the following information is available:&#13;
+//&#13;
+//    counts.total = total number of users that are part of this approval&#13;
+//    counts.approved = # of users that approved so far&#13;
+//    counts.rejected = # of users that rejected so far&#13;
+//    counts.requested = # of users that are pending approval&#13;
+//    counts.not_requested = # of users that are not pending approval&#13;
+//    counts.not_required = # of users that approval is not required&#13;
+//&#13;
+</value>
+        <variable display_value="">02c86d780a0a0b261e6a356bc893d348</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>bdd0a9741366830098317e276144b062</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>any</value>
+        <variable display_value="">c35e5bdd0a0a0ba96248a709f495c9ae</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>103</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>f1d0a9741366830098317e276144b061</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">e37b77ac0a0004f973283ad13b341c5b</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>101</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>f1d0a9741366830098317e276144b064</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>approval</value>
+        <variable display_value="">e846198f0a0004f91fba434a514ba8b8</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>110</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>f5d0a9741366830098317e276144b063</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a77191a4c0a800662b403f7dff5f1bbd</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>104</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>f9d0a9741366830098317e276144b062</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">e37a96e80a0004f978b47d2d6c5e0b22</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1110</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>fdd0a9741366830098317e276144b061</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a769a182c0a8006629db7fa3fc2a863d</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1120</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>fdd0a9741366830098317e276144b064</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>3bf802c20a0a0b52008e2859cd8abcf2</value>
+        <variable display_value="">a76c6257c0a8006645cff43883470e64</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>fdd0a9741366830098317e276144b060</document_key>
+        <order>1200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>fdd0a9741366830098317e276144b07e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">a7781cb6c0a80066147dc7a5244d5d16</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>fdd0a9741366830098317e276144b060</document_key>
@@ -727,6 +1191,7 @@ answer.push(workflow.scratchpad.reqLvl3Mgr);&#13;
         <x>20</x>
         <y>20</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=b9d0a9741366830098317e276144b081"/>
     <wf_condition action="INSERT_OR_UPDATE">
         <activity display_value="Begin">b9d0a9741366830098317e276144b081</activity>
         <condition>true</condition>
@@ -776,6 +1241,21 @@ answer.push(workflow.scratchpad.reqLvl3Mgr);&#13;
         <x>739</x>
         <y>540</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=75d0a9741366830098317e276144b05d"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>75d0a9741366830098317e276144b05d</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>b5d0a9741366830098317e276144b05d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>state=3^EQ</value>
+        <variable display_value="">1cb38c8f0a0a0b266fb48e08de35f507</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>75d0a9741366830098317e276144b05d</document_key>
@@ -825,13 +1305,13 @@ answer.push(workflow.scratchpad.reqLvl3Mgr);&#13;
         <parent/>
         <pinned>false</pinned>
         <pinned_version/>
-        <stage/>
+        <stage display_value="Completed">71d0a9741366830098317e276144b05b</stage>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-11-17 23:49:22</sys_created_on>
         <sys_id>35d0a9741366830098317e276144b060</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_updated_by>adminbayliss</sys_updated_by>
+        <sys_updated_on>2018-03-27 17:33:59</sys_updated_on>
         <timeout>1970-01-01 00:00:00</timeout>
         <vars/>
         <width>80</width>
@@ -839,6 +1319,7 @@ answer.push(workflow.scratchpad.reqLvl3Mgr);&#13;
         <x>1018</x>
         <y>546</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=35d0a9741366830098317e276144b060"/>
     <wf_activity action="INSERT_OR_UPDATE">
         <activity_definition display_value="Run Script">db8c65aec0a8016501d00259bc7203a4</activity_definition>
         <activity_definition_updated>false</activity_definition_updated>
@@ -867,6 +1348,117 @@ answer.push(workflow.scratchpad.reqLvl3Mgr);&#13;
         <x>428</x>
         <y>57</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=b1d0a9741366830098317e276144b081"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>b1d0a9741366830098317e276144b081</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>f1d0a9741366830098317e276144b081</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-18 00:02:21</sys_updated_on>
+        <value>     var gc                         = current;&#13;
+	 var reqRequestedBy             = gc.variables.requested_by;&#13;
+	 var reqRequestFor              = gc.variables.requested_for;&#13;
+     var reqName                    = gc.variables.course_name;&#13;
+//////	 var reqType                    = gc.variables.training_type;&#13;
+	 var reqCategory                = gc.variables.request_category;&#13;
+     var category_other_explanation = gc.variables.category_other_explanation;&#13;
+     var reqPrice                   = gc.variables.course_price;&#13;
+     var reqDeliveryMethod          = gc.variables.dev_method;&#13;
+     var reqJustification           = gc.variables.justification;&#13;
+/*&#13;
+	 var reqJobCodeNumber           = gc.variables.CurrentJobCodeNumber;&#13;
+	 var reqBU_ID                   = gc.variables.BU_ID;&#13;
+	 var reqDeptID                  = gc.variables.department_ID;&#13;
+*/&#13;
+	 var reqCourseDuration          = gc.variables.course_duration;&#13;
+//	 var reqEstLaborCost            = gc.variables.estimated_labor_cost;&#13;
+	 var reqTravelCosts             = gc.variables.travel_costs;&#13;
+	 var reqLabFees                 = gc.variables.lab_fees;&#13;
+	 var reqExamFees                = gc.variables.exam_fees;&#13;
+//	 var reqTotalEstCost            = gc.variables.total_estimated_cost;&#13;
+	 var reqApproval                = "Pending";&#13;
+&#13;
+&#13;
+// ************************************************************************************************************&#13;
+// Get the current Fiscal Year and Period based on the current date and time&#13;
+// ************************************************************************************************************&#13;
+     var datetoconvert = new GlideDate();&#13;
+     fycal = new global.AccountingCalendar(datetoconvert);&#13;
+     var fy = fycal.fy; //shows Fiscal Year&#13;
+     var pd = fycal.period; //shows Period.&#13;
+&#13;
+// ************************************************************************************************************&#13;
+// Get all levels of managment for the requested for&#13;
+// ************************************************************************************************************&#13;
+     var regVal = {};&#13;
+	 var pu = new TeamMgmt();&#13;
+     regVal = pu.userDetailsBySysID(reqRequestFor);&#13;
+     var pm = regVal.pm;&#13;
+     var reqLvl1Mgr = regVal.u_level_1_manager_id;&#13;
+     var reqLvl2Mgr = regVal.u_level_2_manager_id;&#13;
+     var reqLvl3Mgr = regVal.u_level_3_manager_id;&#13;
+     var reqLvl4Mgr = regVal.u_level_4_manager_id;&#13;
+     var reqDivName = regVal.u_division_name;&#13;
+     var reqDivNo   = regVal.u_division;&#13;
+&#13;
+// ************************************************************************************************************&#13;
+// Get the Budget Record ID&#13;
+// ************************************************************************************************************&#13;
+     var bud_sys_id = new TeamMgmt().getBudgetID(fy,reqDivNo);&#13;
+&#13;
+// ************************************************************************************************************&#13;
+// Get Labor Cost Estimates&#13;
+// ************************************************************************************************************&#13;
+// might want to consider adding labor if travel is required, etc.,...&#13;
+     var reqEstLaborCost = new TeamMgmt().getEstimatedLabor(reqRequestFor,reqCourseDuration);&#13;
+&#13;
+// ************************************************************************************************************&#13;
+// Create teh new Training Request Record&#13;
+// ************************************************************************************************************&#13;
+&#13;
+	 var gr = new GlideRecord('x_saic4_saic_team_training_requests');&#13;
+         gr.initialize();&#13;
+         gr.budget                     = bud_sys_id;&#13;
+         gr.requested_by               = reqRequestedBy;&#13;
+         gr.requested_for              = reqRequestFor;&#13;
+         gr.category                   = reqCategory;&#13;
+         gr.category_other_explanation = category_other_explanation;&#13;
+////		gr.type                       = reqType;&#13;
+         gr.estimated_course_cost      = reqPrice;&#13;
+         gr.delivery_method            = reqDeliveryMethod;&#13;
+         gr.justification              = reqJustification;&#13;
+         gr.request_description        = reqName;&#13;
+         gr.duration                   = reqCourseDuration;&#13;
+         gr.fy                         = fy;&#13;
+         gr.pd                         = pd;&#13;
+         gr.division                   = reqDivName;&#13;
+         gr.approval_status            = reqApproval;&#13;
+         gr.level_1_manager            = reqLvl1Mgr;&#13;
+         gr.level_2_manager            = reqLvl2Mgr;&#13;
+         gr.level_3_manager            = reqLvl3Mgr;&#13;
+         gr.level_4_manager            = reqLvl4Mgr;&#13;
+		//gr.pm                         = pm;   - Commenting out until multiple pm issue is resolved.&#13;
+		 gr.estimated_labor_cost       = reqEstLaborCost;&#13;
+         gr.estimated_travel_cost      = reqTravelCosts;&#13;
+         gr.estimated_lab_fees_books   = reqLabFees;&#13;
+         gr.estimated_exam_fees        = reqExamFees;&#13;
+         gr.original_request_id        = gc.sys_id;&#13;
+         var trnReqSysId = gr.insert();&#13;
+&#13;
+// used to make updates to this record in subsequent workflow steps.&#13;
+     workflow.scratchpad.trnReqSysID         = trnReqSysId.toString();&#13;
+     workflow.scratchpad.original_request_id = gc.sys_id.toString();&#13;
+     workflow.scratchpad.reqRequestFor       = reqRequestFor.toString();&#13;
+     workflow.scratchpad.reqLvl1Mgr          = reqLvl1Mgr;  // approver &amp; notification for level 1&#13;
+     workflow.scratchpad.reqLvl2Mgr          = reqLvl2Mgr;  // approver &amp; notification for level 2&#13;
+</value>
+        <variable display_value="">c35ddef20a0a0ba96248a7090eccd518</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>b1d0a9741366830098317e276144b081</document_key>
@@ -1026,6 +1618,92 @@ answer.push(workflow.scratchpad.reqLvl3Mgr);&#13;
         <x>938</x>
         <y>74</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=7dd0a9741366830098317e276144b05d"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>7dd0a9741366830098317e276144b05d</document_key>
+        <order>500</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>35d0a9741366830098317e276144b05e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>// Set the variable 'answer' to a comma-separated list of user or group sys_ids that you want the email sent to.&#13;
+answer = workflow.scratchpad.reqLvl1Mgr</value>
+        <variable display_value="">c35dae3d0a0a0ba96248a7098ed9b4aa</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>7dd0a9741366830098317e276144b05d</document_key>
+        <order>400</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>71d0a9741366830098317e276144b05e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>1</value>
+        <variable display_value="">6d6816cd0a6a803f0853a8df38007572</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>7dd0a9741366830098317e276144b05d</document_key>
+        <order>150</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>7dd0a9741366830098317e276144b05e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value/>
+        <variable display_value="">ae2121c70a0a0b3459708c9a60cd7312</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>7dd0a9741366830098317e276144b05d</document_key>
+        <order>300</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>b9d0a9741366830098317e276144b05e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>A training request was submitted by ${request.requested_for} for ${request.requested_for}.</value>
+        <variable display_value="">c35db5a50a0a0ba96248a70938ae8de6</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>7dd0a9741366830098317e276144b05d</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>bdd0a9741366830098317e276144b05d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value/>
+        <variable display_value="">c35daa890a0a0ba96248a709c32994d6</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>7dd0a9741366830098317e276144b05d</document_key>
+        <order>200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>f5d0a9741366830098317e276144b05e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>SAIC Team Mgmt - Training Request for ${request.requested_for}</value>
+        <variable display_value="">c35db2180a0a0ba96248a709d1b6df20</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>7dd0a9741366830098317e276144b05d</document_key>
@@ -1160,6 +1838,96 @@ answer = workflow.scratchpad.reqLvl1Mgr</value>
         <x>560</x>
         <y>390</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=f9d0a9741366830098317e276144b07f"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>f9d0a9741366830098317e276144b07f</document_key>
+        <order>300</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>39d0a9741366830098317e276144b080</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>${request.requested_for},&#13;
+Your request for training has been approved and you are now free to move forward with making arrangements for your request...&#13;
+&#13;
+&lt;fill in the details here&gt;&#13;
+</value>
+        <variable display_value="">c35db5a50a0a0ba96248a70938ae8de6</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>f9d0a9741366830098317e276144b07f</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>3dd0a9741366830098317e276144b07f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">c35daa890a0a0ba96248a709c32994d6</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>f9d0a9741366830098317e276144b07f</document_key>
+        <order>200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>75d0a9741366830098317e276144b080</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>Request ${request.number} has been approved!</value>
+        <variable display_value="">c35db2180a0a0ba96248a709d1b6df20</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>f9d0a9741366830098317e276144b07f</document_key>
+        <order>500</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>b1d0a9741366830098317e276144b080</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>// Set the variable 'answer' to a comma-separated list of user or group sys_ids that you want the email sent to.&#13;
+answer = workflow.scratchpad.reqRequestFor;</value>
+        <variable display_value="">c35dae3d0a0a0ba96248a7098ed9b4aa</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>f9d0a9741366830098317e276144b07f</document_key>
+        <order>150</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>f9d0a9741366830098317e276144b080</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value/>
+        <variable display_value="">ae2121c70a0a0b3459708c9a60cd7312</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>f9d0a9741366830098317e276144b07f</document_key>
+        <order>400</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>fdd0a9741366830098317e276144b07f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>1</value>
+        <variable display_value="">6d6816cd0a6a803f0853a8df38007572</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>f9d0a9741366830098317e276144b07f</document_key>
@@ -1298,6 +2066,95 @@ answer = workflow.scratchpad.reqRequestFor;</value>
         <x>852</x>
         <y>402</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=b5d0a9741366830098317e276144b05b"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>b5d0a9741366830098317e276144b05b</document_key>
+        <order>200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>31d0a9741366830098317e276144b05c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>Request ${request.number} has been denied!</value>
+        <variable display_value="">c35db2180a0a0ba96248a709d1b6df20</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>b5d0a9741366830098317e276144b05b</document_key>
+        <order>500</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>7dd0a9741366830098317e276144b05b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>// Set the variable 'answer' to a comma-separated list of user or group sys_ids that you want the email sent to.&#13;
+answer = workflow.scratchpad.reqRequestFor;</value>
+        <variable display_value="">c35dae3d0a0a0ba96248a7098ed9b4aa</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>b5d0a9741366830098317e276144b05b</document_key>
+        <order>150</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>b5d0a9741366830098317e276144b05c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value/>
+        <variable display_value="">ae2121c70a0a0b3459708c9a60cd7312</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>b5d0a9741366830098317e276144b05b</document_key>
+        <order>400</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>b9d0a9741366830098317e276144b05b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>1</value>
+        <variable display_value="">6d6816cd0a6a803f0853a8df38007572</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>b5d0a9741366830098317e276144b05b</document_key>
+        <order>300</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>f1d0a9741366830098317e276144b05c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>${request.requested_for},&#13;
+Your request for training has been denied.&#13;
+&#13;
+&lt;fill in the details here&gt;</value>
+        <variable display_value="">c35db5a50a0a0ba96248a70938ae8de6</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>b5d0a9741366830098317e276144b05b</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>f5d0a9741366830098317e276144b05b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value/>
+        <variable display_value="">c35daa890a0a0ba96248a709c32994d6</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>b5d0a9741366830098317e276144b05b</document_key>
@@ -1435,6 +2292,21 @@ answer = workflow.scratchpad.reqRequestFor;</value>
         <x>64</x>
         <y>424</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=7dd0a9741366830098317e276144b05c"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>7dd0a9741366830098317e276144b05c</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>bdd0a9741366830098317e276144b05c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>approved</value>
+        <variable display_value="">50ab35f70a6a803f76d36e1ebaf3639e</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>7dd0a9741366830098317e276144b05c</document_key>
@@ -1498,6 +2370,21 @@ answer = workflow.scratchpad.reqRequestFor;</value>
         <x>702</x>
         <y>267</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=ced0a9741366830098317e276144b081"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>ced0a9741366830098317e276144b081</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>02d0a9741366830098317e276144b082</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>rejected</value>
+        <variable display_value="">50ab35f70a6a803f76d36e1ebaf3639e</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>ced0a9741366830098317e276144b081</document_key>
@@ -1561,6 +2448,40 @@ answer = workflow.scratchpad.reqRequestFor;</value>
         <x>323</x>
         <y>390</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=c6d0a9741366830098317e276144b082"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>c6d0a9741366830098317e276144b082</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>0ad0a9741366830098317e276144b082</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>var OrigReqSysID = workflow.scratchpad.original_request_id.toString();&#13;
+&#13;
+// Get the Approver...&#13;
+var pu = new TeamMgmt();&#13;
+var apprvr = pu.getRequestApprover(OrigReqSysID);&#13;
+//gs.info('apprvr: '+apprvr);&#13;
+&#13;
+// Update the training Request Record&#13;
+var gd = new GlideDate();            &#13;
+var doQry = 'sys_id='+workflow.scratchpad.trnReqSysID;&#13;
+var grReq = new GlideRecord('x_saic4_saic_team_training_requests');&#13;
+grReq.addEncodedQuery(doQry); &#13;
+grReq.query();&#13;
+var count = grReq.getRowCount();&#13;
+while (grReq.next()) {&#13;
+      grReq.approval_status = "Approved";&#13;
+	  grReq.approved_on_date = gd;&#13;
+	  grReq.approved_by = apprvr;&#13;
+      grReq.update();&#13;
+}</value>
+        <variable display_value="">c35ddef20a0a0ba96248a7090eccd518</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>c6d0a9741366830098317e276144b082</document_key>
@@ -1643,6 +2564,43 @@ while (grReq.next()) {&#13;
         <x>952</x>
         <y>251</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=35d0a9741366830098317e276144b05f"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>35d0a9741366830098317e276144b05f</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:21</sys_created_on>
+        <sys_id>75d0a9741366830098317e276144b05f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:21</sys_updated_on>
+        <value>var OrigReqSysID = workflow.scratchpad.original_request_id.toString();&#13;
+&#13;
+// Get the Approver...&#13;
+var pu = new TeamMgmt();&#13;
+var apprvr = pu.getRequestApprover(OrigReqSysID);&#13;
+//gs.info('apprvr: '+apprvr);&#13;
+&#13;
+// Update the training Request Record&#13;
+var gd = new GlideDate();            &#13;
+var doQry = 'sys_id='+workflow.scratchpad.trnReqSysID;&#13;
+var grReq = new GlideRecord('x_saic4_saic_team_training_requests');&#13;
+grReq.addEncodedQuery(doQry); &#13;
+grReq.query();&#13;
+var count = grReq.getRowCount();&#13;
+gs.info('(wf step 6) count : ' + count);&#13;
+if (count &gt; 0) {&#13;
+   while (grReq.next()) {&#13;
+      grReq.approval_status = "Denied";&#13;
+	  grReq.approved_on_date = gd;&#13;
+	  grReq.approved_by = apprvr;&#13;
+      grReq.update();&#13;
+   }&#13;
+}</value>
+        <variable display_value="">c35ddef20a0a0ba96248a7090eccd518</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>35d0a9741366830098317e276144b05f</document_key>
@@ -1728,6 +2686,34 @@ if (count &gt; 0) {&#13;
         <x>215</x>
         <y>50</y>
     </wf_activity>
+    <sys_variable_value action="delete_multiple" query="document_key=f5d0a9741366830098317e276144b060"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>wf_activity</document>
+        <document_key>f5d0a9741366830098317e276144b060</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2017-11-17 23:49:22</sys_created_on>
+        <sys_id>39d0a9741366830098317e276144b060</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2017-11-17 23:49:22</sys_updated_on>
+        <value>// ************************************************************************************************************&#13;
+// Update the current sc_cat_item record so the "Requested For" is set to the captured requested for record&#13;
+// ************************************************************************************************************&#13;
+&#13;
+    var grR = new GlideRecord('sc_request');  &#13;
+    grR.addQuery('sys_id', current.request);  &#13;
+    grR.query();  &#13;
+    while(grR.next()){  &#13;
+//      gs.info("found " + grR.getRowCount() + " records... but can I read it? " + grR.canRead()+" and can I write it? "+ grR.canWrite()+".  REQUESTED FOR IS: "+current.variables.requested_for);&#13;
+	  grR.requested_for = current.variables.requested_for;  &#13;
+      var updateRtn = grR.update();&#13;
+	}&#13;
+	gs.info("sc_request update ("+current.request+") results: "+updateRtn);&#13;
+</value>
+        <variable display_value="">c35ddef20a0a0ba96248a7090eccd518</variable>
+    </sys_variable_value>
     <sys_variable_value action="INSERT_OR_UPDATE">
         <document>wf_activity</document>
         <document_key>f5d0a9741366830098317e276144b060</document_key>

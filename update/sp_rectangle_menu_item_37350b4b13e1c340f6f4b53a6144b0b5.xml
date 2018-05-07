@@ -111,5 +111,6 @@ function getRecordBeingApproved(gr) {
         <table/>
         <type>scripted</type>
         <url/>
+        <url_target/>
     </sp_rectangle_menu_item>
 </record_update>

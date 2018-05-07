@@ -13,6 +13,7 @@
         <description><![CDATA[<p style="margin: 0in 0in 10pt;"><span style="color: #717171; font-size: 12pt;">Request training here! Approval is required for any external training, whether it is technical, professional, a conference, or certification training. This also includes requests for technical society dues or subscriptions.&nbsp; This is true if SAIC pays or the customer pays. It all starts here. </span></p>]]></description>
         <entitlement_script/>
         <group/>
+        <hide_sp>false</hide_sp>
         <icon/>
         <ignore_price>false</ignore_price>
         <image/>
@@ -34,7 +35,7 @@
         <order>0</order>
         <ordered_item_link/>
         <picture/>
-        <preview>JavaScript: popupOpenStandard("./com.glideapp.servicecatalog_cat_item_view.do?v=1&amp;sysparm_id=b1dda02213618340f6f4b53a6144b07a&amp;sysparm_preview=true", "summary");</preview>
+        <preview>JavaScript: popupOpenStandard("com.glideapp.servicecatalog_cat_item_view.do?v=1&amp;sysparm_id=b1dda02213618340f6f4b53a6144b07a&amp;sysparm_preview=true", "summary");</preview>
         <price>0</price>
         <recurring_frequency/>
         <recurring_price>0</recurring_price>
@@ -43,6 +44,7 @@
         <sc_ic_item_staging/>
         <sc_ic_version/>
         <short_description>Request for training initiated by the Employee or Supervisor</short_description>
+        <show_variable_help_on_load>false</show_variable_help_on_load>
         <start_closed>false</start_closed>
         <sys_class_name>sc_cat_item</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>
@@ -110,6 +112,7 @@
     </fx_price>
     <sys_attachment action="INSERT_OR_UPDATE">
         <average_image_color/>
+        <chunk_size_bytes/>
         <compressed>true</compressed>
         <content_type>image/gif</content_type>
         <file_name>icon</file_name>
@@ -166,6 +169,7 @@
     </sys_attachment_doc>
     <sys_attachment action="INSERT_OR_UPDATE">
         <average_image_color/>
+        <chunk_size_bytes/>
         <compressed>true</compressed>
         <content_type>image/gif</content_type>
         <file_name>picture</file_name>

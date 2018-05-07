@@ -8,6 +8,7 @@
         <grantable>true</grantable>
         <includes_roles/>
         <name>x_saic4_saic_team_training_budget_user</name>
+        <scoped_admin>false</scoped_admin>
         <suffix/>
         <sys_class_name>sys_user_role</sys_class_name>
         <sys_created_by>adminjoe</sys_created_by>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="SAIC Team Contract Seed" max_length="40" name="x_saic4_saic_team_contract_seed" sizeclass="56685" type="collection">
+        <element attributes="import_attribute_name=CONTRACT_TITLE,edge_encryption_enabled=true" label="CONTRACT_TITLE" max_length="100" name="u_contract_title" type="string"/>
+        <element attributes="import_attribute_name=CRN,edge_encryption_enabled=true" label="CRN" max_length="40" name="u_crn" type="string"/>
+        <element attributes="import_attribute_name=CUST_NAME,edge_encryption_enabled=true" label="CUST_NAME" max_length="50" name="u_cust_name" type="string"/>
+        <element attributes="import_attribute_name=EMPL_ID,edge_encryption_enabled=true" label="EMPL_ID" max_length="40" name="u_empl_id" type="string"/>
+        <element attributes="import_attribute_name=POP_END_DT,edge_encryption_enabled=true" label="POP_END_DT" max_length="40" name="u_pop_end_dt" type="string"/>
+        <element attributes="import_attribute_name=POP_START_DT,edge_encryption_enabled=true" label="POP_START_DT" max_length="40" name="u_pop_start_dt" type="string"/>
+        <element attributes="import_attribute_name=PROGRAM_MGR,edge_encryption_enabled=true" label="PROGRAM_MGR" max_length="40" name="u_program_mgr" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="#EMPL_ID" max_length="40" name="u__empl_id" type="string"/>
+    </element>
+</database>

@@ -3,6 +3,7 @@
     <sys_dictionary action="INSERT_OR_UPDATE" element="estimated_lab_fees_books" table="x_saic4_saic_team_training_requests">
         <active>true</active>
         <array>false</array>
+        <array_denormalized>false</array_denormalized>
         <attributes/>
         <audit>false</audit>
         <calculation>(function calculatedFieldValue(current) {
@@ -30,6 +31,8 @@
         <element>estimated_lab_fees_books</element>
         <element_reference>false</element_reference>
         <foreign_database/>
+        <function_definition/>
+        <function_field>false</function_field>
         <internal_type display_value="Currency">currency</internal_type>
         <mandatory>false</mandatory>
         <max_length>40</max_length>
@@ -52,7 +55,7 @@
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-04 14:19:50</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>47a70f8f13120300f6f4b53a6144b0c3</sys_id>
+        <sys_id>38101c2013445f00f6f4b53a6144b0e6</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Estimated Lab Fees/Books</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -61,7 +64,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_dictionary_x_saic4_saic_team_training_requests_estimated_lab_fees_books</sys_update_name>
         <sys_updated_by>system</sys_updated_by>
-        <sys_updated_on>2017-11-12 20:50:08</sys_updated_on>
+        <sys_updated_on>2018-01-30 12:53:15</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <u_model_id/>

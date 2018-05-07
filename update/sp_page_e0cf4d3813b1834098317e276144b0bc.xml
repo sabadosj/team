@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_page">
     <sp_page action="INSERT_OR_UPDATE">
+        <category/>
         <css>.carousel-row .col-md-12 {&#13;
   padding-left: 0;&#13;
   padding-right: 0;&#13;
@@ -10,6 +11,8 @@
   margin-left: 0;&#13;
   margin-right: 0;&#13;
 }</css>
+        <draft>false</draft>
+        <dynamic_title_structure/>
         <id>team_management_sc_home</id>
         <internal>false</internal>
         <public>false</public>

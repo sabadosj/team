@@ -13,7 +13,7 @@
         <default_value>javascript:gs.getUserID();</default_value>
         <delete_roles/>
         <delivery_plan/>
-        <description><![CDATA[<p><span id="section_tab.d7b4df30eb330100d4360c505206fe21" class="tabs2_section tabs2_section_2 tabs2_section2 tab_section" style="display: block;" data-header-only="false" data-section-id="d7b4df30eb330100d4360c505206fe21"><span id="section-d7b4df30eb330100d4360c505206fe21" class="section " style="display: block;" data-header-only="false"><span id="sys_readonly.item_option_new.description" style="direction: ltr; display: block;">Enter the requester here</span></span></span></p>]]></description>
+        <description><![CDATA[<p><span id="section_tab.d7b4df30eb330100d4360c505206fe21" class="tabs2_section tabs2_section_2 tabs2_section2 tab_section" style="display: block;"><span id="section-d7b4df30eb330100d4360c505206fe21" class="section " style="display: block;"><span id="sys_readonly.item_option_new.description" style="direction: ltr; display: block;">Enter the requester here</span></span></span></p>]]></description>
         <display_title>false</display_title>
         <do_not_select_first>false</do_not_select_first>
         <dynamic_default_value/>

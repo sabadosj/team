@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_transform_entry">
+    <sys_transform_entry action="INSERT_OR_UPDATE">
+        <choice_action>create</choice_action>
+        <coalesce>false</coalesce>
+        <coalesce_case_sensitive>false</coalesce_case_sensitive>
+        <coalesce_empty_fields>false</coalesce_empty_fields>
+        <date_format>yyyy-MM-dd hh:mm:ss</date_format>
+        <map display_value="Transform Training Actuals">a22a1d9c135adb00f6f4b53a6144b0c7</map>
+        <reference_value_field/>
+        <source_field>u_trn_desc</source_field>
+        <source_script>answer = (function transformEntry(source) {
+
+	// Add your code here
+	return ""; // return the value to be put into the target field
+
+})(source);</source_script>
+        <source_table>x_saic4_saic_team_training_actuals_import</source_table>
+        <sys_class_name>sys_transform_entry</sys_class_name>
+        <sys_created_by>adminjoe</sys_created_by>
+        <sys_created_on>2018-05-21 20:19:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>11eedd94139adb00f6f4b53a6144b0dc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>u_trn_desc</sys_name>
+        <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
+        <sys_update_name>sys_transform_entry_11eedd94139adb00f6f4b53a6144b0dc</sys_update_name>
+        <sys_updated_by>adminjoe</sys_updated_by>
+        <sys_updated_on>2018-05-21 20:19:21</sys_updated_on>
+        <target_field>transaction_description</target_field>
+        <target_table>x_saic4_saic_team_actuals</target_table>
+        <use_source_script>false</use_source_script>
+    </sys_transform_entry>
+</record_update>

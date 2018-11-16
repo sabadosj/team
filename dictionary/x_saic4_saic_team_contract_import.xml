@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element extends="sys_import_set_row" label="Contract Import" max_length="40" name="x_saic4_saic_team_contract_import" sizeclass="56115" type="collection">
+    <element extends="sys_import_set_row" label="Contract Import" max_length="40" name="x_saic4_saic_team_contract_import" sizeclass="6762" type="collection">
         <element attributes="edge_encryption_enabled=true" label="CONTRACT_TITLE" max_length="40" name="u_contract_title" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="CRN" max_length="40" name="u_crn" type="string"/>
         <element attributes="import_attribute_name=customer" label="customer" max_length="150" name="u_customer" type="string"/>

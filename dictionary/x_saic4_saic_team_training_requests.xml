@@ -55,7 +55,6 @@
         <element label="Requested By" max_length="32" name="requested_by" reference="sys_user" type="reference"/>
         <element label="Requested for" max_length="32" name="requested_for" reference="sys_user" type="reference"/>
         <element label="Request Description" max_length="500" name="request_description" type="string"/>
-        <element default="javascript:current.getTableName();" dynamic_default_value="b5cb83a85f220100a9ad2572f2b4773c" label="Class" max_length="80" name="sys_class_name" type="sys_class_name" use_dynamic_default="true"/>
         <index name="index">
             <element name="approved_by"/>
         </index>

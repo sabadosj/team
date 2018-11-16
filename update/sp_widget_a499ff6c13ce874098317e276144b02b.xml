@@ -6,13 +6,13 @@
 	// sabadosj = 9ce7ea9568df310073b89ba81df3aef0
 	var c = this;
 	$http.get('/api/x_saic4_saic_team/teammgmtutils/getEntRequestActivity?usrSysID='+$scope.data.usrSysID)
-    .then(function(stats) {
-     $scope.data.stats = stats.data.result;
-     $scope.data.b1tooltip = $scope.data.stats.TotalBudgetCount + " budgets have been defined in the system totaling " + $scope.data.stats.TotalBudget + ".  " + $scope.data.stats.totActuals + " have been posted to finance leaving a balance of "+ $scope.data.stats.BudgetBalance;
-     $scope.data.b2tooltip = $scope.data.stats.totActualsCount + " training related entries have been posted to finance totaling " + $scope.data.stats.totActuals; 
-     $scope.data.b3tooltip = $scope.data.stats.ApprovedCount + " requests have been made and <strong>Approved</strong> to date totaling " + $scope.data.stats.ApprovedAmount;
-     $scope.data.b4tooltip = $scope.data.stats.PendingCount + " requests have been made that are still <strong>Pending</strong> totaling " + $scope.data.stats.PendingAmount;
-     $scope.data.b5tooltip = $scope.data.stats.DeniedCount + " requests have been made and <strong>Denied</strong> to date totaling " +  $scope.data.stats.DeniedAmount;
+     .then(function(stats) {
+       $scope.data.stats = stats.data.result;
+       $scope.data.b1tooltip = $scope.data.stats.TotalBudgetCount + " budgets have been defined in the system totaling " + $scope.data.stats.TotalBudget + ".  " + $scope.data.stats.totActuals + " have been posted to finance leaving a balance of "+ $scope.data.stats.BudgetBalance;
+       $scope.data.b2tooltip = $scope.data.stats.totActualsCount + " training related entries have been posted to finance totaling " + $scope.data.stats.totActuals; 
+       $scope.data.b3tooltip = $scope.data.stats.ApprovedCount + " requests have been made and <strong>Approved</strong> to date totaling " + $scope.data.stats.ApprovedAmount;
+       $scope.data.b4tooltip = $scope.data.stats.PendingCount + " requests have been made that are still <strong>Pending</strong> totaling " + $scope.data.stats.PendingAmount;
+       $scope.data.b5tooltip = $scope.data.stats.DeniedCount + " requests have been made and <strong>Denied</strong> to date totaling " +  $scope.data.stats.DeniedAmount;
   });
 	
   $scope.selectBudget = function(){
@@ -31,9 +31,9 @@
 	  $rootScope.$broadcast('showSecDenied');
   };
 
-	this.onClick = function(recID) {
-			$location.search('id=team_management_sc_request&table=sc_req_item&sys_id='+recID);
-	}	
+  this.onClick = function(recID) {
+	 $location.search('id=team_management_sc_request&table=sc_req_item&sys_id='+recID);
+  };
 
 }]]></client_script>
         <controller_as>c</controller_as>
@@ -124,7 +124,7 @@ a.color_box h4 {
         <sys_created_on>2017-10-23 19:46:46</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>a499ff6c13ce874098317e276144b02b</sys_id>
-        <sys_mod_count>155</sys_mod_count>
+        <sys_mod_count>156</sys_mod_count>
         <sys_name>Team Management Sector Indicators</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
         <sys_policy/>
@@ -132,7 +132,7 @@ a.color_box h4 {
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sp_widget_a499ff6c13ce874098317e276144b02b</sys_update_name>
         <sys_updated_by>adminjoe</sys_updated_by>
-        <sys_updated_on>2017-12-08 21:22:18</sys_updated_on>
+        <sys_updated_on>2018-05-12 14:51:40</sys_updated_on>
         <template><![CDATA[<script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 

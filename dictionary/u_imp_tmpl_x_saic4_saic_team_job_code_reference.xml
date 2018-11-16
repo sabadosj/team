@@ -2,6 +2,7 @@
 <database>
     <element extends="sys_import_set_row" label="Imp Tmpl X Saic4 Saic Team Job Code Reference" max_length="40" name="u_imp_tmpl_x_saic4_saic_team_job_code_reference" type="collection">
         <element attributes="import_attribute_name=Bid Code,edge_encryption_enabled=true" label="Bid Code" max_length="40" name="u_bid_code" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Bid Code Descr" max_length="40" name="u_bid_code_descr" type="string"/>
         <element attributes="import_attribute_name=Bid Code Description,edge_encryption_enabled=true" label="Bid Code Description" max_length="40" name="u_bid_code_description" type="string"/>
         <element attributes="import_attribute_name=EEO1 Description,edge_encryption_enabled=true" label="EEO1 Description" max_length="40" name="u_eeo1_description" type="string"/>
         <element attributes="import_attribute_name=EEO-1 Cat,edge_encryption_enabled=true" label="EEO-1 Cat" max_length="40" name="u_eeo_1_cat" type="string"/>
@@ -17,5 +18,6 @@
         <element attributes="import_attribute_name=Salary Mid" label="Salary Mid" max_length="15" name="u_salary_mid" type="integer"/>
         <element attributes="import_attribute_name=Salary Min" label="Salary Min" max_length="15" name="u_salary_min" type="integer"/>
         <element attributes="import_attribute_name=Typical Education Required,edge_encryption_enabled=true" label="Typical Education Required" max_length="200" name="u_typical_education_required" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Typical Education &amp; Related Years of Experience" max_length="40" name="u_typical_educ__of_experience" type="string"/>
     </element>
 </database>

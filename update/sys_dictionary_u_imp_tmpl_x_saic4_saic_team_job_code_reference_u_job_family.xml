@@ -50,7 +50,7 @@
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-11-17 15:53:00</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>2c101c2013445f00f6f4b53a6144b0a8</sys_id>
+        <sys_id>7a9b78b0130e930098317e276144b03f</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Job Family</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -59,7 +59,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_dictionary_u_imp_tmpl_x_saic4_saic_team_job_code_reference_u_job_family</sys_update_name>
         <sys_updated_by>system</sys_updated_by>
-        <sys_updated_on>2018-01-30 12:52:33</sys_updated_on>
+        <sys_updated_on>2018-05-10 20:46:55</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <u_model_id/>

@@ -50,7 +50,7 @@
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-10 01:48:35</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>e1105c2013445f00f6f4b53a6144b0e2</sys_id>
+        <sys_id>c8abb8b0130e930098317e276144b0a2</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>CHARGE_NBR</sys_name>
         <sys_package display_value="SAIC Team Management" source="x_saic4_saic_team">18fca8ee13218340f6f4b53a6144b080</sys_package>
@@ -59,7 +59,7 @@
         <sys_scope display_value="SAIC Team Management">18fca8ee13218340f6f4b53a6144b080</sys_scope>
         <sys_update_name>sys_dictionary_x_saic4_saic_team_actuals_import_u_charge_nbr</sys_update_name>
         <sys_updated_by>system</sys_updated_by>
-        <sys_updated_on>2018-01-30 12:52:44</sys_updated_on>
+        <sys_updated_on>2018-05-10 20:47:07</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <u_model_id/>

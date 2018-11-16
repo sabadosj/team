@@ -30,6 +30,7 @@
         <chunk_size_bytes/>
         <compressed>true</compressed>
         <content_type>image/gif</content_type>
+        <encryption_context/>
         <file_name>image</file_name>
         <image_height/>
         <image_width/>
@@ -47,21 +48,15 @@
         <table_sys_id>756ea97413f1834098317e276144b0a4</table_sys_id>
     </sys_attachment>
     <sys_attachment_doc action="INSERT_OR_UPDATE">
-        <data>H4sIAAAAAAAAAA==</data>
-        <length>16</length>
+        <data>H4sIAAAAAAAAAAHNADL/R0lGODlhsQAXAKIAALHGALLGDLXGJb/HfcPHosbHu8jIyAAAACwAAAAA
+sQAXAAADmgi63P4wykmrXcPozbv/YCiO2mWeaKoyGem+MLnOdK22ca67du//DdxuSCwBj8iVsMiE
+JZ/QSoDQrL6i2Gxjau2GtOAs10vehM/QcdmLbiPV66p7/oPHi/S8zX7f6f8zfH0xgIUpgoM8hosX
+iIkijJFSVI9OkpcRjpUdmJ0PmptGnqMKoJukqACmj6moq4OtrgWhH7GoArO0HAkAO/hc59/NAAAA</data>
+        <length>308</length>
         <position>0</position>
         <sys_attachment display_value="image" sys_id="c07ea97413f1834098317e276144b0a8">c07ea97413f1834098317e276144b0a8</sys_attachment>
         <sys_created_by>adminjoe</sys_created_by>
         <sys_created_on>2017-10-11 18:01:41</sys_created_on>
         <sys_id>047ea97413f1834098317e276144b0a8</sys_id>
-    </sys_attachment_doc>
-    <sys_attachment_doc action="INSERT_OR_UPDATE">
-        <data>Ac0AMv9HSUY4OWGxABcAogAAscYAssYMtcYlv8d9w8eixse7yMjIAAAALAAAAACxABcAAAOaCLrc/jDKSatdw+jNu/9gKI7aZZ5oqjIZ6b4wuc50rbZxrrt27/8N3G5ILAGPyJWwyIQln9BKgNCsvqLYbGNq7Ya04CzXS96Ez9Bx2YtuI9Xrqnv+g8eL9LzNft/p/zN8fTGAhSmCgzyGixeIiSKMkVJUj06SlxGOlR2YnQ+am0aeowqgm6SoAKaPqairg62uBaEfsagCs7QcCQA7+Fzn380AAAA=</data>
-        <length>292</length>
-        <position>1</position>
-        <sys_attachment display_value="image" sys_id="c07ea97413f1834098317e276144b0a8">c07ea97413f1834098317e276144b0a8</sys_attachment>
-        <sys_created_by>adminjoe</sys_created_by>
-        <sys_created_on>2017-10-11 18:01:41</sys_created_on>
-        <sys_id>847ea97413f1834098317e276144b0a8</sys_id>
     </sys_attachment_doc>
 </record_update>

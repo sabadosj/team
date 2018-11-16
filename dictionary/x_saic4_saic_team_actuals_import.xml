@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element extends="sys_import_set_row" label="Actuals Import" max_length="40" name="x_saic4_saic_team_actuals_import" sizeclass="53906" type="collection">
+    <element extends="sys_import_set_row" label="Actuals Import" max_length="40" name="x_saic4_saic_team_actuals_import" type="collection">
         <element attributes="import_attribute_name=ACCT_ID,edge_encryption_enabled=true" label="ACCT_ID" max_length="40" name="u_acct_id" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="BURDENED_COST" max_length="40" name="u_burdened_cost" type="string"/>
         <element attributes="import_attribute_name=BURDENED_COSTS,edge_encryption_enabled=true" label="BURDENED_COSTS" max_length="40" name="u_burdened_costs" type="string"/>
